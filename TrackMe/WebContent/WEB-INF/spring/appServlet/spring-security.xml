@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- Configuring RoleVoter bean to use custom access roles, by default roles 
+		should be in the form ROLE_{XXX} -->
+	<beans:bean id="roleVoter"
+		class="org.springframework.security.access.vote.RoleVoter">
+		<beans:property name="rolePrefix" value=""></beans:property>
+	</beans:bean>
+
+	<beans:bean id="accessDecisionManager"
+		class="org.springframework.security.access.vote.AffirmativeBased">
+		<beans:constructor-arg name="decisionVoters"
+			ref="roleVoter" />
+	</beans:bean>
+<http pattern='**/html/**' security="none" />
+	<http authentication-manager-ref="jdbc-auth"
+		access-decision-manager-ref="accessDecisionManager">	
+	
+		<intercept-url pattern="/home" access="Admin" />
+		<intercept-url pattern="/live" access="Admin" />
+		<intercept-url pattern="/trackme/**" access="Admin" />
+		<form-login login-page="/login" authentication-failure-url="/denied"
+			username-parameter="username" password-parameter="password"
+			default-target-url="/home" />
+		<logout invalidate-session="true" logout-success-url="/login"
+			logout-url="/j_spring_security_logout" />
+		<access-denied-handler error-page="/denied"/>
+		<session-management invalid-session-url="/login">
+			<concurrency-control max-sessions="1"
+				expired-url="/login" />
+		</session-management>
+	</http>
+
+	<authentication-manager id="in-memory-auth">
+		<authentication-provider>
+			<user-service>
+				<user name="pankaj" password="pankaj123" authorities="Admin" />
+			</user-service>
+		</authentication-provider>
+	</authentication-manager>
+
+	<authentication-manager id="dao-auth">
+		<authentication-provider user-service-ref="userDetailsService">
+		</authentication-provider>
+	</authentication-manager>
+
+	<beans:bean id="userDetailsService"
+		class="com.trackme.spring.security.dao.AppUserDetailsServiceDAO" />
+
+	<authentication-manager id="jdbc-auth">
+		<authentication-provider>
+			<jdbc-user-service data-source-ref="dataSource"
+				users-by-username-query="SELECT  username, password,1 FROM usermaster where username = ?"
+				authorities-by-username-query="select username,level as role from usermaster where username = ?" />
+		</authentication-provider>
+	</authentication-manager>
+
+	<!-- MySQL DB DataSource -->
+	<beans:bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+
+		<beans:property name="driverClassName" value="org.postgresql.Driver" />
+		<beans:property name="url"
+			value="jdbc:postgresql://localhost:5432/trackMe" />
+		<beans:property name="username" value="trackMe" />
+		<beans:property name="password" value="root" />
+	</beans:bean>
+
+	
+</beans:beans>
