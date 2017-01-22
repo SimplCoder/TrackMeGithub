@@ -1,0 +1,108 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+
+<!DOCTYPE html>
+<html>
+
+<!-- Mirrored from kalkisoft.com/adhata/html/new-vehicle.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 30 Dec 2016 18:17:01 GMT -->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NST GPS</title>
+    <link href="html/css/css.css" rel="stylesheet" type="text/css" />
+    <link href="html/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="html/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="html/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="html/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="html/css/animate.css" rel="stylesheet">
+    <link href="html/css/style.css" rel="stylesheet">
+    <link href="html/css/custom.css" rel="stylesheet">
+</head>
+
+<body class="top-navigation">
+    <div id="wrapper">
+    
+       <jsp:directive.include file="header.jsp" />
+    
+      <div id="page-wrapper2" class="gray-bg">
+            <div class="rowx wrapper border-bottom white-bg page-heading">
+                <div class="col-sm-12">
+                    <h2>User Entry </h2>
+                </div>
+            </div>
+            <div class="wrapper wrapper-content  animated fadeInRight">
+                <div class="ibox-content">
+                    <h3 class="m-t-none m-b">Add New User</h3>
+                    <div class="row">
+                        <form:form role="form" action="UserMasterSave" commandName="UserMaster" method="post" onsubmit="return myFunction()">
+                            <div class="form-group col-sm-12">
+                                <div class="form-group col-sm-6">
+                                    <label>User Name</label>
+                                    <form:input path="userName" type="text" id="username"  class="form-control editor-field"/>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-12">
+                                <div class="form-group col-sm-6">
+                                    <label>Password</label>
+                                    <form:input path="password" type="password" id="password" class="form-control editor-field"/>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-12">
+                                <div class="form-group col-sm-6">
+                                    <label>Confirm Password</label>
+                                    <input type="password" name="repassword" id="repassword" value="${UserMaster.password}" class="form-control editor-field">
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <input type="submit" name="action" id="button" class="btn btn-primary" value="Save User">
+                                <input type="button" name="button3" id="button3" value="Exit" class="btn btn-danger" onclick="location.href = 'UserMasters'">
+                           
+                        </form:form>
+                    </div>
+                </div>
+            </div>
+        </div>
+           <jsp:directive.include file="footer.jsp" />
+
+    </div>
+    <script type="text/javascript" src="html/js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="html/js/tether.min.js"></script>
+    <script type="text/javascript" src="html/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="html/js/angular.min.js"></script>
+    <script type="text/javascript" src="html/js/datatables.min.js"></script>
+    <script type="text/javascript" src="html/js/buttons.flash.min.js"></script>
+    <script type="text/javascript" src="html/js/jspdf.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#entrydata').DataTable();
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+        });
+    </script>
+    <script>
+
+        function myFunction() {
+            var pass1 = document.getElementById("password").value;
+            var pass2 = document.getElementById("repassword").value;
+            var ok = true;
+            if (pass1 != pass2) {
+                //alert("Passwords Do not match");
+                document.getElementById("pass1").style.borderColor = "#E34234";
+                document.getElementById("pass2").style.borderColor = "#E34234";
+                ok = false;
+            }
+            else {
+                alert("Passwords Match!!!");
+            }
+            return ok;
+        }
+
+    </script>
+</body>
+
+<!-- Mirrored from kalkisoft.com/adhata/html/new-vehicle.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 30 Dec 2016 18:17:01 GMT -->
+</html>

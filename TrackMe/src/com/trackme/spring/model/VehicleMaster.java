@@ -1,47 +1,157 @@
 package com.trackme.spring.model;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.springframework.util.StringUtils;
+
+import com.trackme.constants.Constant;
+
+@Entity
+@Table(name="vehiclemaster")
 public class VehicleMaster
 {
+@Id
+@Column(name="vehicleNo")
   private String vehicleNo;
+
+@Column(name="unitNo")
   private int unitNo;
+
+@Column(name="gpsNo")
   private String gpsNo;
+
+@Column(name="vehicleSerialNo")
   private String vehicleSerialNo;
+
+@Column(name="vehicleType")
   private String vehicleType;
+
+@Column(name="vehicleMake")
   private String vehicleMake;
+
+@Column(name="insuranceIssuedBy")
   private String insuranceIssuedBy;
+
+@Column(name="insuranceNo")
   private String insuranceNo;
+
+@Column(name="insuranceDate")
   private Date insuranceDate;
+
+@Transient
+private String insuranceDateShow;
+
+@Column(name="insuranceExpiryDate")
   private Date insuranceExpiryDate;
+
+@Transient
+private String insuranceExpiryDateShow;
+
+@Column(name="nationalPermitNo")
   private String nationalPermitNo;
+
+@Column(name="nationalPermitExpiryDate")
   private Date nationalPermitExpiryDate;
+
+@Transient
+private String nationalPermitExpiryDateShow;
+
+@Column(name="otherPermitNo")
   private String otherPermitNo;
+
+@Column(name="otherPermitExpiryDate")
   private Date otherPermitExpiryDate;
+@Transient
+private String otherPermitExpiryDateShow;
+
+
+@Column(name="issuedRTO")
   private String issuedRTO;
+
+@Column(name="serviceKm")
   private int serviceKm;
+
+@Column(name="serviceDate")
   private Date serviceDate;
+
+@Transient
+private String serviceDateShow;
+
+
+@Column(name="initialOdiMeter")
   private int initialOdiMeter;
+
+@Column(name="currentOdiMeter")
   private int currentOdiMeter;
+
+@Column(name="currentFuel")
   private int currentFuel;
+
+@Column(name="ownerCompanyName")
   private String ownerCompanyName;
+
+@Column(name="ownerAddress1")
   private String ownerAddress1;
+
+@Column(name="ownerAddress2")
   private String ownerAddress2;
+
+@Column(name="ownerAddress3")
   private String ownerAddress3;
+
+@Column(name="ownerCity")
   private String ownerCity;
+
+@Column(name="ownerPinCode")
   private int ownerPinCode;
+
+@Column(name="ownerState")
   private String ownerState;
+
+@Column(name="ownerLicense")
   private String ownerLicense;
+
+@Column(name="ownerContact1")
   private String ownerContact1;
+
+@Column(name="ownerContact2")
   private String ownerContact2;
+
+@Column(name="ownerContact3")
   private String ownerContact3;
+
+@Column(name="ownerEmail")
   private String ownerEmail;
+
+@Column(name="sosAlertStatus")
   private String sosAlertStatus;
+
+@Column(name="groupName")
   private String groupName;
+
+@Column(name="userName")
   private String userName;
+
+@Column(name="createdBy")
   private String createdBy;
+
+@Column(name="createdDate")
   private Date createdDate;
+
+@Column(name="modifiedBy")
   private String modifiedBy;
+
+@Column(name="modifiedDate")
   private Date modifiedDate;
   
   public String getVehicleNo()
@@ -433,4 +543,169 @@ public class VehicleMaster
   {
     this.modifiedDate = modifiedDate;
   }
+  @Transient
+  String createdOnShow;
+  @Transient
+  String modifiedOnShow;
+
+public String getCreatedOnShow() {
+	if(this.createdDate!=null)
+	return Constant.dateFormater.format(this.createdDate);
+	else
+	return "";
+}
+
+public String getModifiedOnShow() {
+	if(this.modifiedDate!=null)
+	return Constant.dateFormater.format(this.modifiedDate);
+	else
+	return "";
+}
+
+public String getInsuranceDateShow() {
+	if(this.insuranceDate!=null)
+		return Constant.dateFormater.format(this.insuranceDate);
+		else
+		return "";
+	
+}
+
+public void setInsuranceDateShow(String insuranceDateShow) {
+	if(StringUtils.isEmpty(insuranceDateShow))
+	this.insuranceDate = null;
+	else
+		try {
+			this.insuranceDate=Constant.dateFormater.parse(insuranceDateShow);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	this.insuranceDateShow=insuranceDateShow;
+		
+}
+
+public String getInsuranceExpiryDateShow() {
+	
+	if(this.insuranceExpiryDate!=null)
+		return Constant.dateFormater.format(this.insuranceExpiryDate);
+		else
+		return "";
+	
+}
+
+
+public void setInsuranceExpiryDateShow(String insuranceExpiryDateShow) {
+	
+	if(StringUtils.isEmpty(insuranceExpiryDateShow))
+	this.insuranceExpiryDate = null;
+	else
+		try {
+			this.insuranceExpiryDate=Constant.dateFormater.parse(insuranceExpiryDateShow);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+	this.insuranceExpiryDateShow = insuranceExpiryDateShow;
+}
+
+public String getNationalPermitExpiryDateShow() {
+	
+	if(this.nationalPermitExpiryDate!=null)
+		return Constant.dateFormater.format(this.nationalPermitExpiryDate);
+		else
+		return "";
+	
+}
+
+public void setNationalPermitExpiryDateShow(String nationalPermitExpiryDateShow) {
+	
+	if(StringUtils.isEmpty(nationalPermitExpiryDateShow))
+	this.nationalPermitExpiryDate = null;
+	else
+		try {
+			this.nationalPermitExpiryDate=Constant.dateFormater.parse(nationalPermitExpiryDateShow);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+	this.nationalPermitExpiryDateShow = nationalPermitExpiryDateShow;
+}
+
+public String getOtherPermitExpiryDateShow() {
+	
+	if(this.otherPermitExpiryDate!=null)
+		return Constant.dateFormater.format(this.otherPermitExpiryDate);
+		else
+		return "";
+	
+}
+
+public void setOtherPermitExpiryDateShow(String otherPermitExpiryDateShow) {
+	if(StringUtils.isEmpty(otherPermitExpiryDateShow))
+	this.otherPermitExpiryDate = null;
+	else
+		try {
+			this.otherPermitExpiryDate=Constant.dateFormater.parse(otherPermitExpiryDateShow);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+	this.otherPermitExpiryDateShow = otherPermitExpiryDateShow;
+}
+
+public String getServiceDateShow() {
+	if(this.serviceDate!=null)
+		return Constant.dateFormater.format(this.serviceDate);
+		else
+		return "";
+
+}
+
+public void setServiceDateShow(String serviceDateShow) {
+	
+	if(StringUtils.isEmpty(serviceDateShow))
+	this.serviceDate = null;
+	else
+		try {
+			this.serviceDate=Constant.dateFormater.parse(serviceDateShow);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	this.serviceDateShow = serviceDateShow;
+}
+
+public void setCreatedOnShow(String createdOnShow) {
+	
+	if(StringUtils.isEmpty(createdOnShow))
+	this.createdDate = null;
+	else
+		try {
+			this.createdDate=Constant.dateFormater.parse(createdOnShow);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	this.createdOnShow = createdOnShow;
+}
+
+public void setModifiedOnShow(String modifiedOnShow) {
+	if(StringUtils.isEmpty(modifiedOnShow))
+	this.modifiedDate = null;
+	else
+		try {
+			this.modifiedDate=Constant.dateFormater.parse(modifiedOnShow);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+	this.modifiedOnShow = modifiedOnShow;
+}
+  
+
+
 }

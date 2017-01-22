@@ -2,12 +2,24 @@ package com.trackme.spring.model;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="vehiclegroup")
 public class VehicleGroup
-{
+{  
+  @Id	
+  @Column(name="id") 	
   private String id;
+  @Column(name="createdby") 
   private String createdBy;
+  @Column(name="createddate") 
   private Date createdDate;
   
+ 
   public String getId()
   {
     return this.id;

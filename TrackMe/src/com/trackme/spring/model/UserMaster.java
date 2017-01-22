@@ -1,18 +1,52 @@
 package com.trackme.spring.model;
 
+import java.text.ParseException;
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.springframework.util.StringUtils;
+
+import com.trackme.constants.Constant;
+
+@Entity
+@Table(name="usermaster")
 public class UserMaster
 {
+@Id
+@Column(name="username")
   private String userName;
+
+@Column(name="password")
   private String password;
+
+@Column(name="level")
   private String level;
+
+@Column(name="mapview")
   private String mapView;
+
+@Column(name="createdby")
   private String createdBy;
+
+@Column(name="createddate")
   private Date createdDate;
+
+@Column(name="modifiedBy")
   private String modifiedBy;
+
+@Column(name="modifiedDate")
   private Date modifiedDate;
-  
+@Transient
+private String  createdDateShow;
+@Transient
+private String  modifiedDateShow;
+
+
   public String getUserName()
   {
     return this.userName;
@@ -92,4 +126,42 @@ public class UserMaster
   {
     this.modifiedDate = modifiedDate;
   }
+
+public String getCreatedDateShow() {
+	return createdDateShow;
+}
+
+public void setCreatedDateShow(String createdDateShow) {
+	if(StringUtils.isEmpty(createdDateShow))
+	this.createdDate = null;
+	else
+		try {
+			this.createdDate=Constant.dateFormater.parse(createdDateShow);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+	this.createdDateShow = createdDateShow;
+}
+
+public String getModifiedDateShow() {
+	return modifiedDateShow;
+}
+
+public void setModifiedDateShow(String modifiedDateShow) {
+	if(StringUtils.isEmpty(modifiedDateShow))
+	this.modifiedDate = null;
+	else
+		try {
+			this.modifiedDate=Constant.dateFormater.parse(modifiedDateShow);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+	this.modifiedDateShow = modifiedDateShow;
+}
+  
+  
 }

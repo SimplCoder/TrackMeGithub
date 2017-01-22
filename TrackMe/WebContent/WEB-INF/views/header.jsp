@@ -20,7 +20,7 @@
 				  </div>
 				  <div class="navbar-collapse collapse" id="navbar">
 					<ul class="nav navbar-nav">
-					  <li class="dropdown active"> <a aria-expanded="false" role="button" href="#">Live</a> </li>
+					  <li class="dropdown active"> <a aria-expanded="false" role="button" href="home">Live</a> </li>
 					  <li class="dropdown"> <a aria-expanded="false" role="button" href="#" class="dropdown-toggle">Vehicle Information<span class="caret"></span></a>
 						<ul  role="menu" class="dropdown-menu">
 						  <li ><a href="html/VehicleView.html"><i class="fa fa-eye"></i> Vehicle View</a></li>
@@ -43,11 +43,11 @@
 					  </li>
 					  <li class="dropdown"> <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" >Configuration<span class="caret"></span></a>
 						<ul role="menu" class="dropdown-menu">
-						  <li ><a href="html/Vehicle_master_view.html"> <i class="fa fa-car"></i> Vehicle Master</a></li>
-						  <li><a href="html/Driver_master_view.html"> <i class="fa fa-user"></i> Driver Details</a></li>
-						  <li ><a href="html/group_master_view.html"> <i class="fa fa-bus"></i> Vehicle Groups</a></li>
+						  <li ><a href="VehicleMasters"> <i class="fa fa-car"></i> Vehicle Master</a></li>
+						  <li><a href="DriverMasters"> <i class="fa fa-user"></i> Driver Details</a></li>
+						  <li ><a href="VehicleGroupView"> <i class="fa fa-bus"></i> Vehicle Groups</a></li>
 						  <li ><a href="html/alert_master_view.html"> <i class="fa fa-bell-o"></i> Alert</a></li>
-						  <li ><a href="html/user_master_vew.html"> <i class="fa fa-user"></i> User</a></li>
+						  <li ><a href="UserMasters"> <i class="fa fa-user"></i> User</a></li>
 						  <li><a href="html/No_movements_view.html"> <i class="fa fa-stop"></i> No Movement </a></li>
 						</ul>
 					  </li>

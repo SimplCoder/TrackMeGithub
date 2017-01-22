@@ -12,11 +12,11 @@
 
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<annotation-driven />
+		<context:component-scan base-package="com.trackme.spring.*" />
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
 		up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/html/**" location="/html/" />
-<resources mapping="/html/**" location="/resources/" />
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
 		in the /WEB-INF/views directory -->
 	<beans:bean
@@ -41,14 +41,20 @@
 		<beans:property name="annotatedClasses">
 			<beans:list>
 				<beans:value>com.trackme.spring.model.Person</beans:value>
+				<beans:value>com.trackme.spring.model.VehicleMaster</beans:value>
+				<beans:value>com.trackme.spring.model.UserMaster</beans:value>
+				<beans:value>com.trackme.spring.model.DriverMaster</beans:value>
+				<beans:value>com.trackme.spring.model.VehicleGroup</beans:value>
 			</beans:list>
 		</beans:property>
+		
 		<beans:property name="hibernateProperties">
 			<beans:props>
 				<beans:prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect
 				</beans:prop>
 				<beans:prop key="hibernate.show_sql">true</beans:prop>
-			
+			<beans:prop key="packagesToScan">com.trackme.spring.model</beans:prop>
+		
 			</beans:props>
 		</beans:property>
 	</beans:bean>
