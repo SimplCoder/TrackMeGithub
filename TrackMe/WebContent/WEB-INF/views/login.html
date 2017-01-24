@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -7,10 +6,54 @@
 	<title>Login form</title>
 
 	<link href="http://fonts.googleapis.com/css?family=Lato:100italic,100,300italic,300,400italic,400,700italic,700,900italic,900" rel="stylesheet" type="text/css">
-	<link rel="stylesheet" type="text/css" href="html/css/bootstrap.min.css" />
-	<link rel="stylesheet" type="text/css" href="html/css/styles.css" />
+	<link rel="stylesheet" type="text/css" href="assets/bootstrap/css/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="assets/css/styles.css" />
 	
-	<style>
+</head>
+<body>
+	
+	<section class="container login-form">
+		<section>
+			<form method="post" action="" role="login">
+				<img src="assets/images/logo.png" style="height:62px;" alt="" class="img-responsive" />
+					<label >Please login to track your vehicle	</label >
+			
+				<div class=" field">
+					<input type="text" name="username" required class="" placeholder="Enter your Mobile no or Email " />
+					
+				</div>
+				
+				<div class=" field">
+					<input type="password" name="password" required 	 placeholder="Password	" />
+					<a style="padding-left:70%;" href="#">Trouble logging in?</a>
+					
+					
+				</div>
+		
+				<button type="submit" name="go"  style="background-color:#2196F5" class="btn btn-primary btn-block">Login</button>
+				
+						<label style="padding-right:56px;margin-bottom: 20px;">By Logging in your agree to our <a href="#">T&C</a> and <a href="#">privacy policy</a></label>
+					
+			</form>
+		</section>
+	</section>
+
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+	
+	<script>
+	<!--
+	$( document ).ready(function() {
+	    $('#tooltip').tooltip();
+	});
+	-->
+	</script>
+
+</body>
+</html>
+
+
+<style>
 @CHARSET "UTF-8";
 
 * {
@@ -20,7 +63,7 @@
 	outline: none;
 }
 body {
-	background: url(html/images/bg.jpg) no-repeat center center fixed;
+	background: url(../images/bg.jpg) no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -118,49 +161,3 @@ border-bottom: 1px solid #B2B3B4;
 	}
 
 </style>
-	
-
-</head>
-<body>
-	<c:url var="loginUrl" value="/j_spring_security_check"></c:url>
-  
-	<section class="container login-form">
-		<section>
-			<form method="post" action="${loginUrl}" role="login">
-				<img src="html/images/logo.png" style="height:62px;" alt="" class="img-responsive" />
-					<label >Please login to track your vehicle	</label >
-			
-				<div class=" field">
-					<input type="text" name="username" required class="" placeholder="Enter your Mobile no or Email " />
-					
-				</div>
-			
-				<div class=" field">
-					<input type="password" name="password" required 	 placeholder="Password	" />
-					<a style="padding-left:70%;" href="#">Trouble logging in?</a>
-					
-					
-				</div>
-		
-				<button type="submit" name="go"  style="background-color:#2196F5" class="btn btn-primary btn-block">Login</button>
-				
-						<lbel style="padding-right:56px;margin-bottom: 20px;">By Logging in your agree to our <a href="#">T&C</a> and <a href="#">privacy policy</a></label>
-					
-			</form>
-		</section>
-	</section>
-<script type="text/javascript" src="html/js/jquery-1.12.4.js"></script>
-	<script src="html/js/bootstrap.min.js"></script>
-	
-	<script>
-	<!--
-	$( document ).ready(function() {
-	    $('#tooltip').tooltip();
-	});
-	-->
-	</script>
-
-</body>
-</html>
-
-

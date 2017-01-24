@@ -16,7 +16,7 @@
 		<beans:constructor-arg name="decisionVoters"
 			ref="roleVoter" />
 	</beans:bean>
-<http pattern='**/html/**' security="none" />
+<http pattern="/html/**" security="none" />
 	<http  authentication-manager-ref="jdbc-auth"
 		access-decision-manager-ref="accessDecisionManager">	
 	
