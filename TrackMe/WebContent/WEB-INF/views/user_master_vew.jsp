@@ -34,7 +34,7 @@
                 </div>
 				<div class="col-sm-6">
                     <div class="text-right">
-                        <a href="UserMasterEdit?id=new" target="frame1" style="width:120px" class="btn btn-primary">Add User</a>
+                        <a href="UserMasterEdit?id=new" style="width:120px" class="btn btn-primary">Add User</a>
                     </div>
                 </div>
             </div>

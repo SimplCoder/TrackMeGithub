@@ -44,6 +44,8 @@
 				<beans:value>com.trackme.spring.model.VehicleMaster</beans:value>
 				<beans:value>com.trackme.spring.model.UserMaster</beans:value>
 				<beans:value>com.trackme.spring.model.DriverMaster</beans:value>
+<beans:value>com.trackme.spring.model.DeviceMaster</beans:value>
+
 				<beans:value>com.trackme.spring.model.VehicleGroup</beans:value>
 			</beans:list>
 		</beans:property>

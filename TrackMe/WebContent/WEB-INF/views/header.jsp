@@ -49,6 +49,7 @@
 						  <li ><a href="html/alert_master_view.html"> <i class="fa fa-bell-o"></i> Alert</a></li>
 						  <li ><a href="UserMasters"> <i class="fa fa-user"></i> User</a></li>
 						  <li><a href="html/No_movements_view.html"> <i class="fa fa-stop"></i> No Movement </a></li>
+<li ><a href="DeviceMasters"> <i class="fa fa-car"></i> Device Master</a></li>
 						</ul>
 					  </li>
 					  <li class="dropdown"> <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" >School<span class="caret"></span></a>

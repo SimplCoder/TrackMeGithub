@@ -32,7 +32,7 @@
 		   <div class="col-sm-6">
                 <div class="text-right">
                     <form>
-                        <a href="VehicleMasterEdit?id=new" target="frame1">
+                        <a href="VehicleMasterEdit?id=new">
                             <input name="button" type="button" class="btn btn-primary" id="button" style="width:145px" value="Add New Vehicle"></a>
                       </form>
                 </div>

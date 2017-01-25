@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -39,7 +39,7 @@
 				  </div>
 				  <div class="navbar-collapse collapse" id="navbar">
 					<ul class="nav navbar-nav">
-					  <li > <a aria-expanded="false" role="button" href="../index.html">Live</a> </li>
+					  <li > <a aria-expanded="false" role="button" href="home">Live</a> </li>
 					  <li class="dropdown"> <a aria-expanded="false" role="button" href="#" class="dropdown-toggle">Vehicle Information<span class="caret"></span></a>
 						<ul  role="menu" class="dropdown-menu">
 						  <li ><a href="VehicleView.html"><i class="fa fa-eye"></i> Vehicle View</a></li>
@@ -66,7 +66,7 @@
 						  <li><a href="Driver_master_view.html"> <i class="fa fa-user"></i> Driver Details</a></li>
 						  <li ><a href="group_master_view.html"> <i class="fa fa-bus"></i> Vehicle Groups</a></li>
 						  <li ><a href="alert_master_view.html"> <i class="fa fa-bell-o"></i> Alert</a></li>
-						  <li ><a href="user_master_vew.html"> <i class="fa fa-user"></i> User</a></li>
+						  <li ><a href="UserMasters"> <i class="fa fa-user"></i> User</a></li>
 						  <li><a href="No_movements_view.html"> <i class="fa fa-dot-circle-o"></i> No Movement </a></li>
 						</ul>
 					  </li>
@@ -81,7 +81,7 @@
 					</ul>
 					<ul class="nav navbar-top-links navbar-right">
 					  <li><span class="cust-name">Welcome to Test</span></li>
-					  <li> <a href="login.html"> <i class="fa fa-sign-out"></i> Log out </a> </li>
+					  <li> <a href="j_spring_security_logout"> <i class="fa fa-sign-out"></i> Log out </a> </li>
 					</ul>
 				  </div>
 				</nav>
