@@ -49,4 +49,11 @@ public class VehicleMasterServiceImpl implements VehicleMasterService {
 		this.vehicleMasterDAO.removeVehicleMaster(vehicleNo);
 	}
 
+	@Override
+	@Transactional
+	public int totaNoOffVehicle() {
+		// TODO Auto-generated method stub
+		return this.vehicleMasterDAO.totaNoOffVehicle();
+	}
+
 }

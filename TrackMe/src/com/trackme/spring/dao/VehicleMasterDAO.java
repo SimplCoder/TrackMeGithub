@@ -12,4 +12,5 @@ public interface VehicleMasterDAO {
 	public List<VehicleMaster> listVehicleMasters();
 	public VehicleMaster getVehicleMasterById(String vehicleNo);
 	public void removeVehicleMaster(String vehicleNo);
+	public int totaNoOffVehicle();
 }
