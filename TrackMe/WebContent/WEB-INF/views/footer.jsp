@@ -1,4 +1,4 @@
-  <div class="foot-fixed">
+dd  <div class="foot-fixed">
     <div class="auto-reloader-bar">
       <div class="row">
         <div class="col-xs-6">
