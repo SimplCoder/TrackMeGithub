@@ -39,37 +39,25 @@
             <div class="graph-img">
               <canvas id="doughnutChart3" height="100"></canvas>
             </div>
-            <div class="graph-txt">Moving</div>
+            <div class="graph-txt">Moving/Idl</div>
           </div>
+          
+
+          
+
+         
+
           <div class="graph-in">
             <div class="graph-img">
               <canvas id="doughnutChart4" height="100"></canvas>
-            </div>
-            <div class="graph-txt">Slow/ldl</div>
-          </div>
-          <div class="graph-in">
-            <div class="graph-img">
-              <canvas id="doughnutChart5" height="100"></canvas>
-            </div>
-            <div class="graph-txt">Over Speed</div>
-          </div>
-          <div class="graph-in">
-            <div class="graph-img">
-              <canvas id="doughnutChart6" height="100"></canvas>
-            </div>
-            <div class="graph-txt">Harsh Break</div>
-          </div>
-          <div class="graph-in">
-            <div class="graph-img">
-              <canvas id="doughnutChart7" height="100"></canvas>
             </div>
             <div class="graph-txt">Alert</div>
           </div>
           <div class="graph-in">
             <div class="graph-img">
-              <canvas id="doughnutChart8" height="100"></canvas>
+              <canvas id="doughnutChart5" height="100"></canvas>
             </div>
-            <div class="graph-txt">Unit Count : 4</div>
+            <div class="graph-txt">Unit Count : <span id="vehcileCountShow"></span></div>
           </div>
         </div>
       </div>
@@ -352,321 +340,8 @@ if(xmlHttpRequest.readyState == 4 && xmlHttpRequest.status == 200)
 
 
 $(function () {    
-    var doughnutData = [
-        {
-            value: 100,
-            labelFontSize : '2',
-            color: "#d9d9d9",
-            labelColor : 'blue'
-            
-        },
-        {
-            value: 75,
-            color: "#ed5564",
-            labelFontSize : '2',
-            labelColor : 'blue'
-            
-        }
-    ];
-
-    var doughnutOptions = {
-    		
-        segmentShowStroke: true,
-        segmentStrokeColor: "#fff",
-        segmentStrokeWidth: 1,
-        percentageInnerCutout: 0,
-        animationSteps: 100,
-        animationEasing: "easeOutBounce",
-        animateRotate: true,
-        animateScale: false,
-        responsive: true,
-        onAnimationComplete: function()
-        {
-            this.showTooltip(this.segments, true);
-
-            //Show tooltips in bar chart (issue: multiple datasets doesnt work http://jsfiddle.net/5gyfykka/14/)
-            //this.showTooltip(this.datasets[0].bars, true);
-
-            //Show tooltips in line chart (issue: multiple datasets doesnt work http://jsfiddle.net/5gyfykka/14/)
-            //this.showTooltip(this.datasets[0].points, true);  
-        },
-
-        tooltipEvents: [],
-
-        showTooltips: true,
-        
-        // String - Tooltip background colour
-        tooltipFillColor: "rgba(0,0,0,0.4)",
-
-
-        // String - Tooltip label font declaration for the scale label
-        tooltipFontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
-
-        // Number - Tooltip label font size in pixels
-        tooltipFontSize: 12,
-
-        // String - Tooltip font weight style
-        tooltipFontStyle: "normal",
-
-        
-        // String - Tooltip title font colour
-	    tooltipTitleFontColor: "#fff",
-
-	    // Number - pixel width of padding around tooltip text
-	    tooltipYPadding: 3,
-
-	    // Number - pixel width of padding around tooltip text
-	    tooltipXPadding: 2,
-
-	    // Number - Size of the caret on the tooltip
-	    tooltipCaretSize: 8,
-
-	    // Number - Pixel radius of the tooltip border
-	    tooltipCornerRadius: 2,
-
-	    // Number - Pixel offset from point x to tooltip edge
-	    tooltipXOffset: 2
-       
-    };
-
-    var ctx = document.getElementById("doughnutChart").getContext("2d");
-    var myNewChart = new Chart(ctx).Doughnut(doughnutData, doughnutOptions);
 	
-
-   
-	
-	/* -------------------2222222-------------------------------- */
-	var doughnutData2 = [
- 
-        {
-            value: 50,
-            color: "#d9d9d9",
-            highlight: "#d9d9d9",
-            label: "Software"
-        },
-        {
-            value: 150,
-            color: "#1cb295",
-            highlight: "#1cb295",
-            label: "Laptop"
-        }
-    ];
-
-    var doughnutOptions2 = {
-        segmentShowStroke: true,
-        segmentStrokeColor: "#fff",
-        segmentStrokeWidth: 1,
-        percentageInnerCutout: 0,
-        animationSteps: 100,
-        animationEasing: "easeOutBounce",
-        animateRotate: true,
-        animateScale: false,
-        responsive: true,
-    };
-
-    var ctx2 = document.getElementById("doughnutChart2").getContext("2d");
-    var myNewChart2 = new Chart(ctx2).Doughnut(doughnutData2, doughnutOptions2);
-	
-	
-	/* -------------------3333-------------------------------- */
-	var doughnutData3 = [
- 
-        {
-            value: 100,
-            color: "#d9d9d9",
-            highlight: "#d9d9d9",
-            label: "Software"
-        },
-        {
-            value: 100,
-            color: "#ff9000",
-            highlight: "#ff9000",
-            label: "Laptop"
-        }
-    ];
-
-    var doughnutOptions3 = {
-        segmentShowStroke: true,
-        segmentStrokeColor: "#fff",
-        segmentStrokeWidth: 1,
-        percentageInnerCutout: 0,
-        animationSteps: 100,
-        animationEasing: "easeOutBounce",
-        animateRotate: true,
-        animateScale: false,
-        responsive: true,
-    };
-
-    var ctx3 = document.getElementById("doughnutChart3").getContext("2d");
-    var myNewChart3 = new Chart(ctx3).Doughnut(doughnutData3, doughnutOptions3);
-	
-	
-	
-	/* -------------------444-------------------------------- */
-	var doughnutData4 = [
- 
-        {
-            value: 50,
-            color: "#d9d9d9",
-            highlight: "#d9d9d9",
-            label: "Software"
-        },
-        {
-            value: 25,
-            color: "#00aeff",
-            highlight: "#00aeff",
-            label: "Laptop"
-        }
-    ];
-
-    var doughnutOptions4 = {
-        segmentShowStroke: true,
-        segmentStrokeColor: "#fff",
-        segmentStrokeWidth: 1,
-        percentageInnerCutout: 0,
-        animationSteps: 100,
-        animationEasing: "easeOutBounce",
-        animateRotate: true,
-        animateScale: false,
-        responsive: true,
-    };
-
-    var ctx4 = document.getElementById("doughnutChart4").getContext("2d");
-    var myNewChart4 = new Chart(ctx4).Doughnut(doughnutData4, doughnutOptions4);
-	
-	
-	/* -------------------555-------------------------------- */
-	var doughnutData5 = [
- 
-        {
-            value: 50,
-            color: "#d9d9d9",
-            highlight: "#d9d9d9",
-            label: "Software"
-        },
-        {
-            value: 35,
-            color: "#f8fb00",
-            highlight: "#f8fb00",
-            label: "Laptop"
-        }
-    ];
-
-    var doughnutOptions5 = {
-        segmentShowStroke: true,
-        segmentStrokeColor: "#fff",
-        segmentStrokeWidth: 1,
-        percentageInnerCutout: 0,
-        animationSteps: 100,
-        animationEasing: "easeOutBounce",
-        animateRotate: true,
-        animateScale: false,
-        responsive: true,
-    };
-
-    var ctx5 = document.getElementById("doughnutChart5").getContext("2d");
-    var myNewChart5 = new Chart(ctx5).Doughnut(doughnutData5, doughnutOptions5);
-	
-	/* -------------------666-------------------------------- */
-	var doughnutData6 = [
- 
-        {
-            value: 150,
-            color: "#d9d9d9",
-            highlight: "#d9d9d9",
-            label: "Software"
-        },
-        {
-            value: 50,
-            color: "#ed5564",
-            highlight: "#ed5564",
-            label: "Laptop"
-        }
-    ];
-
-    var doughnutOptions6 = {
-        segmentShowStroke: true,
-        segmentStrokeColor: "#fff",
-        segmentStrokeWidth: 1,
-        percentageInnerCutout: 0,
-        animationSteps: 100,
-        animationEasing: "easeOutBounce",
-        animateRotate: true,
-        animateScale: false,
-        responsive: true,
-    };
-
-    var ctx6 = document.getElementById("doughnutChart6").getContext("2d");
-    var myNewChart6 = new Chart(ctx6).Doughnut(doughnutData6, doughnutOptions6);
-	
-	
-	/* -------------------777-------------------------------- */
-	var doughnutData7 = [
- 
-        {
-            value: 50,
-            color: "#d9d9d9",
-            highlight: "#d9d9d9",
-            label: "Software"
-        },
-        {
-            value: 50,
-            color: "#ff9000",
-            highlight: "#ff9000",
-            label: "Laptop"
-        }
-    ];
-
-    var doughnutOptions7 = {
-        segmentShowStroke: true,
-        segmentStrokeColor: "#fff",
-        segmentStrokeWidth: 1,
-        percentageInnerCutout: 0,
-        animationSteps: 100,
-        animationEasing: "easeOutBounce",
-        animateRotate: true,
-        animateScale: false,
-        responsive: true,
-    };
-
-    var ctx7 = document.getElementById("doughnutChart7").getContext("2d");
-    var myNewChart7 = new Chart(ctx7).Doughnut(doughnutData7, doughnutOptions7);
-	
-	
-	/* -------------------888-------------------------------- */
-	var doughnutData8 = [
- 
-        {
-            value: 150,
-            color: "#d9d9d9",
-            highlight: "#d9d9d9",
-            label: "Software"
-        },
-        {
-            value: 100,
-            color: "#005ffb",
-            highlight: "#005ffb",
-            label: "Laptop"
-        }
-    ];
-
-    var doughnutOptions8 = {
-        segmentShowStroke: true,
-        segmentStrokeColor: "#fff",
-        segmentStrokeWidth: 1,
-        percentageInnerCutout: 0,
-        animationSteps: 100,
-        animationEasing: "easeOutBounce",
-        animateRotate: true,
-        animateScale: false,
-        responsive: true,
-    };
-
-    var ctx8 = document.getElementById("doughnutChart8").getContext("2d");
-    var myNewChart8 = new Chart(ctx8).Doughnut(doughnutData8, doughnutOptions8);
-	
-	
-	
+		
 });
 </script> 
 <script>
@@ -830,9 +505,189 @@ function searchViaAjax() {
 
 
 function display(data) {
-	var json = "<h4>Ajax Response</h4><pre>"
-			+ JSON.stringify(data, null, 4) + "</pre>";
-	$('#feedback').html(json);
+
+	
+
+    var doughnutOptions = {
+    		
+        segmentShowStroke: true,
+        segmentStrokeColor: "#fff",
+        segmentStrokeWidth: 1,
+        percentageInnerCutout: 0,
+        animationSteps: 100,
+        animationEasing: "easeOutBounce",
+        animateRotate: true,
+        animateScale: false,
+        responsive: true,
+        onAnimationComplete: function()
+        {
+            this.showTooltip(this.segments, true);
+
+            //Show tooltips in bar chart (issue: multiple datasets doesnt work http://jsfiddle.net/5gyfykka/14/)
+            //this.showTooltip(this.datasets[0].bars, true);
+
+            //Show tooltips in line chart (issue: multiple datasets doesnt work http://jsfiddle.net/5gyfykka/14/)
+            //this.showTooltip(this.datasets[0].points, true);  
+        },
+
+        tooltipEvents: [],
+
+        showTooltips: true,
+        
+        // String - Tooltip background colour
+        tooltipFillColor: "rgba(0,0,0,0.4)",
+
+
+        // String - Tooltip label font declaration for the scale label
+        tooltipFontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+
+        // Number - Tooltip label font size in pixels
+        tooltipFontSize: 12,
+
+        // String - Tooltip font weight style
+        tooltipFontStyle: "normal",
+
+        
+        // String - Tooltip title font colour
+	    tooltipTitleFontColor: "#fff",
+
+	    // Number - pixel width of padding around tooltip text
+	    tooltipYPadding: 2,
+
+	    // Number - pixel width of padding around tooltip text
+	    tooltipXPadding: 3,
+
+	    // Number - Size of the caret on the tooltip
+	    tooltipCaretSize: 4,
+
+	    // Number - Pixel radius of the tooltip border
+	    tooltipCornerRadius: 2,
+
+	    // Number - Pixel offset from point x to tooltip edge
+	    tooltipXOffset: 2,
+	    tooltipYOffset: 1
+       
+    };
+ var totalVeh =parseInt(data.result["0"].totalVehicle-data.result["0"].ignitionOn);
+ var igniOn= parseInt(data.result["0"].ignitionOn);
+ 
+$("#vehcileCountShow").text(totalVeh); 
+    var doughnutData = [
+                        {
+                            value: totalVeh,
+                            labelFontSize : '2',
+                            color: "#d9d9d9",
+                            labelColor : 'blue'
+                            
+                        },
+                        {
+                            value: igniOn,
+                            color: "#ed5564",
+                            labelFontSize : '2',
+                            labelColor : 'blue'
+                            
+                        }
+                    ];
+
+    var ctx = document.getElementById("doughnutChart").getContext("2d");
+    var myNewChart = new Chart(ctx).Doughnut(doughnutData, doughnutOptions);
+	
+
+   
+	
+	/* -------------------2222222-------------------------------- */
+	 var igniOff= parseInt(data.result["0"].ignitionOff);
+	var doughnutData2 = [
+ 
+        {
+            value: totalVeh,
+            color: "#d9d9d9",
+            highlight: "#d9d9d9",
+            label: ""
+        },
+        {
+            value: igniOff,
+            color: "#1cb295",
+            highlight: "#1cb295",
+            label: ""
+        }
+    ];
+
+  
+    var ctx2 = document.getElementById("doughnutChart2").getContext("2d");
+    var myNewChart2 = new Chart(ctx2).Doughnut(doughnutData2, doughnutOptions);
+	
+    var movingNo= parseInt(data.result["0"].moving);
+    var idleNo= parseInt(data.result["0"].idle);
+  
+	/* -------------------3333-------------------------------- */
+	var doughnutData3 = [
+ 
+        {
+            value: idleNo,
+            color: "#d9d9d9",
+            highlight: "#d9d9d9",
+            label: ""
+        },
+        {
+            value: movingNo,
+            color: "#ff9000",
+            highlight: "#ff9000",
+            label: ""
+        }
+    ];
+
+   
+    var ctx3 = document.getElementById("doughnutChart3").getContext("2d");
+    var myNewChart3 = new Chart(ctx3).Doughnut(doughnutData3, doughnutOptions);
+	
+	
+	
+	/* -------------------444-------------------------------- */
+	
+	  var alertNo= parseInt(data.result["0"].alert);
+  
+	var doughnutData4 = [
+ 
+        {
+            value: totalVeh,
+            color: "#d9d9d9",
+            highlight: "#d9d9d9",
+            label: ""
+        },
+        {
+            value: alertNo,
+            color: "#00aeff",
+            highlight: "#00aeff",
+            label: ""
+        }
+    ];
+	  
+    var ctx4 = document.getElementById("doughnutChart4").getContext("2d");
+    var myNewChart4 = new Chart(ctx4).Doughnut(doughnutData4, doughnutOptions);
+	
+	
+	/* -------------------555-------------------------------- */
+	var doughnutData5 = [
+ 
+        {
+            value: totalVeh,
+            color: "#d9d9d9",
+            highlight: "#d9d9d9",
+            label: ""
+        }
+    ];
+
+  
+
+    var ctx5 = document.getElementById("doughnutChart5").getContext("2d");
+    var myNewChart5 = new Chart(ctx5).Doughnut(doughnutData5, doughnutOptions);
+
+	
+	
+	
+	
+	
 }
 
 

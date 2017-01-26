@@ -18,28 +18,42 @@ import com.trackme.spring.model.AjaxResponseBody;
 import com.trackme.spring.model.SearchCriteria;
 import com.trackme.spring.model.StatusCount;
 import com.trackme.spring.service.GsmMasterService;
+import com.trackme.spring.service.VehicleMasterService;
 
 @RestController
 public class AjaxController {
 
 	@Autowired
-	@Qualifier(value="deviceMasterService")
+	@Qualifier(value="gsmMasterService")
 	GsmMasterService gsmMasterService;
 	
-	List<StatusCount> statusCounts;
-
+	
+	@Autowired(required=true)
+	@Qualifier(value="vehicleMasterService")
+	private VehicleMasterService vehicleMasterService;
+	
+	
+	
 	// @ResponseBody, not necessary, since class is annotated with @RestController
 	// @RequestBody - Convert the json data into object (SearchCriteria) mapped by field name.
 	// @JsonView(Views.Public.class) - Optional, limited the json data display to client.
 	@JsonView(Views.Public.class)
 	@RequestMapping(value = "/searchStatusCounts")
 	public AjaxResponseBody getSearchResultViaAjax(@RequestBody SearchCriteria search) {
+		List<StatusCount> statusCounts= new ArrayList<>();
 
 		AjaxResponseBody result = new AjaxResponseBody();
 
+		StatusCount statusCount = new StatusCount();
 		
-			//List<StatusCount> statusCounts =statusCounts;
-
+		statusCount.setTotalVehicle(Integer.toString(vehicleMasterService.totaNoOffVehicle()));
+		statusCount.setIgnitionOn(Integer.toString(gsmMasterService.ignitionOnVehicleCount()));
+		statusCount.setIgnitionOff(Integer.toString(gsmMasterService.ignitionOffVehicleCount()));
+		statusCount.setMoving(Integer.toString(gsmMasterService.movingVehicleCount()));
+		statusCount.setIdle(Integer.toString(gsmMasterService.idleVehicleCount()));
+		statusCount.setAlert(Integer.toString(gsmMasterService.alertOnVehicleCount()));
+		//List<StatusCount> statusCounts =statusCounts;
+		statusCounts.add(statusCount);
 			if (statusCounts.size() > 0) {
 				result.setCode("200");
 				result.setMsg("");
@@ -56,30 +70,5 @@ public class AjaxController {
 
 	}
 
-	private boolean isValidSearchCriteria(SearchCriteria search) {
 
-		boolean valid = true;
-
-		if (search == null) {
-			valid = false;
 		}
-
-		if ((StringUtils.isEmpty(search.getUsername())) && (StringUtils.isEmpty(search.getEmail()))) {
-			valid = false;
-		}
-
-		return valid;
-	}
-
-	// Init some StatusCounts for testing
-	@PostConstruct
-	private void iniDataForTesting() {
-		statusCounts = new ArrayList<StatusCount>();
-
-		StatusCount StatusCount1 = new StatusCount("10", "2", "2", "3", "4","5");
-		statusCounts.add(StatusCount1);
-		
-	}
-
-	// Simulate the search function
-	}

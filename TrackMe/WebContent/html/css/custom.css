@@ -59,7 +59,7 @@ a:focus{ outline:none;}
 .graph-in {
     float: left;
     text-align: center;
-    width: 12.5%;
+    width: 20%;
 }
 .navbar, .navbar-top-links li a{ min-height:0;}
 .graph-txt{ color:#012b73; font-size:13px; font-weight:600;}
