@@ -26,6 +26,8 @@ public class GsmMasterJDBCImpl implements GsmMasterJDBC {
 
 	@Override
 	public int getVehicleCountByStatus(String status) {
+		int total=0;
+		try{
 		StringBuilder queryStr=new StringBuilder();
 		queryStr.append("select count(*)  from vehiclemaster vm join gsmmaster gsm on vm.unitno= gsm.unitNo ");
 		queryStr.append("inner join ");
@@ -35,9 +37,10 @@ public class GsmMasterJDBCImpl implements GsmMasterJDBC {
 		queryStr.append(" gsm.unitno = latest.unitno and (gsm.datetimedate+gsm.datetime)=latest.lattime");
 		queryStr.append(" where gsm.status in("+status);
 		queryStr.append(")");
-		
-		int total = jdbcTemplate.queryForInt(queryStr.toString());
-		return total;
+		 total = jdbcTemplate.queryForInt(queryStr.toString());
+		return total;}catch(Exception e){
+			return total;
+		}
 	}
 
 

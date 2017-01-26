@@ -346,23 +346,31 @@ if(xmlHttpRequest.readyState == 4 && xmlHttpRequest.status == 200)
 <!-- ChartJS--> 
 <script src="html/js/Chart.min.js"></script> 
 <script>
+
+
+
+
+
 $(function () {    
     var doughnutData = [
         {
             value: 100,
+            labelFontSize : '2',
             color: "#d9d9d9",
-            highlight: "#d9d9d9",
-            label: "Software"
+            labelColor : 'blue'
+            
         },
         {
             value: 75,
             color: "#ed5564",
-            highlight: "#ed5564",
-            label: "Laptop"
+            labelFontSize : '2',
+            labelColor : 'blue'
+            
         }
     ];
 
     var doughnutOptions = {
+    		
         segmentShowStroke: true,
         segmentStrokeColor: "#fff",
         segmentStrokeWidth: 1,
@@ -372,12 +380,60 @@ $(function () {
         animateRotate: true,
         animateScale: false,
         responsive: true,
+        onAnimationComplete: function()
+        {
+            this.showTooltip(this.segments, true);
+
+            //Show tooltips in bar chart (issue: multiple datasets doesnt work http://jsfiddle.net/5gyfykka/14/)
+            //this.showTooltip(this.datasets[0].bars, true);
+
+            //Show tooltips in line chart (issue: multiple datasets doesnt work http://jsfiddle.net/5gyfykka/14/)
+            //this.showTooltip(this.datasets[0].points, true);  
+        },
+
+        tooltipEvents: [],
+
+        showTooltips: true,
+        
+        // String - Tooltip background colour
+        tooltipFillColor: "rgba(0,0,0,0.4)",
+
+
+        // String - Tooltip label font declaration for the scale label
+        tooltipFontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+
+        // Number - Tooltip label font size in pixels
+        tooltipFontSize: 12,
+
+        // String - Tooltip font weight style
+        tooltipFontStyle: "normal",
+
+        
+        // String - Tooltip title font colour
+	    tooltipTitleFontColor: "#fff",
+
+	    // Number - pixel width of padding around tooltip text
+	    tooltipYPadding: 3,
+
+	    // Number - pixel width of padding around tooltip text
+	    tooltipXPadding: 2,
+
+	    // Number - Size of the caret on the tooltip
+	    tooltipCaretSize: 8,
+
+	    // Number - Pixel radius of the tooltip border
+	    tooltipCornerRadius: 2,
+
+	    // Number - Pixel offset from point x to tooltip edge
+	    tooltipXOffset: 2
+       
     };
 
     var ctx = document.getElementById("doughnutChart").getContext("2d");
     var myNewChart = new Chart(ctx).Doughnut(doughnutData, doughnutOptions);
 	
-	
+
+   
 	
 	/* -------------------2222222-------------------------------- */
 	var doughnutData2 = [
@@ -728,7 +784,60 @@ var currentTallest = 0,
 
 			});
 	   </script>
+	   
+	   
+		<div id="feedback"></div>
 </body>
+
+<script>
+
+
+jQuery(document).ready(function($) {
+
+
+		searchViaAjax();
+
+});
+
+function searchViaAjax() {
+
+	var search = {}
+	search["username"] = "";
+	search["email"] = "";
+
+	$.ajax({
+		type : "POST",
+		contentType : "application/json",
+		url : "searchStatusCounts",
+		data : JSON.stringify(search),
+		dataType : 'json',
+		timeout : 100000,
+		success : function(data) {
+			console.log("SUCCESS: ", data);
+			display(data);
+		},
+		error : function(e) {
+			console.log("ERROR: ", e);
+			display(e);
+		},
+		done : function(e) {
+			console.log("DONE");
+		
+		}
+	});
+
+}
+
+
+function display(data) {
+	var json = "<h4>Ajax Response</h4><pre>"
+			+ JSON.stringify(data, null, 4) + "</pre>";
+	$('#feedback').html(json);
+}
+
+
+</script>
+
 
 <!-- Mirrored from kalkisoft.com/adhata/html/ by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 30 Dec 2016 18:15:42 GMT -->
 </html>
