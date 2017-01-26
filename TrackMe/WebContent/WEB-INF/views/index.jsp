@@ -570,7 +570,8 @@ function display(data) {
     };
  var totalVeh =parseInt(data.result["0"].totalVehicle-data.result["0"].ignitionOn);
  var igniOn= parseInt(data.result["0"].ignitionOn);
- 
+ var igniOff= parseInt(data.result["0"].ignitionOff);
+
 $("#vehcileCountShow").text(totalVeh); 
     var doughnutData = [
                         {
@@ -581,7 +582,7 @@ $("#vehcileCountShow").text(totalVeh);
                             
                         },
                         {
-                            value: igniOn,
+                            value: igniOff,
                             color: "#ed5564",
                             labelFontSize : '2',
                             labelColor : 'blue'
@@ -596,7 +597,6 @@ $("#vehcileCountShow").text(totalVeh);
    
 	
 	/* -------------------2222222-------------------------------- */
-	 var igniOff= parseInt(data.result["0"].ignitionOff);
 	var doughnutData2 = [
  
         {
@@ -606,7 +606,7 @@ $("#vehcileCountShow").text(totalVeh);
             label: ""
         },
         {
-            value: igniOff,
+            value: igniOn,
             color: "#1cb295",
             highlight: "#1cb295",
             label: ""
@@ -625,7 +625,7 @@ $("#vehcileCountShow").text(totalVeh);
  
         {
             value: idleNo,
-            color: "#d9d9d9",
+            color: "#00aeff",
             highlight: "#d9d9d9",
             label: ""
         },
@@ -657,7 +657,7 @@ $("#vehcileCountShow").text(totalVeh);
         },
         {
             value: alertNo,
-            color: "#00aeff",
+            color: "#ed5564",
             highlight: "#00aeff",
             label: ""
         }
