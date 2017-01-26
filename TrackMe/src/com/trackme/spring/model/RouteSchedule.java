@@ -1,29 +1,147 @@
 package com.trackme.spring.model;
 
+import java.text.ParseException;
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.springframework.util.StringUtils;
+
+import com.trackme.constants.Constant;
+
+@Entity
+@Table(name="routeschedule")
 public class RouteSchedule
 {
+  @Id
+  @Column(name="schedulename")		
   private String scheduleName;
+  
+  @Column(name="startdate")
   private Date startDate;
+  
+  @Column(name="starttime")
   private String startTime;
+  
+  @Column(name="enddate")
   private Date endDate;
+  
+  @Column(name="endtime")
   private String endTime;
+  
+  @Column(name="routename")
   private String routeName;
-  private String[] vehicleNo;
+  
+  @Column(name="vehicleno")
+  private String vehicleNo;
+  
+  @Column(name="monday")
   private boolean monday;
+  
+  @Column(name="tuesday")
   private boolean tuesday;
+  
+  @Column(name="wednesday")
   private boolean wednesday;
+  
+  @Column(name="thursday")
   private boolean thursday;
+  
+  @Column(name="friday")
   private boolean friday;
+  
+  @Column(name="saturday")
   private boolean saturday;
+  
+  @Column(name="sunday")
   private boolean sunday;
+  
+  @Column(name="alertbysms")
   private boolean alertbysms;
+  
+  @Column(name="alertbymail")
   private boolean alertbymail;
+  
+  @Column(name="modifieddate")
   private Date modifiedDate;
+  
+  @Column(name="modifiedby")
   private String modifiedby;
+  
+  @Column(name="createddate")
   private Date createdDate;
+  
+  @Column(name="createdby")
   private String createdby;
+  
+  @Transient
+  private String  createdDateShow;
+  @Transient
+  private String  modifiedDateShow;
+  @Transient
+  private String  startDateShow;
+  @Transient
+  private String  endDateShow;
+  
+  
+  @Transient
+  private String  vehicleNoShow;
+  
+  public String getVehicleNoShow() {
+	return 	 this.vehicleNo.replaceAll("\"", "").replaceAll("\\{", "").replaceAll("\\}", "");
+}
+
+
+  
+  public String getCreatedDateShow() {
+  	if(this.createdDate!=null){
+  		return Constant.dateFormater.format(this.createdDate);
+  	}
+  		else{
+  		return "";
+  		}
+  }
+
+  public void setCreatedDateShow(String createdDateShow) {
+  	if(StringUtils.isEmpty(createdDateShow))
+  	this.createdDate = null;
+  	else
+  		try {
+  			this.createdDate=Constant.dateFormater.parse(createdDateShow);
+  		} catch (ParseException e) {
+  			// TODO Auto-generated catch block
+  			e.printStackTrace();
+  		}
+  	
+  	this.createdDateShow = createdDateShow;
+  }
+
+  public String getModifiedDateShow() {
+  	if(this.modifiedDate!=null){
+  		return Constant.dateFormater.format(this.modifiedDate);
+  	}
+  		else{
+  		return "";
+  		}
+  }
+
+  public void setModifiedDateShow(String modifiedDateShow) {
+  	if(StringUtils.isEmpty(modifiedDateShow))
+  	this.modifiedDate = null;
+  	else
+  		try {
+  			this.modifiedDate=Constant.dateFormater.parse(modifiedDateShow);
+  		} catch (ParseException e) {
+  			// TODO Auto-generated catch block
+  			e.printStackTrace();
+  		}
+  	
+  	this.modifiedDateShow = modifiedDateShow;
+  }
   
   public boolean isMonday()
   {
@@ -215,13 +333,70 @@ public class RouteSchedule
     this.routeName = routeName;
   }
   
-  public String[] getVehicleNo()
+  public String getVehicleNo()
   {
     return this.vehicleNo;
   }
   
-  public void setVehicleNo(String[] vehicleNo)
+  public void setVehicleNo(String vehicleNo)
   {
     this.vehicleNo = vehicleNo;
   }
+
+
+
+public String getStartDateShow() {
+	
+	if(this.startDate!=null){
+  		return Constant.dateFormater.format(this.startDate);
+  	}
+  		else{
+  		return "";
+  		}
+}
+
+
+
+public void setStartDateShow(String startDateShow) {
+	if(StringUtils.isEmpty(startDateShow))
+	  	this.startDate = null;
+	  	else
+	  		try {
+	  			this.startDate=Constant.dateFormater.parse(startDateShow);
+	  		} catch (ParseException e) {
+	  			// TODO Auto-generated catch block
+	  			e.printStackTrace();
+	  		}
+	
+	this.startDateShow = startDateShow;
+}
+
+
+
+public String getEndDateShow() {
+	
+	if(this.endDate!=null){
+  		return Constant.dateFormater.format(this.endDate);
+  	}
+  		else{
+  		return "";
+  		}
+	
+}
+
+
+
+public void setEndDateShow(String endDateShow) {
+	if(StringUtils.isEmpty(endDateShow))
+	  	this.endDate = null;
+	  	else
+	  		try {
+	  			this.endDate=Constant.dateFormater.parse(endDateShow);
+	  		} catch (ParseException e) {
+	  			// TODO Auto-generated catch block
+	  			e.printStackTrace();
+	  		}
+	
+	this.endDateShow = endDateShow;
+}
 }

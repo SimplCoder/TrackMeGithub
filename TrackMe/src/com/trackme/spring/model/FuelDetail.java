@@ -2,20 +2,65 @@ package com.trackme.spring.model;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+@Entity
+@Table(name="fueldetail")
 public class FuelDetail
 {
+  @Id
+  @Column(name="tranid")
   private int tranId;
+  
+  @Column(name="vehicleno")
   private String vehicleNo;
+  
+  @Column(name="drivername")
   private String driverName;
+  
+  @Column(name="filldate")
   private Date fillDate;
+  
+  @Column(name="location")
   private String location;
+  
+  @Column(name="stationname")
   private String stationName;
+  
+  @Column(name="currentodo")
   private int currentOdo;
+  
+  @Column(name="fuelperlitre")
   private int fuelPerLitre;
+  
+  @Column(name="fuelqty")
   private int fuelQty;
+  
+  @Column(name="billno")
   private String billNo;
   
-  public int getTranId()
+  @Transient
+  private float amount;
+  
+  @Transient
+  private float time;
+  
+ /** vinit suggesation fuelPerLitre should be float**/
+  public float getAmount() {
+	return (float) (this.fuelPerLitre*this.fuelQty);
+}
+
+
+public Float getTime() {
+	return time;
+}
+
+
+public int getTranId()
   {
     return this.tranId;
   }

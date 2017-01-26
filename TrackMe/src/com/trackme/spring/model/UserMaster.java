@@ -41,6 +41,7 @@ public class UserMaster
 
 @Column(name="modifiedDate")
   private Date modifiedDate;
+
 @Transient
 private String  createdDateShow;
 @Transient

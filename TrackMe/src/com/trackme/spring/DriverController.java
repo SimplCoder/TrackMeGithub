@@ -21,11 +21,11 @@ import com.trackme.spring.service.DriverMasterService;
 @Controller
 public class DriverController {
 
-private DriverMasterService driverMasterService;
+   private DriverMasterService driverMasterService;
 	
 	@Autowired(required=true)
 	@Qualifier(value="driverMasterService")
-	public void setVehicleMasterService(DriverMasterService ds){
+	public void setDriverMasterService(DriverMasterService ds){
 		this.driverMasterService = ds;
 	}
 	
