@@ -115,6 +115,10 @@
 <script>
   var vehicleGroupJSON = ${vehicleGroupJSON};
       $(document).ready(function () {
+    	  
+    	  $('#hdr_configuration').addClass("dropdown active");
+  		$('#hdr_configuration_link').click();
+  		$('#hdr_VehicleGroupView').addClass("active");
           $('#entrydata1').DataTable({
           	dom: 'Bfrtp',
           	data:vehicleGroupJSON,

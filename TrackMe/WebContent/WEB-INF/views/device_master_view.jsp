@@ -122,6 +122,11 @@
 <script>
   var driverMasterJSON = ${deviceMasterJSON};
       $(document).ready(function () {
+    	  $('#hdr_configuration').addClass("dropdown active");
+  		$('#hdr_configuration_link').click();
+  		$('#hdr_DeviceMasters').addClass("active");
+  		
+    	  
           $('#entrydata').DataTable({
           	dom: 'Bfrtp',
           	data:driverMasterJSON,

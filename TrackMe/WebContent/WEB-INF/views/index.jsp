@@ -187,6 +187,9 @@
 <script type="text/javascript" src="html/js/icheck.min.js"></script>
 <script>
 	$(document).ready(function () {
+		 $('#hdr_live').addClass("dropdown active");
+	  		
+		
         try{
 		$('#entrydata').DataTable({
 			dom: 'Bfrtp',

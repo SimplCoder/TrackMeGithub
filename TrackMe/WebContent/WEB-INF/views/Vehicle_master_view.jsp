@@ -32,7 +32,7 @@
 		   <div class="col-sm-6">
                 <div class="text-right">
                     <form>
-                        <a href="VehicleMasterEdit?id=new">
+                        <a href="VehicleMasterEdit?id=new" target="frame1">
                             <input name="button" type="button" class="btn btn-primary" id="button" style="width:145px" value="Add New Vehicle"></a>
                       </form>
                 </div>
@@ -105,6 +105,11 @@
 
 var vehicleJson = ${vehicleMastersJSON};
     $(document).ready(function () {
+    	
+		$('#hdr_configuration').addClass("dropdown active");
+		$('#hdr_configuration_link').click();
+		$('#hdr_vehicleMaster').addClass("active");
+		
         $('#entrydata').DataTable({
         	dom: 'Bfrtp',
         	data:vehicleJson,
@@ -168,8 +173,7 @@ var vehicleJson = ${vehicleMastersJSON};
    		 $( document ).ready(function() {
    			    
 
-
-   			    $(".buttons-html5").removeClass("dt-button");
+  			    $(".buttons-html5").removeClass("dt-button");
    			    $(".buttons-html5").html("");
    			    $(".buttons-pdf").addClass("fa-file-pdf-o");
    			    $(".buttons-excel").addClass("fa-file-excel-o");
