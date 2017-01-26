@@ -26,7 +26,7 @@ public class FuelController {
 	}
 	
 	@RequestMapping(value = "/ViewFuelDetails", method = RequestMethod.GET)
-	public String viewRouteDetails(Model model) {	
+	public String viewFuelDetails(Model model) {	
 		model.addAttribute("FuelDetail", new FuelDetail());
 	    List<FuelDetail> fuelDetails=this.fuelService.listFuelDetails();	
 		ObjectMapper objectMapper = new ObjectMapper();

@@ -110,6 +110,10 @@
 
 var fuelDetailsJSON = ${FuelDetailsJSON};
     $(document).ready(function () {
+    	
+    	 $('#hdr_settings').addClass("dropdown active");
+   		$('#hdr_settings_link').click();
+   		$('#hdr_fuel').addClass("active");
         $('#entrydata').DataTable({
         	dom: 'Bfrtp',
         	data:fuelDetailsJSON,

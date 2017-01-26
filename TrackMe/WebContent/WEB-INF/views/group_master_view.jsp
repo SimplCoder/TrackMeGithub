@@ -119,6 +119,9 @@
     	  $('#hdr_configuration').addClass("dropdown active");
   		$('#hdr_configuration_link').click();
   		$('#hdr_VehicleGroupView').addClass("active");
+  		$('#successMessage').fadeOut(5000);
+		$('#errorMessage').fadeOut(5000);
+		
           $('#entrydata1').DataTable({
           	dom: 'Bfrtp',
           	data:vehicleGroupJSON,

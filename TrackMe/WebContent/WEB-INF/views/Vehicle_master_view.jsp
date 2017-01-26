@@ -11,6 +11,9 @@
     <link href="html/css/css.css" rel="stylesheet" type="text/css" />
     <link href="html/css/bootstrap.min.css" rel="stylesheet">
 
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">    
+    <link href="html/css/messages.css" rel="stylesheet">
+    
     <link href="html/font-awesome/css/font-awesome.css" rel="stylesheet">
     <link href="html/css/plugins/iCheck/custom.css" rel="stylesheet">
     <link href="html/css/animate.css" rel="stylesheet">
@@ -18,12 +21,18 @@
     <link href="html/css/custom.css" rel="stylesheet">
     <link href="html/css/dataTables.bootstrap.min.css" rel="stylesheet">
     <link href="html/css/buttons.dataTables.min.css" rel="stylesheet">
+    
 </head>
 <body class="top-navigation" >
  <jsp:directive.include file="header.jsp" />
+ 
+
+
  <div id="wrapper">
     <div id="page-wrapper2" class="gray-bg">
-        <div class="rowx wrapper border-bottom white-bg page-heading">
+
+    
+        <div id="messagePrepender" class="rowx wrapper border-bottom white-bg page-heading">
             <div class="col-sm-6">
                 <h2>Vehicle View</h2>
               
@@ -106,9 +115,16 @@
 var vehicleJson = ${vehicleMastersJSON};
     $(document).ready(function () {
     	
+    	
+    	
 		$('#hdr_configuration').addClass("dropdown active");
 		$('#hdr_configuration_link').click();
 		$('#hdr_vehicleMaster').addClass("active");
+	//	$("#successMessage").prependTo("#messagePrepender");
+		$('#successMessage').fadeOut(5000);
+		$('#errorMessage').fadeOut(5000);
+		
+		    
 		
         $('#entrydata').DataTable({
         	dom: 'Bfrtp',

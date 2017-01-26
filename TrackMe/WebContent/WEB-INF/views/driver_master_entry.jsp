@@ -35,14 +35,22 @@
             <div class="wrapper wrapper-content  animated fadeInRight">
 
                 <div class="ibox-content">
-                    <h3 class="m-t-none m-b">Add New Driver Master Entry </h3>
+                    <h3 class="m-t-none m-b">Driver Master Entry </h3>
                     <div class="row">
                        <form:form action="AddOrUpdateDriverMastersRecord" commandName ="DriverMaster" >
 
                             <div class="rowx ">
                                 <div class="form-group col-sm-4">
                                     <label>Driver Id</label>
-                                    <form:input type="text"  path="id" id="driverNo" class="form-control" />
+                                    <c:if test="${DriverMaster.editFlag==true }">
+								<form:input type="text"  path="id" disabled="true" id="primaryKey" class="form-control" />
+                                    
+								<form:hidden path="editFlag" value="${DriverMaster.editFlag}"/>
+							</c:if>
+							<c:if test="${DriverMaster.editFlag==false }">
+								<form:input type="text"  path="id" id="primaryKey" class="form-control" />
+                            <form:hidden path="editFlag" value="${DriverMaster.editFlag}"/>
+							</c:if>
                                      
                                 </div>
                                 <div class="form-group col-sm-4">
@@ -98,7 +106,7 @@
                                 </div>
                             </div>
                             <div style="text-align: center">
-                                <input name="action" type="submit" class="btn  btn-primary" id="Submit1" value="Add Driver" />
+                                <input name="action" type="submit" class="btn  btn-primary" onclick=" return validate()" id="Submit1" value="Add Driver" />
                                 <input name="button3" type="button" class="btn btn-danger" id="button1" onclick="location.href = 'DriverMasters'" value="Exit" />
                             </div>
                         </form:form>
@@ -157,6 +165,12 @@
             checkboxClass: 'icheckbox_square-green',
             radioClass: 'iradio_square-green',
         });
+        
+        $('#errorMessage').fadeOut(5000);
+        function validate(){
+			$('#primaryKey').prop('disabled', false);
+			return true;
+		}
     </script>
 </body>
 </html>

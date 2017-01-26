@@ -1,8 +1,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+ 
+ 
 <!DOCTYPE html>
 <html>
+<style>
+
+    
+
+    </style>
 
 <!-- Mirrored from kalkisoft.com/adhata/html/new-vehicle.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 30 Dec 2016 18:17:01 GMT -->
 <head>
@@ -11,8 +18,7 @@
     <title>NST GPS</title>
     <link href="html/css/css.css" rel="stylesheet" type="text/css" />
     <link href="html/css/bootstrap.css" rel="stylesheet">
-
-    <link href="html/css/dataTables.bootstrap.min.css" rel="stylesheet">
+  	<link href="html/css/dataTables.bootstrap.min.css" rel="stylesheet">
     <link href="html/font-awesome/css/font-awesome.css" rel="stylesheet">
     <link href="html/css/plugins/iCheck/custom.css" rel="stylesheet">
     <link href="html/css/animate.css" rel="stylesheet">
@@ -31,17 +37,27 @@
         <h2>Vehicle Master Entry</h2>
       </div>
     </div>
+    
     <div class="wrapper wrapper-content  animated fadeInRight">
       <div class="ibox">
         <div class="ibox-content">
-          <h3 class="m-t-none m-b">Add Vehicle Entry</h3>
+          <h3 class="m-t-none m-b">Vehicle Entry</h3>
           <div class="row">
 			<form:form action="VehicleMasterSave" commandName ="VehicleMaster" >
 				<div class="col-sm-12 ">
 					<div class="row">
 						<div class="form-group col-sm-4">
 							<label>Vehicle No:</label>
-							<form:input path="vehicleNo" type="text" id="vehicleNo" class="form-control"></form:input>
+							
+							
+							<c:if test="${VehicleMaster.editFlag==true }">
+								<form:input path="vehicleNo" type="text" disabled="true" id="primaryKey" class="form-control"></form:input>
+								<form:hidden path="editFlag" value="${VehicleMaster.editFlag}"/>
+							</c:if>
+							<c:if test="${VehicleMaster.editFlag==false }">
+							<form:input path="vehicleNo" required="true" type="text" id="primaryKey" class="form-control"></form:input>
+							<form:hidden path="editFlag" value="${VehicleMaster.editFlag}"/>
+							</c:if>
 						</div>
 						<div class="form-group col-sm-4">
 							<label>Serial No:</label>
@@ -142,7 +158,7 @@
 						
 					</div>
 					<div class="form-group" style="text-align:center">
-						<input type="submit" class="btn  btn-primary" name="action" value="Save Vehicle">
+						<input type="submit" class="btn  btn-primary" onclick=" return validate()" name="action" value="Save Vehicle">
 						<input type="button" class="btn  btn-danger" id="Exit"  onClick="location.href='VehicleMasters'" value="Close" >
                     </div>
 				</div>
@@ -176,6 +192,9 @@
     <script type="text/javascript" src="html/js/icheck.min.js"></script>
     <!-- iCheck -->
     <script>
+    
+    
+    
         $('#Datepicker1').datepicker({
             autoclose: true
         });
@@ -188,6 +207,7 @@
 		$('#Datepicker4').datepicker({
             autoclose: true
         });
+		
         $(".timepicker").timepicker({
             showInputs: false
         });
@@ -195,7 +215,13 @@
                     checkboxClass: 'icheckbox_square-green',
                     radioClass: 'iradio_square-green',
                 });
+		$('#errorMessage').fadeOut(5000);
+		function validate(){
+			$('#primaryKey').prop('disabled', false);
+			return true;
+		}
     </script>
+
 </body>
 
 <!-- Mirrored from kalkisoft.com/adhata/html/new-vehicle.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 30 Dec 2016 18:17:01 GMT -->

@@ -17,7 +17,7 @@ import com.trackme.spring.model.UserMaster;
 import com.trackme.spring.service.UserMasterService;
 
 @Controller
-public class UserServiceController {
+public class UserServiceController extends BaseController {
 	
 	private UserMasterService UserMasterService;
 	
@@ -48,25 +48,41 @@ public class UserServiceController {
 	 
 	//For add and update UserMaster both
 	@RequestMapping(value= "/UserMasterSave", method = RequestMethod.POST)
-	public String addUserMaster(@ModelAttribute("UserMaster") UserMaster p){
+	public String addUserMaster(@ModelAttribute("UserMaster") UserMaster p, Model model){
 		
 		if(UserMasterService.getUserMasterById(p.getUserName()) ==null){
 			//new UserMaster, add it
 			this.UserMasterService.addUserMaster(p);
+			addSuccessMessage("User details added successfully.");
+			
 		}else{
 			//existing UserMaster, call update
+			if(p.isEditFlag()){
+				
 			this.UserMasterService.updateUserMaster(p);
+			addSuccessMessage("User details updated successfully.");
+			}else{
+				addErrorMessage("User name already exists. Please enter unique value.");
+				addSuccessOrErrorMessageToModel(model);
+				model.addAttribute("UserMaster", p);
+				   return "User_master_entry";
+			}
 		}
-		
-		return "redirect:/UserMasters";
+
+		addSuccessOrErrorMessageToModel(model);
+		return listUserMasters(model);
 		
 	}
 	
 	@RequestMapping("/UserMasterRemove")
-    public String removeUserMaster(@RequestParam("id") String id){
+    public String removeUserMaster(@RequestParam("id") String id,Model model){
 		
         this.UserMasterService.removeUserMaster(id);
-        return "redirect:/UserMasters";
+        addSuccessMessage("Vehicle details removed successfully.");
+        addSuccessOrErrorMessageToModel(model);
+		
+        return listUserMasters(model);
+
     }
   
     @RequestMapping("/UserMasterEdit")
@@ -74,8 +90,12 @@ public class UserServiceController {
     	if(id.equals("new")){
     		model.addAttribute("UserMaster", new UserMaster());
     	}else{
-        model.addAttribute("UserMaster", this.UserMasterService.getUserMasterById(id));
-        }
+        
+    		UserMaster user= this.UserMasterService.getUserMasterById(id);
+    		user.setEditFlag(true);
+    		model.addAttribute("UserMaster",user );
+        
+    	}
         model.addAttribute("listUserMasters", this.UserMasterService.listUserMasters());
         return "User_master_entry";
     }

@@ -21,7 +21,7 @@ import com.trackme.spring.service.DriverMasterService;
 
 
 @Controller
-public class DeviceController {
+public class DeviceController extends BaseController{
 
 private DeviceMasterService deviceMasterService;
 	
@@ -55,30 +55,46 @@ private DeviceMasterService deviceMasterService;
 	
 	@RequestMapping(value = "/EditDeviceMastersView", method = RequestMethod.GET)
 	public String editDriverMasterMasters(Model model,@RequestParam("id") String id) {	
-		    model.addAttribute("DeviceMaster", this.deviceMasterService.getDeviceMasterById(id));
+		DeviceMaster deviceMaster=this.deviceMasterService.getDeviceMasterById(id);
+		deviceMaster.setEditFlag(true);
+		model.addAttribute("DeviceMaster", deviceMaster);
 		return "device_master_entry";
 	}
 	
 	//For add and update VehicleMaster both
 	@RequestMapping(value= "/AddOrUpdateDeviceMastersRecord", method = RequestMethod.POST)
-	public String addDeviceMaster(@ModelAttribute("DeviceMaster") DeviceMaster deviceMaster){		
+	public String addDeviceMaster(@ModelAttribute("DeviceMaster") DeviceMaster deviceMaster, Model model){		
 		//Add Driver
 		DeviceMaster deviceMasterExist=this.deviceMasterService.getDeviceMasterById(String.valueOf(deviceMaster.getDeviceNo()));
 		if(deviceMasterExist==null){
 		deviceMasterService.addDeviceMaster(deviceMaster);
-		} else{
-			deviceMasterService.updateDeviceMaster(deviceMasterExist);	
-		}
+		addSuccessMessage("Device details added successfully.");
 		
-		return "redirect:/DeviceMasters";
+		} else{
+			if(deviceMaster.isEditFlag()){
+			deviceMasterService.updateDeviceMaster(deviceMaster);	
+			addSuccessMessage("Device details updated successfully.");
+			}else{
+				addErrorMessage("Device Number already exists. Please enter unique value.");
+				addSuccessOrErrorMessageToModel(model);
+				model.addAttribute("DeviceMaster", deviceMaster);
+				   return "device_master_entry";
+			}
+		}
+		addSuccessOrErrorMessageToModel(model);
+		return listDriverMasters(model);
 		
 	}
 	
 	@RequestMapping("/RemoveDeviceMastersRecord")
-    public String removeDeviceMaster(@RequestParam("id") String deviceNo){
+    public String removeDeviceMaster(@RequestParam("id") String deviceNo, Model model){
 		
 		deviceMasterService.removeDeviceMaster(deviceNo);
-        return "redirect:/DeviceMasters";
+	     addSuccessMessage("Device details removed successfully.");
+	        addSuccessOrErrorMessageToModel(model);
+			
+	        return listDriverMasters(model);
+	    
     }
  
 

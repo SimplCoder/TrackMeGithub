@@ -547,6 +547,8 @@ private String serviceDateShow;
   String createdOnShow;
   @Transient
   String modifiedOnShow;
+  
+  
 
 public String getCreatedOnShow() {
 	if(this.createdDate!=null)
@@ -704,6 +706,17 @@ public void setModifiedOnShow(String modifiedOnShow) {
 		}
 	
 	this.modifiedOnShow = modifiedOnShow;
+}
+
+@Transient
+boolean editFlag;
+
+public boolean isEditFlag() {
+	return editFlag;
+}
+
+public void setEditFlag(boolean editFlag) {
+	this.editFlag = editFlag;
 }
   
 

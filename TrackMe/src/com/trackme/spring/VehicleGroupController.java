@@ -18,7 +18,7 @@ import com.trackme.spring.model.VehicleMaster;
 import com.trackme.spring.service.VehicleGroupService;
 
 @Controller
-public class VehicleGroupController {
+public class VehicleGroupController extends BaseController{
 	
 	private VehicleGroupService vehicleGroupService;
 	
@@ -29,7 +29,7 @@ public class VehicleGroupController {
 	}
 	
 	@RequestMapping(value = "/VehicleGroupView", method = RequestMethod.GET)
-	public String driverMasterMastersView(Model model) {	
+	public String vehicleGroupView(Model model) {	
 		model.addAttribute("VehicleGroup", new VehicleGroup());
 		 List<VehicleGroup> vehicleGroupList=	this.vehicleGroupService.listVehicleGroup();
 			
@@ -49,16 +49,29 @@ public class VehicleGroupController {
 	
 	    //For add and update VehicleMaster both
 		@RequestMapping(value= "/AddOrUpdateVehicleGroup", method = RequestMethod.POST)
-		public String addDriverMaster(@ModelAttribute("VehicleGroup") VehicleGroup vehicleGroup){		
+		public String addDriverMaster(@ModelAttribute("VehicleGroup") VehicleGroup vehicleGroup,Model model){		
 			//Add Driver
 			VehicleGroup vehicleGroupExist=this.vehicleGroupService.getVehicleGroupById(vehicleGroup.getId());
 			if(vehicleGroupExist==null){
 				vehicleGroupService.addVehicleGroup(vehicleGroup);
+				addSuccessMessage("Vehicle group details added successfully.");
+				
 			} else{
+				if(vehicleGroup.isEditFlag()){
+					
 				vehicleGroupService.updateVehicleGroup(vehicleGroup);
+				addSuccessMessage("Vehicle group details updated successfully.");
+				}else{
+					addErrorMessage("Vehicle group name already exists. Please enter unique value.");
+					addSuccessOrErrorMessageToModel(model);
+					model.addAttribute("VehicleGroup", vehicleGroup);
+					  }
+
 			}
+			addSuccessOrErrorMessageToModel(model);
 			
-			return "redirect:/VehicleGroupView";		
+			 return vehicleGroupView(model);
+						
 		}
 		
 		@RequestMapping("/RemoveVehicleGroupRecord")

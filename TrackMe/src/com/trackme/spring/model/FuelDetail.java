@@ -159,4 +159,16 @@ public int getTranId()
   {
     this.billNo = billNo;
   }
+  
+  @Transient
+  boolean editFlag;
+
+  public boolean isEditFlag() {
+  	return editFlag;
+  }
+
+  public void setEditFlag(boolean editFlag) {
+  	this.editFlag = editFlag;
+  }
+
 }

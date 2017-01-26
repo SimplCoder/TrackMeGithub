@@ -40,7 +40,16 @@
                             <div class="form-group col-sm-12">
                                 <div class="form-group col-sm-6">
                                     <label>User Name</label>
-                                    <form:input path="userName" type="text" id="username"  class="form-control editor-field"/>
+                                   	<c:if test="${UserMaster.editFlag==true }">
+							             <form:input path="userName" type="text" disabled="true" id="primaryKey"  class="form-control editor-field"/>
+                            			<form:hidden path="editFlag" value="${UserMaster.editFlag}"/>
+							</c:if>
+							<c:if test="${UserMaster.editFlag==false }">
+							<form:input path="userName" type="text"  id="primaryKey" class="form-control editor-field"/>
+                            			
+							<form:hidden path="editFlag" value="${UserMaster.editFlag}"/>
+							</c:if>
+							
                                 </div>
                             </div>
                             <div class="form-group col-sm-12">
@@ -56,7 +65,7 @@
                                 </div>
                             </div>
                             <div class="text-center">
-                                <input type="submit" name="action" id="button" class="btn btn-primary" value="Save User">
+                                <input type="submit" onclick=" return validate()" name="action" id="button" class="btn btn-primary" value="Save User">
                                 <input type="button" name="button3" id="button3" value="Exit" class="btn btn-danger" onclick="location.href = 'UserMasters'">
                            
                         </form:form>
@@ -81,6 +90,8 @@
                 checkboxClass: 'icheckbox_square-green',
                 radioClass: 'iradio_square-green',
             });
+            
+            $('#errorMessage').fadeOut(5000);
         });
     </script>
     <script>
@@ -100,6 +111,11 @@
             }
             return ok;
         }
+        
+		function validate(){
+			$('#primaryKey').prop('disabled', false);
+			return true;
+		}
 
     </script>
 </body>

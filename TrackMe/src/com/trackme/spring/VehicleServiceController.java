@@ -18,7 +18,7 @@ import com.trackme.spring.model.VehicleMaster;
 import com.trackme.spring.service.VehicleMasterService;
 
 @Controller
-public class VehicleServiceController {
+public class VehicleServiceController extends BaseController {
 	
 	private VehicleMasterService vehicleMasterService;
 	
@@ -49,25 +49,37 @@ public class VehicleServiceController {
 	 
 	//For add and update VehicleMaster both
 	@RequestMapping(value= "/VehicleMasterSave", method = RequestMethod.POST)
-	public String addVehicleMaster(@ModelAttribute("VehicleMaster") VehicleMaster p){
-		
+	public String addVehicleMaster(@ModelAttribute("VehicleMaster") VehicleMaster p, Model model){
 		if(vehicleMasterService.getVehicleMasterById(p.getVehicleNo()) ==null){
 			//new VehicleMaster, add it
 			this.vehicleMasterService.addVehicleMaster(p);
+			addSuccessMessage("Vehicle details added successfully.");
+			
 		}else{
 			//existing VehicleMaster, call update
+			if(p.isEditFlag()){
 			this.vehicleMasterService.updateVehicleMaster(p);
+			addSuccessMessage("Vehicle details updated successfully.");
+			}else{
+				addErrorMessage("Vehicle Number already exists. Please enter unique value.");
+				addSuccessOrErrorMessageToModel(model);
+				model.addAttribute("VehicleMaster", p);
+				   return "Vehicle_master_addNew";
+			}
 		}
-		
-		return "redirect:/VehicleMasters";
+		addSuccessOrErrorMessageToModel(model);
+		return listVehicleMasters(model);
 		
 	}
 	
 	@RequestMapping("/VehicleMasterRemove")
-    public String removeVehicleMaster(@RequestParam("id") String id){
+    public String removeVehicleMaster(@RequestParam("id") String id, Model model){
 		
         this.vehicleMasterService.removeVehicleMaster(id);
-        return "redirect:/VehicleMasters";
+        addSuccessMessage("Vehicle details removed successfully.");
+        addSuccessOrErrorMessageToModel(model);
+		
+        return listVehicleMasters(model);
     }
   
     @RequestMapping("/VehicleMasterEdit")
@@ -75,7 +87,9 @@ public class VehicleServiceController {
     	if(id.equals("new")){
     		model.addAttribute("VehicleMaster", new VehicleMaster());
     	}else{
-        model.addAttribute("VehicleMaster", this.vehicleMasterService.getVehicleMasterById(id));
+    		VehicleMaster vehicleMaster=vehicleMasterService.getVehicleMasterById(id);
+    		vehicleMaster.setEditFlag(true);
+        model.addAttribute("VehicleMaster",vehicleMaster );
         }
         model.addAttribute("listVehicleMasters", this.vehicleMasterService.listVehicleMasters());
         return "Vehicle_master_addNew";

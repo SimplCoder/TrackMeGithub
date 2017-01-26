@@ -166,5 +166,16 @@ public void setModifiedDateShow(String modifiedDateShow) {
 	this.modifiedDateShow = modifiedDateShow;
 }
   
+@Transient
+boolean editFlag;
+
+public boolean isEditFlag() {
+	return editFlag;
+}
+
+public void setEditFlag(boolean editFlag) {
+	this.editFlag = editFlag;
+}
+
   
 }

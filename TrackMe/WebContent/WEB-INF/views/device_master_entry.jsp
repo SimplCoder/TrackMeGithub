@@ -42,8 +42,17 @@
                             <div class="rowx ">
                                 <div class="form-group col-sm-4">
                                     <label>Device No</label>
-                                    <form:input type="text"  path="deviceNo" id="deviceNo" class="form-control" />
-                                     
+                                    <c:if test="${DeviceMaster.editFlag==true }">
+							
+                                    <form:input type="text"  path="deviceNo" disabled="true" id="primaryKey" class="form-control" />
+                                    	<form:hidden path="editFlag" value="${DeviceMaster.editFlag}"/>
+							</c:if>
+							<c:if test="${DeviceMaster.editFlag==false }">
+							 	  <form:input type="text"  path="deviceNo"  id="primaryKey" class="form-control" />
+                                  
+							 <form:hidden path="editFlag" value="${DeviceMaster.editFlag}"/>
+							</c:if>
+							 
                                 </div>
                                 <div class="form-group col-sm-4">
                                     <label>Device IMEI</label>
@@ -68,7 +77,7 @@
 
                             </div>
                             <div style="text-align: center">
-                                <input name="action" type="submit" class="btn  btn-primary" id="Submit1" value="Save Device" />
+                                <input name="action" type="submit" onclick=" return validate()" class="btn  btn-primary" id="Submit1" value="Save Device" />
                                 <input name="button3" type="button" class="btn btn-danger" id="button1" onclick="location.href = 'DeviceMasters'" value="Exit" />
                             </div>
                         </form:form>
@@ -127,6 +136,12 @@
             checkboxClass: 'icheckbox_square-green',
             radioClass: 'iradio_square-green',
         });
+        
+        $('#errorMessage').fadeOut(5000);
+		function validate(){
+			$('#primaryKey').prop('disabled', false);
+			return true;
+		}
     </script>
 </body>
 </html>

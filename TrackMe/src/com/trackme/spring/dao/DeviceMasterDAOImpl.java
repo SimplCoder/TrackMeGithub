@@ -37,6 +37,7 @@ public class DeviceMasterDAOImpl implements DeviceMasterDAO {
 	public void updateDeviceMaster(DeviceMaster deviceMaster) {
 		Session session = this.sessionFactory.getCurrentSession();
 		session.update(deviceMaster);
+		session.flush();
 		logger.info("deviceMaster updated successfully, deviceMaster Details="+deviceMaster);
 	}
 

@@ -1,5 +1,9 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <div  id="wrapper">
 	<div class="navbar-fixed-top">
+		
 		<div class="row">
 			<div class="col-xs-3 col-sm-3">
                     <a href="#" class="logo-img">
@@ -30,15 +34,15 @@
 						</ul>
 					  </li>
 					  <li> <a aria-expanded="false" role="button" href="html/reports.html">Reports</a> </li>
-					  <li class="dropdown"> <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" >Settings<span class="caret"></span></a>
+					  <li id="hdr_settings" class="dropdown"> <a aria-expanded="false" id="hdr_settings_link" role="button" href="#" class="dropdown-toggle" >Settings<span class="caret"></span></a>
 						<ul role="menu" class="dropdown-menu">
 						  <li ><a href="html/driver_scheduling_view.html"> <i class="fa fa-sitemap"></i> Driver Scheduling </a></li>
 						  <li ><a href="html/vehicle_service_master_view.html"> <i class="fa fa-car"></i> Vehicle Service </a></li>
 						  <li><a href="#"> <i class="fa fa-tencent-weibo"></i> Geofency</a></li>
-						  <li ><a href="ViewFuelDetails"> <i class="fa fa-tint"></i> Fuel </a></li>
+						  <li id="hdr_fuel"><a href="ViewFuelDetails"> <i class="fa fa-tint"></i> Fuel </a></li>
 						  <li><a href="html/location_master_entry.html"> <i class="fa fa-map-marker"></i> Location Entry </a></li>
-						  <li ><a href="ViewRouteDetails"> <i class="fa fa-road"></i> Route </a></li>
-						  <li><a href="ViewRouteScheduleDetails"> <i class="fa fa-line-chart"></i> Route Scheduling </a></li>
+						  <li id="hdr_route"><a href="ViewRouteDetails"> <i class="fa fa-road"></i> Route </a></li>
+						  <li id="hdr_routeScheduling"><a href="ViewRouteScheduleDetails"> <i class="fa fa-line-chart"></i> Route Scheduling </a></li>
 						</ul>
 					  </li>
 					  <li id="hdr_configuration" class="dropdown"> <a aria-expanded="false" id="hdr_configuration_link" role="button" href="#" class="dropdown-toggle" >Configuration<span class="caret"></span></a>
@@ -70,5 +74,24 @@
 				</nav>
                 </div>
             </div>
+
+		<c:if test="${showSuccessMessage!=null && showSuccessMessage==true }">
+		  <div style="position: relative; left: 340px; top: -100px; width:50%;  height: 10% ; "   align="center" class="alert alert-success alert-dismissable" id="successMessage">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+    <strong>${successMessage}</strong>
+  </div>
+		
+			
+		</c:if>
+		<c:if test="${showErrorMessage!=null && showErrorMessage==true}">
+		
+				  <div style="position: relative; left: 340px; top: -100px; width:50%;  height: 5% ; "   align="center" class="alert alert-danger alert-dismissable" id="errorMessage">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+    <strong>${errorMessage}</strong>
+		</div>
+			</c:if>
+		
+
 	</div>
 	</div>
+	

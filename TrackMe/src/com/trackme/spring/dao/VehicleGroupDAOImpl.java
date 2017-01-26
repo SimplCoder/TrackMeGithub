@@ -53,7 +53,7 @@ public class VehicleGroupDAOImpl implements VehicleGroupDAO {
 		VehicleGroup vehicleGroup=null;
 		Session session = this.sessionFactory.getCurrentSession();		
 		try{
-		Query query=session.createQuery("Select o from VehicleGroup o where o.id="+vehicleGroupId);	
+		Query query=session.createQuery("Select o from VehicleGroup o where o.id='"+vehicleGroupId+"'");	
 		vehicleGroup = (VehicleGroup)query.list().get(0);
 		}
 		catch(Exception e){

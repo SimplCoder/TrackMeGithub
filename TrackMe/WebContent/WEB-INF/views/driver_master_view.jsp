@@ -122,6 +122,9 @@
     	  $('#hdr_configuration').addClass("dropdown active");
     		$('#hdr_configuration_link').click();
     		$('#hdr_DriverMasters').addClass("active");
+    		$('#successMessage').fadeOut(5000);
+    		$('#errorMessage').fadeOut(5000);
+
           $('#entrydata').DataTable({
           	dom: 'Bfrtp',
           	data:driverMasterJSON,

@@ -119,6 +119,11 @@
 
 var routeJSON = ${RouteJSON};
     $(document).ready(function () {
+
+   	 $('#hdr_settings').addClass("dropdown active");
+  		$('#hdr_settings_link').click();
+  		$('#hdr_route').addClass("active");
+    	
         $('#entrydata').DataTable({
         	dom: 'Bfrtp',
         	data:routeJSON,

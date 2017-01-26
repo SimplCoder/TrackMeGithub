@@ -240,4 +240,15 @@ public void setFormatedModifiedDate(String formatedModifiedDate) {
 	this.formatedModifiedDate = formatedModifiedDate;
 }
   
+@Transient
+boolean editFlag;
+
+public boolean isEditFlag() {
+	return editFlag;
+}
+
+public void setEditFlag(boolean editFlag) {
+	this.editFlag = editFlag;
+}
+
 }

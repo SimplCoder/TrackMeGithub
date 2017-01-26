@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name="vehiclegroup")
@@ -49,4 +50,16 @@ public class VehicleGroup
   {
     this.createdDate = createdDate;
   }
+  
+  @Transient
+  boolean editFlag;
+
+  public boolean isEditFlag() {
+  	return editFlag;
+  }
+
+  public void setEditFlag(boolean editFlag) {
+  	this.editFlag = editFlag;
+  }
+
 }

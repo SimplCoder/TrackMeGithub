@@ -19,7 +19,7 @@ import com.trackme.spring.service.DriverMasterService;
 
 
 @Controller
-public class DriverController {
+public class DriverController extends BaseController {
 
    private DriverMasterService driverMasterService;
 	
@@ -53,31 +53,51 @@ public class DriverController {
 	
 	@RequestMapping(value = "/EditDriverMastersView", method = RequestMethod.GET)
 	public String editDriverMasterMasters(Model model,@RequestParam("id") String id) {	
-		    model.addAttribute("DriverMaster", this.driverMasterService.getDriverMasterById(id));
+		DriverMaster driver=this.driverMasterService.getDriverMasterById(id); 
+		driver.setEditFlag(true);
+		model.addAttribute("DriverMaster",driver );
 		return "driver_master_entry";
 	}
 	
 	//For add and update VehicleMaster both
 	@RequestMapping(value= "/AddOrUpdateDriverMastersRecord", method = RequestMethod.POST)
-	public String addDriverMaster(@ModelAttribute("DriverMasters") DriverMaster driverMaster){		
+	public String addDriverMaster(@ModelAttribute("DriverMasters") DriverMaster driverMaster, Model model){		
 		//Add Driver
 		DriverMaster driverMasterExist=this.driverMasterService.getDriverMasterById(String.valueOf(driverMaster.getId()));
 		if(driverMasterExist==null){
 		driverMasterService.addDriverMaster(driverMaster);
-		} else{
-			driverMasterService.updateDriverMaster(driverMaster);	
-		}
+		addSuccessMessage("Driver details added successfully.");
 		
-		return "redirect:/DriverMasters";
+		} else{
+			if(driverMaster.isEditFlag()){
+			driverMasterService.updateDriverMaster(driverMaster);
+			addSuccessMessage("Driver details updated successfully.");
+			
+			}else{
+				addErrorMessage("Driver Number already exists. Please enter unique value.");
+				addSuccessOrErrorMessageToModel(model);
+				model.addAttribute("DriverMaster", driverMaster);
+				   return "driver_master_entry";
+
+				
+			}
+		}
+		addSuccessOrErrorMessageToModel(model);
+		return listDriverMasters(model);
+		
 		
 	}
 	
 	@RequestMapping("/RemoveDriverMastersRecord")
-    public String removeDriverMaster(@RequestParam("id") String driverId){
+    public String removeDriverMaster(@RequestParam("id") String driverId ,Model model){
 		
 		driverMasterService.removeDriverMaster(driverId);
-        return "redirect:/DriverMasters";
-    }
+		  addSuccessMessage("Driver details removed successfully.");
+	        addSuccessOrErrorMessageToModel(model);
+			
+	        return listDriverMasters(model);
+	    
+	}
  
 
 	
