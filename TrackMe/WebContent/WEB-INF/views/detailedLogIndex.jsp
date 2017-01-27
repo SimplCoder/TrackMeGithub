@@ -20,9 +20,9 @@
 <body class="top-navigation">
 <jsp:directive.include file="header.jsp" />
   <div id="page-wrapper2" class="gray-bg" style="top:128px !important">
-    <div class="rowx wrapper border-bottom white-bg page-heading">
+  <!--  Rohan Code Start 1 -->
+    <!--  <div class="rowx wrapper border-bottom white-bg page-heading">
       <div class="col-sm-12">
-      
         <div class="graphs">
           <div class="graph-in">
             <div class="graph-img">
@@ -40,25 +40,42 @@
             <div class="graph-img">
               <canvas id="doughnutChart3" height="100"></canvas>
             </div>
-            <div class="graph-txt">Moving/Idl</div>
+            <div class="graph-txt">Moving</div>
           </div>
-       <div class="graph-in">
+          <div class="graph-in">
             <div class="graph-img">
               <canvas id="doughnutChart4" height="100"></canvas>
             </div>
-            <div class="graph-txt">Alert</div>
+            <div class="graph-txt">Slow/ldl</div>
           </div>
           <div class="graph-in">
             <div class="graph-img">
               <canvas id="doughnutChart5" height="100"></canvas>
             </div>
-            <div class="graph-txt">Unit Count : <span id="vehcileCountShow"></span></div>
+            <div class="graph-txt">Over Speed</div>
+          </div>
+          <div class="graph-in">
+            <div class="graph-img">
+              <canvas id="doughnutChart6" height="100"></canvas>
+            </div>
+            <div class="graph-txt">Harsh Break</div>
+          </div>
+          <div class="graph-in">
+            <div class="graph-img">
+              <canvas id="doughnutChart7" height="100"></canvas>
+            </div>
+            <div class="graph-txt">Alert</div>
+          </div>
+          <div class="graph-in">
+            <div class="graph-img">
+              <canvas id="doughnutChart8" height="100"></canvas>
+            </div>
+            <div class="graph-txt">Unit Count : 4</div>
           </div>
         </div>
-      
-    
-	 </div>
-    </div>
+      </div>
+    </div> -->
+     <!--  Rohan Code End 1 -->
     <div class="row">
       <div class="col-lg-12">
         <div class="wrapper wrapper-content fadeInUp pad-bot-0">
@@ -76,12 +93,11 @@
                           <tr class="leftMenu">
                                                     	 <th width="3%" align="center" valign="middle"></th>
 				
-                                                    <th width="15%" align="center" valign="middle">Vehicle No</th>
-                                                    <th width="7%" align="center" valign="middle">Status</th>
+                                                    <th width="15%" align="center" valign="middle">Date</th>
+                                                    <th width="7%" align="center" valign="middle">Event</th>
                                                     <th width="11%" align="center" valign="middle">Speed</th>
-                                                    <th width="10%" align="center" valign="middle">Movement</th>
-                                                    <th width="11%" align="center" valign="middle">Location</th>
-                                                    <th width="7%" align="center" valign="middle">Date/Time</th>
+                                                    <th width="10%" align="center" valign="middle">Location</th>
+                                      
 												
                                                 </tr>
                           </thead>
@@ -116,6 +132,7 @@
                   
 <!--Rohan code start 3 -->
     <script>
+        vehicleLocationJSON=${vehicleLatlngDetails}; 
    /*   function initMap() {
         var uluru = {lat: 18.5679, lng: 73.9143};
         var map = new google.maps.Map(document.getElementById('map'), {
@@ -129,26 +146,109 @@
           map: map
         });
       } */
+        var map,marker;
+        var startPos = [vehicleLocationJSON[0].latitude, vehicleLocationJSON[0].longitude];
+        var speed = 50; // km/h
+
+        var delay = 100; 
         
-        var MY_MAPTYPE_ID = 'custom_style';
-            
+        var MY_MAPTYPE_ID = 'custom_style';  
             function initialize() {
+          // var locations=jQuery.parseJSON(vehicleLocationJSON);
+           var routeLineCoordinates=[];
+           
+           for(index=0;index<vehicleLocationJSON.length; index++){
+               routeLineCoordinates.push(new google.maps.LatLng(vehicleLocationJSON[index].latitude,vehicleLocationJSON[index].longitude));
+           }
             
-             var point = new google.maps.LatLng(16.8524, 
-                                               74.5815);
+                
+           var point = new google.maps.LatLng(vehicleLocationJSON[0].latitude,vehicleLocationJSON[0].longitude);    //keep marker at center of map, need to change hard coding
+                                               
             var map_canvas = document.getElementById('map');
             var map_options = {
-            center: new google.maps.LatLng(16.8524, 74.5815),
+            center: new google.maps.LatLng(vehicleLocationJSON[0].latitude,vehicleLocationJSON[0].longitude),
             zoom: 10,
             mapTypeId: google.maps.MapTypeId.ROADMAP
-                              };   
-            map = new google.maps.Map(map_canvas, map_options)
+                              }   
+             map = new google.maps.Map(map_canvas, map_options)
 
-        /*     new google.maps.Marker({
+            marker= new google.maps.Marker({
               position: point,
               map: map
-           }); */
-                                  }
+           });
+                
+                 var routePath = new google.maps.Polyline({
+                map: map,
+                path: routeLineCoordinates,
+                strokeColor: "#0000FF",
+                strokeOpacity: 0.50,
+                strokeWeight: 2
+            });
+            
+                var coordsStr="[";
+                for(index=0;index<vehicleLocationJSON.length; index++){
+                   coordsStr=coordsStr+"["+vehicleLocationJSON[index].latitude+","+vehicleLocationJSON[index].longitude+"]";
+                    if(index!=vehicleLocationJSON.length-1){
+                      coordsStr=coordsStr+",";  
+                    }
+                }
+                coordsStr=coordsStr+"]";
+                var coordsJSONArr=jQuery.parseJSON(coordsStr);
+                google.maps.event.addListenerOnce(map, 'idle', function()
+                {
+                    animateMarker(marker, coordsJSONArr, speed);
+                }); 
+            }
+        
+        function animateMarker(marker, coords, km_h)
+        {
+            var target = 0;
+            var km_h = km_h || 50;
+         //  coords.push([startPos[0], startPos[1]]);
+
+            function goToPoint()
+            {
+                var lat = marker.position.lat();
+                var lng = marker.position.lng();
+                var step = (km_h * 1000 * delay) / 3600000; // in meters
+
+                var dest = new google.maps.LatLng(
+                coords[target][0], coords[target][1]);
+                //alert(coords[target][0]+" "+coords[target][1]);
+                
+                var distance =
+                google.maps.geometry.spherical.computeDistanceBetween(
+                dest, marker.position); // in meters
+
+                var numStep = distance / step;
+                var i = 0;
+                var deltaLat = (coords[target][0] - lat) / numStep;
+                var deltaLng = (coords[target][1] - lng) / numStep;
+
+                function moveMarker()
+                {
+                    lat += deltaLat;
+                    lng += deltaLng;
+                    i += step;
+
+                    if (i < distance)
+                    {
+                        marker.setPosition(new google.maps.LatLng(lat, lng));
+                        setTimeout(moveMarker, delay);
+                    }
+                    else
+                    {   marker.setPosition(dest);
+                        target++;
+                        if (target == coords.length){ target = 0; }
+
+                        setTimeout(goToPoint, delay);
+                    }
+                }
+                moveMarker();
+            }
+            goToPoint();
+        } 
+        
             //google.maps.event.addDomListener(window, 'load', initialize);
     </script>
 <!--Rohan code end 3 -->
@@ -181,8 +281,6 @@
 <script type="text/javascript" src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.html5.min.js"></script>
 <script type="text/javascript" src="html/js/icheck.min.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.colVis.min.js"></script>
-
 <script>
 	$(document).ready(function () {
 		 $('#hdr_live').addClass("dropdown active");
@@ -203,8 +301,8 @@
 		}); */
         //{"vehicleno":"","description":"Normal Direction","location":"Unnamed Road Bengaluru Karnataka 635103 India","datetime1":1464771657000,"speed":25}
         try{
-        allVehicleLocationJSON=${allVehicleLocation};
-        drawTable(allVehicleLocationJSON); 
+        vehicleLocationJSON=${vehicleLatlngDetails};
+        drawTable(vehicleLocationJSON); 
      
     /*$('input[type=radio][name=Vehicleno]').each(function () {
         var $this = $(this);
@@ -220,7 +318,7 @@
     });*/
             
 
-    $('#entrydata').on("change",'input[type=radio][name=Vehicleno]',function(){ //we have to register new event handler for dynamically loaded contents after AJAX
+  /*  $('#entrydata').on("change",'input[type=radio][name=Vehicleno]',function(){ //we have to register new event handler for dynamically loaded contents after AJAX
         if ($(this).prop('checked')) {
            var id = $(this).attr('id');
              $('#tempVehicleNo').val(id); //set to display same vehicle locaion whenever reload
@@ -241,7 +339,7 @@
                 }
             });
         }
-    });
+    }); */
     /*  $('input[type=radio][name=Vehicleno]').change(function() {
     
         if ($(this).prop('checked')) {
@@ -282,67 +380,49 @@
        setTimeout(update, 10000);  // function refers to itself
     });
     })(); */
-    var callback=true;//made true to not show any vehicle on map upon loading the page 
-    var table;        
+ //   var callback=true;//made true to not show any vehicle on map upon loading the page 
+ //   var table;        
+//{"vehicleno":"8585","latitude":"18.5119380950","description":"Health Check","location":"Ramchandra Mane Rd Sahakar Vrinda Society Ramkrishna Paramhans Nagar Kothrud Pune Maharashtra 411038 India","datetime1":1463626537000,"speed":0,"longitude":"73.8057861328"}
     function drawTable(jsonArr){
         //alert(jsonArr[0]);
       table= $('#entrydata').DataTable({
-			dom: '<"top"flB>rt<"bottom"p><"clear">',
-            //data:jsonArr,
-            ajax : {
+			dom: 'Bfrtp',
+            data:jsonArr,
+           /* ajax : {
         "url" : "getAllVehicleLatestLoc",
         "dataSrc" : function (json) {
            // alert(json.result);
             allVehicleAjaxArr=json.result;
             //alert(JSON.stringify(allVehicleAjaxArr));
             return json.result;
-        }},
+        }}, */
              columns:[
                     {data: "vehicleno",
                     	 "render": function ( data, type, full, meta ) {
-                             if($('#tempVehicleNo').val()!=""){
-                                 if(data==$('#tempVehicleNo').val()){
-                                     updateMarker(allVehicleAjaxArr,data);
-                                     return '<input type="radio" id="' + data + '" name="Vehicleno" class="singleRadio" value="true" checked="checked">';
-                                 }else{
-                                      return '<input type="radio" id="' + data + '" name="Vehicleno" class="singleRadio">';
-                                 }
-                             }else{
-                                updateMarker(allVehicleAjaxArr,data);
-                                if(!callback){
-                                    callback=true;
-                                }
-                                //return '<input type="radio" id="' + data + '" name="Vehicleno" class="singleRadio" value="true" checked="checked">';
-                                return '<input type="radio" id="' + data + '" name="Vehicleno" class="singleRadio">';
-                             }
+                                     return '<input type="checkbox" id="' + data + '" name="Vehicleno" value="'+data+'">';
+                                  
                             }
                     	 },
-                     {data: "vehicleno",
-                    	 "render": function ( data, type, full, meta ) {
-                    	      return '<a href="Vehicle_DetailedLogs?id='+data+'">'+data+'</a>';}
-                    	 },
+                     {data: "datetime1","render":function(data, type, full, meta){
+                          var tempDate = new Date(data);
+                            return  tempDate.getDate() +'/'+ (tempDate.getMonth() + 1) + '/' + tempDate.getFullYear() + " " + tempDate.getHours() + ":" + tempDate.getMinutes() + ":" + tempDate.getSeconds();
+
+                     }},
                      {data: "description"},
                      {data: "speed"},
-                     {data: "location"},
-                     {data: "location"},
-                     {data: "datetime1"}
+                     {data: "location"}
                     ],
             ordering:false,
-			 lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
 			buttons: [
-{
-    extend: 'colvis',
-    columns: ':gt(1)'
-},
+
 						'excelHtml5',
 						
 						'pdfHtml5'
-						
 					]
 		}); 
     }
     
-    function updateMarker(jsonArrMarker,vehicleId){
+    /*function updateMarker(jsonArrMarker,vehicleId){
      //   alert(jsonArrMarker+vehicleId);
         $.each(jsonArrMarker, function(key,value){
                 if(value.vehicleno==vehicleId){
@@ -352,7 +432,7 @@
                          center: new google.maps.LatLng(value.latitude, value.longitude),
                          zoom: 10,
                          mapTypeId: google.maps.MapTypeId.ROADMAP
-                                       } ;  
+                                       }   
                          map = new google.maps.Map(map_canvas, map_options) 
                     }
                     new google.maps.Marker({
@@ -366,7 +446,7 @@
             
     setInterval( function () {
         table.ajax.reload();
-        }, 5000000 );
+        }, 5000000 );*/
             
      // <!--Rohan code end 2 -->  
             
@@ -514,7 +594,274 @@ if(xmlHttpRequest.readyState == 4 && xmlHttpRequest.status == 200)
 
 <!-- ChartJS--> 
 <script src="html/js/Chart.min.js"></script> 
+<script>
+$(function () {    
+    var doughnutData = [
+        {
+            value: 100,
+            color: "#d9d9d9",
+            highlight: "#d9d9d9",
+            label: "Software"
+        },
+        {
+            value: 75,
+            color: "#ed5564",
+            highlight: "#ed5564",
+            label: "Laptop"
+        }
+    ];
 
+    var doughnutOptions = {
+        segmentShowStroke: true,
+        segmentStrokeColor: "#fff",
+        segmentStrokeWidth: 1,
+        percentageInnerCutout: 0,
+        animationSteps: 100,
+        animationEasing: "easeOutBounce",
+        animateRotate: true,
+        animateScale: false,
+        responsive: true,
+    };
+
+    var ctx = document.getElementById("doughnutChart").getContext("2d");
+    var myNewChart = new Chart(ctx).Doughnut(doughnutData, doughnutOptions);
+	
+	
+	
+	/* -------------------2222222-------------------------------- */
+	var doughnutData2 = [
+ 
+        {
+            value: 50,
+            color: "#d9d9d9",
+            highlight: "#d9d9d9",
+            label: "Software"
+        },
+        {
+            value: 150,
+            color: "#1cb295",
+            highlight: "#1cb295",
+            label: "Laptop"
+        }
+    ];
+
+    var doughnutOptions2 = {
+        segmentShowStroke: true,
+        segmentStrokeColor: "#fff",
+        segmentStrokeWidth: 1,
+        percentageInnerCutout: 0,
+        animationSteps: 100,
+        animationEasing: "easeOutBounce",
+        animateRotate: true,
+        animateScale: false,
+        responsive: true,
+    };
+
+    var ctx2 = document.getElementById("doughnutChart2").getContext("2d");
+    var myNewChart2 = new Chart(ctx2).Doughnut(doughnutData2, doughnutOptions2);
+	
+	
+	/* -------------------3333-------------------------------- */
+	var doughnutData3 = [
+ 
+        {
+            value: 100,
+            color: "#d9d9d9",
+            highlight: "#d9d9d9",
+            label: "Software"
+        },
+        {
+            value: 100,
+            color: "#ff9000",
+            highlight: "#ff9000",
+            label: "Laptop"
+        }
+    ];
+
+    var doughnutOptions3 = {
+        segmentShowStroke: true,
+        segmentStrokeColor: "#fff",
+        segmentStrokeWidth: 1,
+        percentageInnerCutout: 0,
+        animationSteps: 100,
+        animationEasing: "easeOutBounce",
+        animateRotate: true,
+        animateScale: false,
+        responsive: true,
+    };
+
+    var ctx3 = document.getElementById("doughnutChart3").getContext("2d");
+    var myNewChart3 = new Chart(ctx3).Doughnut(doughnutData3, doughnutOptions3);
+	
+	
+	
+	/* -------------------444-------------------------------- */
+	var doughnutData4 = [
+ 
+        {
+            value: 50,
+            color: "#d9d9d9",
+            highlight: "#d9d9d9",
+            label: "Software"
+        },
+        {
+            value: 25,
+            color: "#00aeff",
+            highlight: "#00aeff",
+            label: "Laptop"
+        }
+    ];
+
+    var doughnutOptions4 = {
+        segmentShowStroke: true,
+        segmentStrokeColor: "#fff",
+        segmentStrokeWidth: 1,
+        percentageInnerCutout: 0,
+        animationSteps: 100,
+        animationEasing: "easeOutBounce",
+        animateRotate: true,
+        animateScale: false,
+        responsive: true,
+    };
+
+    var ctx4 = document.getElementById("doughnutChart4").getContext("2d");
+    var myNewChart4 = new Chart(ctx4).Doughnut(doughnutData4, doughnutOptions4);
+	
+	
+	/* -------------------555-------------------------------- */
+	var doughnutData5 = [
+ 
+        {
+            value: 50,
+            color: "#d9d9d9",
+            highlight: "#d9d9d9",
+            label: "Software"
+        },
+        {
+            value: 35,
+            color: "#f8fb00",
+            highlight: "#f8fb00",
+            label: "Laptop"
+        }
+    ];
+
+    var doughnutOptions5 = {
+        segmentShowStroke: true,
+        segmentStrokeColor: "#fff",
+        segmentStrokeWidth: 1,
+        percentageInnerCutout: 0,
+        animationSteps: 100,
+        animationEasing: "easeOutBounce",
+        animateRotate: true,
+        animateScale: false,
+        responsive: true,
+    };
+
+    var ctx5 = document.getElementById("doughnutChart5").getContext("2d");
+    var myNewChart5 = new Chart(ctx5).Doughnut(doughnutData5, doughnutOptions5);
+	
+	/* -------------------666-------------------------------- */
+	var doughnutData6 = [
+ 
+        {
+            value: 150,
+            color: "#d9d9d9",
+            highlight: "#d9d9d9",
+            label: "Software"
+        },
+        {
+            value: 50,
+            color: "#ed5564",
+            highlight: "#ed5564",
+            label: "Laptop"
+        }
+    ];
+
+    var doughnutOptions6 = {
+        segmentShowStroke: true,
+        segmentStrokeColor: "#fff",
+        segmentStrokeWidth: 1,
+        percentageInnerCutout: 0,
+        animationSteps: 100,
+        animationEasing: "easeOutBounce",
+        animateRotate: true,
+        animateScale: false,
+        responsive: true,
+    };
+
+    var ctx6 = document.getElementById("doughnutChart6").getContext("2d");
+    var myNewChart6 = new Chart(ctx6).Doughnut(doughnutData6, doughnutOptions6);
+	
+	
+	/* -------------------777-------------------------------- */
+	var doughnutData7 = [
+ 
+        {
+            value: 50,
+            color: "#d9d9d9",
+            highlight: "#d9d9d9",
+            label: "Software"
+        },
+        {
+            value: 50,
+            color: "#ff9000",
+            highlight: "#ff9000",
+            label: "Laptop"
+        }
+    ];
+
+    var doughnutOptions7 = {
+        segmentShowStroke: true,
+        segmentStrokeColor: "#fff",
+        segmentStrokeWidth: 1,
+        percentageInnerCutout: 0,
+        animationSteps: 100,
+        animationEasing: "easeOutBounce",
+        animateRotate: true,
+        animateScale: false,
+        responsive: true,
+    };
+
+    var ctx7 = document.getElementById("doughnutChart7").getContext("2d");
+    var myNewChart7 = new Chart(ctx7).Doughnut(doughnutData7, doughnutOptions7);
+	
+	
+	/* -------------------888-------------------------------- */
+	var doughnutData8 = [
+ 
+        {
+            value: 150,
+            color: "#d9d9d9",
+            highlight: "#d9d9d9",
+            label: "Software"
+        },
+        {
+            value: 100,
+            color: "#005ffb",
+            highlight: "#005ffb",
+            label: "Laptop"
+        }
+    ];
+
+    var doughnutOptions8 = {
+        segmentShowStroke: true,
+        segmentStrokeColor: "#fff",
+        segmentStrokeWidth: 1,
+        percentageInnerCutout: 0,
+        animationSteps: 100,
+        animationEasing: "easeOutBounce",
+        animateRotate: true,
+        animateScale: false,
+        responsive: true,
+    };
+
+    var ctx8 = document.getElementById("doughnutChart8").getContext("2d");
+    var myNewChart8 = new Chart(ctx8).Doughnut(doughnutData8, doughnutOptions8);
+	
+	
+	
+});
+</script> 
 <script>
 	
 /* Thanks to CSS Tricks for pointing out this bit of jQuery
@@ -604,19 +951,17 @@ var currentTallest = 0,
 			
 		 
 		 $( document ).ready(function() {
-			   
+			    
+
+
 			    $(".buttons-html5").removeClass("dt-button");
 			    $(".buttons-html5").html("");
 			    $(".buttons-pdf").addClass("fa-file-pdf-o");
 			    $(".buttons-excel").addClass("fa-file-excel-o");
 			        $(".fa-file-pdf-o").addClass(".buttons-pdf");
 			            $(".fa-file-excel-o").addClass(".buttons-excel");
-			            
-			            
-					    $(".buttons-colvis").removeClass("dt-button");
-					    $(".buttons-colvis").addClass("fa fa-icon-columns");
-					    
-			           
+			        
+			    
 			$(".buttons-excel::before").css("font-size","23px !important");
 			$(".buttons-excel::before").css("padding-left","17px !important");
 
@@ -625,245 +970,14 @@ var currentTallest = 0,
 
 			$(".table-responsive").css("position","relative");
 
-		
+			$(".dt-buttons").css("position","absolute");
+			$(".dt-buttons").css("left","42%");
+			$(".dt-buttons").css("top","1px");
 			$(".input-sm").css("height","25px");
+
 			});
 	   </script>
 </body>
-
-
-
-<script>
-
-
-jQuery(document).ready(function($) {
-
-
-		searchViaAjax();
-
-});
-
-function searchViaAjax() {
-
-	var search = {}
-	search["username"] = "";
-	search["email"] = "";
-
-	$.ajax({
-		type : "POST",
-		contentType : "application/json",
-		url : "searchStatusCounts",
-		data : JSON.stringify(search),
-		dataType : 'json',
-		timeout : 100000,
-		success : function(data) {
-			console.log("SUCCESS: ", data);
-			display(data);
-		},
-		error : function(e) {
-			console.log("ERROR: ", e);
-			display(e);
-		},
-		done : function(e) {
-			console.log("DONE");
-		
-		}
-	});
-
-}
-
-
-function display(data) {
-
-	
-
-    var doughnutOptions = {
-    		
-        segmentShowStroke: true,
-        segmentStrokeColor: "#fff",
-        segmentStrokeWidth: 1,
-        percentageInnerCutout: 0,
-        animationSteps: 100,
-        animationEasing: "easeOutBounce",
-        animateRotate: true,
-        animateScale: false,
-        responsive: true,
-        onAnimationComplete: function()
-        {
-            this.showTooltip(this.segments, true);
-
-            //Show tooltips in bar chart (issue: multiple datasets doesnt work http://jsfiddle.net/5gyfykka/14/)
-            //this.showTooltip(this.datasets[0].bars, true);
-
-            //Show tooltips in line chart (issue: multiple datasets doesnt work http://jsfiddle.net/5gyfykka/14/)
-            //this.showTooltip(this.datasets[0].points, true);  
-        },
-
-        tooltipEvents: [],
-
-        showTooltips: true,
-        
-        // String - Tooltip background colour
-        tooltipFillColor: "rgba(0,0,0,0.4)",
-
-
-        // String - Tooltip label font declaration for the scale label
-        tooltipFontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
-
-        // Number - Tooltip label font size in pixels
-        tooltipFontSize: 12,
-
-        // String - Tooltip font weight style
-        tooltipFontStyle: "normal",
-
-        
-        // String - Tooltip title font colour
-	    tooltipTitleFontColor: "#fff",
-
-	    // Number - pixel width of padding around tooltip text
-	    tooltipYPadding: 2,
-
-	    // Number - pixel width of padding around tooltip text
-	    tooltipXPadding: 3,
-
-	    // Number - Size of the caret on the tooltip
-	    tooltipCaretSize: 4,
-
-	    // Number - Pixel radius of the tooltip border
-	    tooltipCornerRadius: 2,
-
-	    // Number - Pixel offset from point x to tooltip edge
-	    tooltipXOffset: 2,
-	    tooltipYOffset: 1
-       
-    };
- var totalVeh =parseInt(data.result["0"].totalVehicle-data.result["0"].ignitionOn);
- var igniOn= parseInt(data.result["0"].ignitionOn);
- var igniOff= parseInt(data.result["0"].ignitionOff);
-
-$("#vehcileCountShow").text(totalVeh); 
-    var doughnutData = [
-                        {
-                            value: totalVeh,
-                            labelFontSize : '2',
-                            color: "#d9d9d9",
-                            labelColor : 'blue'
-                            
-                        },
-                        {
-                            value: igniOff,
-                            color: "#ed5564",
-                            labelFontSize : '2',
-                            labelColor : 'blue'
-                            
-                        }
-                    ];
-
-    var ctx = document.getElementById("doughnutChart").getContext("2d");
-    var myNewChart = new Chart(ctx).Doughnut(doughnutData, doughnutOptions);
-	
-
-   
-	
-	/* -------------------2222222-------------------------------- */
-	var doughnutData2 = [
- 
-        {
-            value: totalVeh,
-            color: "#d9d9d9",
-            highlight: "#d9d9d9",
-            label: ""
-        },
-        {
-            value: igniOn,
-            color: "#1cb295",
-            highlight: "#1cb295",
-            label: ""
-        }
-    ];
-
-  
-    var ctx2 = document.getElementById("doughnutChart2").getContext("2d");
-    var myNewChart2 = new Chart(ctx2).Doughnut(doughnutData2, doughnutOptions);
-	
-    var movingNo= parseInt(data.result["0"].moving);
-    var idleNo= parseInt(data.result["0"].idle);
-  
-	/* -------------------3333-------------------------------- */
-	var doughnutData3 = [
- 
-        {
-            value: idleNo,
-            color: "#00aeff",
-            highlight: "#d9d9d9",
-            label: ""
-        },
-        {
-            value: movingNo,
-            color: "#ff9000",
-            highlight: "#ff9000",
-            label: ""
-        }
-    ];
-
-   
-    var ctx3 = document.getElementById("doughnutChart3").getContext("2d");
-    var myNewChart3 = new Chart(ctx3).Doughnut(doughnutData3, doughnutOptions);
-	
-	
-	
-	/* -------------------444-------------------------------- */
-	
-	  var alertNo= parseInt(data.result["0"].alert);
-  
-	var doughnutData4 = [
- 
-        {
-            value: totalVeh,
-            color: "#d9d9d9",
-            highlight: "#d9d9d9",
-            label: ""
-        },
-        {
-            value: alertNo,
-            color: "#ed5564",
-            highlight: "#00aeff",
-            label: ""
-        }
-    ];
-	  
-    var ctx4 = document.getElementById("doughnutChart4").getContext("2d");
-    var myNewChart4 = new Chart(ctx4).Doughnut(doughnutData4, doughnutOptions);
-	
-	
-	/* -------------------555-------------------------------- */
-	var doughnutData5 = [
- 
-        {
-            value: totalVeh,
-            color: "#d9d9d9",
-            highlight: "#d9d9d9",
-            label: ""
-        }
-    ];
-
-  
-
-    var ctx5 = document.getElementById("doughnutChart5").getContext("2d");
-    var myNewChart5 = new Chart(ctx5).Doughnut(doughnutData5, doughnutOptions);
-
-	
-	
-	
-	
-	
-}
-
-
-</script>
-
-
-
 
 <!-- Mirrored from kalkisoft.com/adhata/html/ by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 30 Dec 2016 18:15:42 GMT -->
 </html>

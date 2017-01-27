@@ -18,6 +18,7 @@ import com.trackme.spring.model.AjaxResponseBody;
 import com.trackme.spring.model.SearchCriteria;
 import com.trackme.spring.model.StatusCount;
 import com.trackme.spring.service.GsmMasterService;
+import com.trackme.spring.service.MapLatlngService;
 import com.trackme.spring.service.VehicleMasterService;
 
 @RestController
@@ -32,6 +33,8 @@ public class AjaxController {
 	@Qualifier(value="vehicleMasterService")
 	private VehicleMasterService vehicleMasterService;
 	
+	@Autowired
+	private MapLatlngService mapLatlngService;
 	
 	
 	// @ResponseBody, not necessary, since class is annotated with @RestController
@@ -69,6 +72,24 @@ public class AjaxController {
 		return result;
 
 	}
-
-
+	
+	@JsonView(Views.Public.class)
+	@RequestMapping(value = "/getAllVehicleLatestLoc", produces="application/json")
+	public AjaxResponseBody getAllVehicleLatestLocAjax(){
+		AjaxResponseBody result= new AjaxResponseBody();
+		List allVehicleLocationList=mapLatlngService.getAllVehicleLocation();
+		if(allVehicleLocationList!=null ||!allVehicleLocationList.isEmpty()){
+			result.setCode("200");
+			result.setMsg("success");
+			result.setResult(allVehicleLocationList);
+		}else{
+			result.setCode("204");
+			result.setMsg("No records!");
 		}
+		return result;
+	}
+	
+	
+
+
+}
