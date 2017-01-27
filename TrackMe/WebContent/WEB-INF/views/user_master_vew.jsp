@@ -87,6 +87,8 @@
     <script type="text/javascript" src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.html5.min.js"></script>
     <script type="text/javascript" src="html/js/icheck.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.colVis.min.js"></script>
+    
     <script type="text/javascript">
     var userJson = ${UserMastersJSON};
     
@@ -99,7 +101,7 @@
     		$('#errorMessage').fadeOut(5000);
     		
             $('#entrydata').DataTable({
-            	dom: 'Bfrtp',
+            	dom: '<"top"lBf>rt<"bottom"p><"clear">',
             	data:userJson,
                 columns:[
                          {data: "userName",
@@ -119,11 +121,22 @@
                          {data: "modifiedDateShow"},
                                               ],
     			ordering:false,
-                buttons: [
-                          
-                            'excelHtml5',
-                            'pdfHtml5'
-                ]
+    			 lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+ 				buttons: [
+ 	{
+ 	    extend: 'colvis',
+ 	   text :'',
+ 	    columns: ':gt(2)'
+ 	},
+
+ 	{
+ 	    extend: 'excelHtml5',
+ 	    text :''
+ 	 },{
+ 		    extend:'pdfHtml5',
+ 		    text :''
+ 		 }
+ 	]
             });
             if ($("input[type='search']").length > 0) {
                 $("input[type='search']").addClass("form-control");
@@ -141,43 +154,36 @@
         
     </script>
 </body>
+<style>
 
+button.dt-button, div.dt-button, a.dt-button {
+    position: relative;
+    display: inline-block;
+    box-sizing: border-box;
+    margin-right: 0.333em;
+    padding: 0.5em 0em;
+    border: 0px solid #999;
+    border-radius: 2px;
+    cursor: pointer;
+    font-size: 0.88em;
+    color: black;
+    white-space: nowrap;
+    overflow: hidden;
+    background-color: rgba(233, 233, 233, 0);
+    background-image: -webkit-linear-gradient(top, #fff 0%, #e9e9e9 100%);
+    background-image: -moz-linear-gradient(top, #fff 0%, #e9e9e9 100%);
+    background-image: -ms-linear-gradient(top, #fff 0%, #e9e9e9 100%);
+    background-image: -o-linear-gradient(top, #fff 0%, #e9e9e9 100%);
+    background-image: linear-gradient(to bottom, #fff 0%, rgba(233, 233, 233, 0) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='white', EndColorStr='#e9e9e9');
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    text-decoration: none;
+    outline: none;
+}
+
+</style>
 <!-- Mirrored from kalkisoft.com/adhata/html/user.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 30 Dec 2016 18:16:58 GMT -->
 </html>
-<script>
-            $(document).ready(function () {
-			
-			$(".dt-buttons").addClass("pull-right");
-					$("#entrydata_filter").addClass("pull-left");
-                
-            });
-            
-            
-            $( document ).ready(function() {
-                
-            	try{
-
-            	    $(".buttons-html5").removeClass("dt-button");
-            	    $(".buttons-html5").html("");
-            	    $(".buttons-pdf").addClass("fa-file-pdf-o");
-            	    $(".buttons-excel").addClass("fa-file-excel-o");
-            	        $(".fa-file-pdf-o").addClass(".buttons-pdf");
-            	            $(".fa-file-excel-o").addClass(".buttons-excel");
-            	        
-            	    
-            	$(".buttons-excel::before").css("font-size","23px !important");
-            	$(".buttons-excel::before").css("padding-left","17px !important");
-
-            	$(".buttons-pdf::before").css("font-size","23px !important");
-            	$(".buttons-pdf::before").css("padding-left","10px !important");
-
-            	$(".table-responsive").css("position","relative");
-
-            	$(".dt-buttons").css("position","absolute");
-            	$(".dt-buttons").css("left","20%");
-            	$(".dt-buttons").css("top","1px");
-            	$(".input-sm").css("height","25px");
-            	}catch(err){}
-            	});
-
-        </script> 

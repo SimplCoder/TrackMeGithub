@@ -451,6 +451,13 @@ select{
 	padding-left:10px;
 	color:red;
 }
+.buttons-colvis:before{
+	font: normal normal normal 14px/1 FontAwesome;
+	content: "\f0db";
+	font-size:23px;
+	padding-left:10px;
+	color:grey;
+}
 
 .dt-button span{
 	padding-left: 5px;
