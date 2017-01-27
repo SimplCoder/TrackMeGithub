@@ -1,5 +1,6 @@
 package com.trackme.spring;
 
+import java.security.Principal;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
@@ -33,8 +34,10 @@ public class HomeController {
 	private MapLatlngService mapLatlngService;
 	
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
+	public String home(Locale locale, Model model,Principal principal) {
 		logger.info("Welcome home! The client locale is {}.", locale);
+		String name = principal.getName();
+		System.out.println("user"+name);
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG,
 				DateFormat.LONG, locale);
