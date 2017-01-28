@@ -51,7 +51,7 @@
           <div class="graph-in">
             <div class="graph-img"  style="font-size: 25px;"> Unit Count 
               <div class="graph-txt" style="font-size: 20px;" ><span id="vehcileCountShow"></span></div>
-          
+           
             </div>
           </div>
         </div>
@@ -68,10 +68,10 @@
                 <div class="row">
                   <div id="same-height" class="col-md-6 md-pad-left" style="padding-right:0;">
                    
-                    <div class="ibox-content pad-bot-0">
+                    <div id="gridtoggle" class="ibox-content pad-bot-0">
                       <div class="table-responsive">
                           <!--Rohan code start 1 -->	
-                        <table id="entrydata" class="table table-striped table-bordered new-tbl">
+                        <table id="entrydata"  class="table table-striped table-bordered new-tbl" style="width:100%">
                           <thead>
                           <tr class="leftMenu">
                                                     	 <th width="3%" align="center" valign="middle"></th>
@@ -92,7 +92,7 @@
                       </div>
                     </div>
                   </div>
-                  <div id="same-height2" class="col-md-6 md-pad-right" style="padding-left:0;">
+                  <div id="same-height2" class="col-md-6 md-pad-right"  style=" width:50%;height:80%;padding-left:0;">
                     <div class="ibox-title">
                       <div class="map-btns">
                         <ul class="subnav-right az-move-right">
@@ -101,16 +101,16 @@
                           <li class="map-vehicles"><a href="#" class="">&nbsp;</a> </li>
                           <li class="map-landmarks"><a href="#" >&nbsp;</a></li>
                           <li class="map-geofences"><a href="#">&nbsp;</a> </li>
-                          <li class="map-layout-toggle1"><a href="#" class="active">&nbsp;</a></li>
-                          <li class="map-layout-toggle2"><a href="#" class="">&nbsp;</a></li>
+                          <li class="map-layout-toggle1"><a class="map-layout-togglea1 active" href="javascript:void(0)" onclick ="reSize('side')"></a> </li>
+                          <li class="map-layout-toggle2"><a href="javascript:void(0)" class="map-layout-togglea2" onclick ="reSize('wide')"></a></li>
                           <li class="map-icon-medium"><a class="active" href="#" >&nbsp;</a></li>
                           <li class="map-icon-large"><a href="#" class="">&nbsp;</a></li>
                           <li class="map-fullscreen"><a href="#">&nbsp;</a></li>
                         </ul>
                       </div>
                     </div>
-                    <div class="ibox-content"> 
-                         <div id="map" style="width:100%;height:500px"></div>
+                    <div id="maptoggle" class="ibox-content"> 
+                         <div id="map" style="width:100%;height:400px"></div>
 
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCeQdAwrHm8Zap7jwX_gNRA3dhH-CxdCWQ&callback=initialize"></script>
                   
@@ -851,7 +851,71 @@ button.dt-button, div.dt-button, a.dt-button {
     outline: none;
 }
 
+#same-height2 {
+margin: 0;
+        padding: 0;
+        height: 100%;
+	width:50%;
+	height:80%;
+	position:absolute;
+	float:left;
+	right:0px;
+	z-index:100;
+	}
+	#same-height {
+	margin: 0;
+        padding: 0;
+        height: 100%;
+	background-color:white;
+	position:absolute;
+	width:50%;
+	float:left; 
+	
+    }
+
 </style>
+<script>
+function reSize(side) {
+	var oldside=map.getBounds().getNorthEast().lng()
+	if (side=="wide"){
+
+	document.getElementById("same-height2").style.width="100%"
+	document.getElementById("same-height2").style.height="50%"
+//gridtoggle
+	var sidetable  = document.getElementById('same-height');
+
+	sidetable.style.width = '100%'; 
+	sidetable.style.top = '58%';
+	sidetable.style.marginTop=null;
+	$('#same-height').css({marginTop: '520px'});
+	$(".map-layout-togglea1").removeClass("active");
+	$(".map-layout-togglea2").addClass("active");
+		} else {
+	document.getElementById("same-height2").style.width="50%"
+	document.getElementById("same-height2").style.height="100%"
+	var sidetable  = document.getElementById('same-height');
+	sidetable.style.width = null; 
+	sidetable.style.top = null; 
+	sidetable.style.width = '50%'; 
+	sidetable.style.marginTop=null;
+	$(".map-layout-togglea2").removeClass("active");
+	$(".map-layout-togglea1").addClass("active");
+	
+	
+
+
+	side="wide";
+		} 
+	google.maps.event.trigger(map,'resize');
+	var newside=map.getBounds().getNorthEast().lng()
+	var topan=oldside-newside;
+	map.setCenter(new google.maps.LatLng(map.getCenter().lat(),map.getCenter().lng()+topan));	
+	}
+
+
+
+</script>
+
 
 
 <!-- Mirrored from kalkisoft.com/adhata/html/ by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 30 Dec 2016 18:15:42 GMT -->
