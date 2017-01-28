@@ -15,7 +15,7 @@
 <link href="html/css/custom.css" rel="stylesheet">
 <link href="html/css/dataTables.bootstrap.min.css" rel="stylesheet">
 <link href="html/css/buttons.dataTables.min.css" rel="stylesheet">
-
+<link href="https://cdn.datatables.net/select/1.2.1/css/select.dataTables.min.css" rel="stylesheet">
 </head>
 <body class="top-navigation">
 <jsp:directive.include file="header.jsp" />
@@ -175,6 +175,8 @@
 
 <script type="text/javascript" src="html/js/dataTables.buttons.min.js"></script>
 <script type="text/javascript" src="html/js/buttons.flash.min.js"></script>
+<script type="text/javascript" src="html/js/markerwithlabel.js"></script>
+
 <script type="text/javascript" src="html/js/jspdf.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
 <script type="text/javascript" src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
@@ -182,7 +184,6 @@
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.html5.min.js"></script>
 <script type="text/javascript" src="html/js/icheck.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.colVis.min.js"></script>
-
 <script>
 	$(document).ready(function () {
 		 $('#hdr_live').addClass("dropdown active");
@@ -233,17 +234,16 @@
                      mapTypeId: google.maps.MapTypeId.ROADMAP
                                    }   
                      map = new google.maps.Map(map_canvas, map_options)
-                    new google.maps.Marker({
-                    position: new google.maps.LatLng(value.latitude, 
-                                              value.longitude),    
-                    map: map
-                    });
+                     setMarkers(map,new google.maps.LatLng(value.latitude, 
+                             value.longitude),id,value.location,value.datetime1);
                 }
             });
         }
     });
     /*  $('input[type=radio][name=Vehicleno]').change(function() {
-    
+    {data: "location"},
+                     {data: "location"},
+                     {data: "datetime1"}
         if ($(this).prop('checked')) {
            var id = $(this).attr('id');
              $('#tempVehicleNo').val(id); //set to display same vehicle locaion whenever reload
@@ -303,6 +303,7 @@
                              if($('#tempVehicleNo').val()!=""){
                                  if(data==$('#tempVehicleNo').val()){
                                      updateMarker(allVehicleAjaxArr,data);
+                                     
                                      return '<input type="radio" id="' + data + '" name="Vehicleno" class="singleRadio" value="true" checked="checked">';
                                  }else{
                                       return '<input type="radio" id="' + data + '" name="Vehicleno" class="singleRadio">';
@@ -343,12 +344,15 @@
 	    extend:'pdfHtml5',
 	    text :''
 	 }
-]
+],
+select: {
+    style: 'single'
+}
 		}); 
     }
     
     function updateMarker(jsonArrMarker,vehicleId){
-     //   alert(jsonArrMarker+vehicleId);
+  
         $.each(jsonArrMarker, function(key,value){
                 if(value.vehicleno==vehicleId){
                     if(!callback){
@@ -358,13 +362,12 @@
                          zoom: 10,
                          mapTypeId: google.maps.MapTypeId.ROADMAP
                                        } ;  
-                         map = new google.maps.Map(map_canvas, map_options) 
+                         map = new google.maps.Map(map_canvas, map_options);
+                         setMarkers(map,new google.maps.LatLng(value.latitude, 
+                                 value.longitude),vehicleId);
                     }
-                    new google.maps.Marker({
-                    position: new google.maps.LatLng(value.latitude, 
-                                              value.longitude),    
-                    map: map
-                    });
+                   
+                 
                 }
             });
     }
@@ -387,120 +390,72 @@
                 });
         }catch(err){}
         });
-        
-</script>
-<!--<script type="text/javascript">
-        // When the window has finished loading google map
-        google.maps.event.addDomListener(window, 'load', init);
-
-        function init() {
-            // Options for Google map
-            // More info see: https://developers.google.com/maps/documentation/javascript/reference#MapOptions
-            var mapOptions1 = {
-                zoom: 11,
-                center: new google.maps.LatLng(40.6700, -73.9400),
-                // Style for Google Maps
-                styles: [{"featureType":"water","stylers":[{"saturation":43},{"lightness":-11},{"hue":"#0088ff"}]},{"featureType":"road","elementType":"geometry.fill","stylers":[{"hue":"#ff0000"},{"saturation":-100},{"lightness":99}]},{"featureType":"road","elementType":"geometry.stroke","stylers":[{"color":"#808080"},{"lightness":54}]},{"featureType":"landscape.man_made","elementType":"geometry.fill","stylers":[{"color":"#ece2d9"}]},{"featureType":"poi.park","elementType":"geometry.fill","stylers":[{"color":"#ccdca1"}]},{"featureType":"road","elementType":"labels.text.fill","stylers":[{"color":"#767676"}]},{"featureType":"road","elementType":"labels.text.stroke","stylers":[{"color":"#ffffff"}]},{"featureType":"poi","stylers":[{"visibility":"off"}]},{"featureType":"landscape.natural","elementType":"geometry.fill","stylers":[{"visibility":"on"},{"color":"#b8cb93"}]},{"featureType":"poi.park","stylers":[{"visibility":"on"}]},{"featureType":"poi.sports_complex","stylers":[{"visibility":"on"}]},{"featureType":"poi.medical","stylers":[{"visibility":"on"}]},{"featureType":"poi.business","stylers":[{"visibility":"simplified"}]}]
-            };
-
-            var mapOptions2 = {
-                zoom: 11,
-                center: new google.maps.LatLng(40.6700, -73.9400),
-                // Style for Google Maps
-                styles: [{"featureType":"all","elementType":"all","stylers":[{"invert_lightness":true},{"saturation":10},{"lightness":30},{"gamma":0.5},{"hue":"#435158"}]}]
-            };
-
-            var mapOptions3 = {
-                center: new google.maps.LatLng(36.964645, -122.01523),
-                zoom: 18,
-                mapTypeId: google.maps.MapTypeId.SATELLITE,
-                // Style for Google Maps
-                styles: [{"featureType":"road","elementType":"geometry","stylers":[{"visibility":"off"}]},{"featureType":"poi","elementType":"geometry","stylers":[{"visibility":"off"}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#fffffa"}]},{"featureType":"water","stylers":[{"lightness":50}]},{"featureType":"road","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"transit","stylers":[{"visibility":"off"}]},{"featureType":"administrative","elementType":"geometry","stylers":[{"lightness":40}]}]
-            };
-
-            var mapOptions4 = {
-                zoom: 11,
-                center: new google.maps.LatLng(40.6700, -73.9400),
-                // Style for Google Maps
-                styles: [{"stylers":[{"hue":"#18a689"},{"visibility":"on"},{"invert_lightness":true},{"saturation":40},{"lightness":10}]}]
-            };
-
-            var fenway = new google.maps.LatLng(42.345573, -71.098326);
-            var mapOptions5 = {
-                zoom: 14,
-                center: fenway,
-                // Style for Google Maps
-                styles: [{featureType:"landscape",stylers:[{saturation:-100},{lightness:65},{visibility:"on"}]},{featureType:"poi",stylers:[{saturation:-100},{lightness:51},{visibility:"simplified"}]},{featureType:"road.highway",stylers:[{saturation:-100},{visibility:"simplified"}]},{featureType:"road.arterial",stylers:[{saturation:-100},{lightness:30},{visibility:"on"}]},{featureType:"road.local",stylers:[{saturation:-100},{lightness:40},{visibility:"on"}]},{featureType:"transit",stylers:[{saturation:-100},{visibility:"simplified"}]},{featureType:"administrative.province",stylers:[{visibility:"off"}]/**/},{featureType:"administrative.locality",stylers:[{visibility:"off"}]},{featureType:"administrative.neighborhood",stylers:[{visibility:"on"}]/**/},{featureType:"water",elementType:"labels",stylers:[{visibility:"on"},{lightness:-25},{saturation:-100}]},{featureType:"water",elementType:"geometry",stylers:[{hue:"#ffff00"},{lightness:-25},{saturation:-97}]}]
-            };
-
-            var panoramaOptions = {
-                position: fenway,
-                pov: {
-                    heading: 10,
-                    pitch: 10
-                }
-            };
-            var panorama = new google.maps.StreetViewPanorama(document.getElementById('pano'), panoramaOptions);
-
-            // Get all html elements for map
-            var mapElement1 = document.getElementById('map1');
-            var mapElement2 = document.getElementById('map2');
-            var mapElement3 = document.getElementById('map3');
-            var mapElement4 = document.getElementById('map4');
-
-            // Create the Google Map using elements
-            var map1 = new google.maps.Map(mapElement1, mapOptions1);
-            var map2 = new google.maps.Map(mapElement2, mapOptions2);
-            var map3 = new google.maps.Map(mapElement3, mapOptions3);
-            var map4 = new google.maps.Map(mapElement4, mapOptions4);
-        }
-
-var xmlHttpRequest = new XMLHttpRequest();
-window.onload = function(){ 
-	xmlHttpRequest.open("get", "/TrackMeWeb/TrackMeServlet?action=getLoginData", true);
-	xmlHttpRequest.onreadystatechange = addDataToPage;
-	xmlHttpRequest.send(null);
-} ;
-function addDataToPage()
-{
-if(xmlHttpRequest.readyState == 4 && xmlHttpRequest.status == 200)
-	{
-		var table = document.getElementById("entrydata");
-		var dom = (new DOMParser()).parseFromString(xmlHttpRequest.responseText, "text/xml");
-		var data = dom.getElementsByTagName("vehicle");
-
+     
 	
-		var i = 0;
-		while(i < data.length )
-		{
-			row = table.insertRow( i+2 );
-			row.className ="leftMenu";
-			cell = row.insertCell(0);
-			cell.innerHTML = data[i].childNodes[0].firstChild == null ? "" :data[i].childNodes[0].firstChild.nodeValue;
-			cell = row.insertCell(1);
-			cell.innerHTML = data[i].childNodes[1].firstChild == null ? "" :data[i].childNodes[1].firstChild.nodeValue;
-			cell = row.insertCell(2);
-			cell.innerHTML = data[i].childNodes[2].firstChild == null ? "" :data[i].childNodes[2].firstChild.nodeValue;
-			//cell = row.insertCell(3);
-			//cell.innerHTML = data[i].childNodes[3].firstChild == null ? "" :data[i].childNodes[3].firstChild.nodeValue;
-			//cell = row.insertCell(4);
-			//cell.innerHTML = data[i].childNodes[4].firstChild == null ? "" :data[i].childNodes[4].firstChild.nodeValue;
-			cell = row.insertCell(5);
-			cell.innerHTML = data[i].childNodes[5].firstChild == null ? "" :data[i].childNodes[5].firstChild.nodeValue;
-			cell = row.insertCell(6);
-			cell.innerHTML = data[i].childNodes[6].firstChild == null ? "" :data[i].childNodes[6].firstChild.nodeValue;
-			cell = row.insertCell(7);
-			cell.innerHTML = data[i].childNodes[7].firstChild == null ? "" :data[i].childNodes[7].firstChild.nodeValue;
-			cell = row.insertCell(8);
-			cell.innerHTML = data[i].childNodes[8].firstChild == null ? "" :data[i].childNodes[8].firstChild.nodeValue+" "+data[i].childNodes[9].firstChild.nodeValue;
-			//cell = row.insertCell(9);
-			//cell.innerHTML = data[i].childNodes[9].firstChild == null ? "" :data[i].childNodes[9].firstChild.nodeValue;
-			i++;
-		}
-	}
-
+	
+	function setMarkers(map,position,vehicleNo,location,datetime) {
+       
+        var hoverDiv= '<div style="display:none" class="markerTooltip" id="markerhover'+vehicleNo+'"><p>'+vehicleNo+'</p><p>'+location+'</p><p>'+datetime+'</p></div>';
+        // The final coordinate closes the poly by connecting to the first coordinate.
+       var image = {
+          url: 'html/images/Blank.gif',
+          // This marker is 20 pixels wide by 32 pixels high.
+          size: new google.maps.Size(50, 50),
+          // The origin for this image is (0, 0).
+          origin: new google.maps.Point(0, 0),
+          // The anchor for this image is the base of the flagpole at (0, 32).
+          anchor: new google.maps.Point(0, 32)
+        };
+        
+          var marker = new MarkerWithLabel({
+            position: position,
+            map: map,
+            icon: image,
+            labelStyle: {opacity: 0.75},
+            draggable: false,
+            raiseOnDrag: true,
+            labelContent: '<div onMouseOver="show(\'markerhover'+vehicleNo+'\')" onMouseOut="hide(\'markerhover'+vehicleNo+'\')">'+vehicleNo+''+hoverDiv+'</div>',
+              labelClass :"labels"
+          });
+        
+      }	
+	
+	
+	function show(id) {
+	    document.getElementById(id).style.display = "block";
+	    document.getElementById(id).style.zIndex = 10;
+	
+	  }
+	  function hide(id) {
+	    document.getElementById(id).style.display = "none";
+	  }
+</script>
+<style>
+.markerTooltip {
+color: #fff;
+    background-color: #d60002;
+    font-family: "Lucida Grande", "Arial", sans-serif;
+    
+    position: fixed;
+    z-index: 10000000009;
+    font-size: 11px;
+    text-align: left;
+    border-radius: 5px!important;
+    border: 2px solid black;
 }
-    </script> -->
+
+  .labels {
+    color: #fff;
+    background-color: #d60002;
+    font-family: "Lucida Grande", "Arial", sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    width: 70px;
+    border: 2px solid black;
+    white-space: nowrap;
+}
+</style>
 
 <script>
             $(document).ready(function () {
@@ -556,6 +511,8 @@ var currentTallest = 0,
    }
  });
 }
+
+
 
 
 	
