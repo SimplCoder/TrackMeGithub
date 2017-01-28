@@ -32,7 +32,7 @@ body {
 	margin: 0 auto;
 	margin-top: 100px;
 	margin-bottom: 200px;
-	max-width: 500px;
+	max-width: 400px;
 }
 	.login-form > section {
 		background: rgba(255,255,255,.9);
@@ -60,7 +60,7 @@ form[role=login] {
 	form[role=login] input {
 	
 	width: 100%;
-font-size: 100%;
+font-size: 20px;
 border: 0;
 padding: 0;
 background-color: transparent;
@@ -127,7 +127,7 @@ border-bottom: 1px solid #B2B3B4;
 	<section class="container login-form">
 		<section>
 			<form method="post" action="${loginUrl}" role="login">
-				<img src="html/images/logo.png" style="height:62px;" alt="" class="img-responsive" />
+				<img src="html/images/adhata.png" style="height:62px;" alt="" class="img-responsive" />
 					<label >Please login to track your vehicle	</label >
 			
 				<div class=" field">
@@ -137,14 +137,14 @@ border-bottom: 1px solid #B2B3B4;
 			
 				<div class=" field">
 					<input type="password" name="password" required 	 placeholder="Password	" />
-					<a style="padding-left:70%;" href="#">Trouble logging in?</a>
+					<a style="padding-left:60%;" href="#">Trouble logging in?</a>
 					
 					
 				</div>
 		
 				<button type="submit" name="go"  style="background-color:#2196F5" class="btn btn-primary btn-block">Login</button>
 				
-						<lbel style="padding-right:56px;margin-bottom: 20px;">By Logging in your agree to our <a href="#">T&C</a> and <a href="#">privacy policy</a></label>
+						<lbel style="padding-right:50px;margin-bottom: 20px;">By Logging in your agree to our <a href="#">T&C</a> and <a href="#">privacy policy</a></label>
 					
 			</form>
 		</section>
