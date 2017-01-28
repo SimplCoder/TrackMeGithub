@@ -112,7 +112,7 @@
                     <div id="maptoggle" class="ibox-content"> 
                          <div id="map" style="width:100%;height:400px"></div>
 
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCeQdAwrHm8Zap7jwX_gNRA3dhH-CxdCWQ&callback=initialize"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCeQdAwrHm8Zap7jwX_gNRA3dhH-CxdCWQ&callback=initialize"></script>
                   
 <!--Rohan code start 3 -->
     <script>
@@ -133,7 +133,7 @@
         var MY_MAPTYPE_ID = 'custom_style';
             
             function initialize() {
-            
+   
              var point = new google.maps.LatLng(16.8524, 
                                                74.5815);
             var map_canvas = document.getElementById('map');
@@ -149,6 +149,8 @@
               map: map
            }); */
                                   }
+            
+            initialize();
             //google.maps.event.addDomListener(window, 'load', initialize);
     </script>
 <!--Rohan code end 3 -->
@@ -185,6 +187,8 @@
 <script type="text/javascript" src="html/js/icheck.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.colVis.min.js"></script>
 <script>
+var table;
+var refreshOut;
 	$(document).ready(function () {
 		 $('#hdr_live').addClass("dropdown active");
 		
@@ -283,9 +287,9 @@
     });
     })(); */
     var callback=true;//made true to not show any vehicle on map upon loading the page 
-    var table;        
+            
     function drawTable(jsonArr){
-        //alert(jsonArr[0]);
+        
       table= $('#entrydata').DataTable({
 			dom: '<"top"flB>rt<"bottom"p><"clear">',
             //data:jsonArr,
@@ -351,6 +355,8 @@ select: {
 		}); 
     }
     
+    
+    
     function updateMarker(jsonArrMarker,vehicleId){
   
         $.each(jsonArrMarker, function(key,value){
@@ -372,9 +378,8 @@ select: {
             });
     }
             
-    setInterval( function () {
-        table.ajax.reload();
-        }, 5000000 );
+    
+    
             
      // <!--Rohan code end 2 -->  
             
@@ -398,7 +403,7 @@ select: {
         var hoverDiv= '<div style="display:none" class="markerTooltip" id="markerhover'+vehicleNo+'"><p>'+vehicleNo+'</p><p>'+location+'</p><p>'+datetime+'</p></div>';
         // The final coordinate closes the poly by connecting to the first coordinate.
        var image = {
-          url: 'html/images/Blank.gif',
+          url: 'html/images/vehiclemap.png',
           // This marker is 20 pixels wide by 32 pixels high.
           size: new google.maps.Size(50, 50),
           // The origin for this image is (0, 0).
@@ -601,6 +606,39 @@ function searchViaAjax() {
 
 }
 
+function searchViaAjaxVehicle() {
+
+	var search = {}
+	search["username"] = "";
+	search["email"] = "";
+
+	$.ajax({
+		type : "POST",
+		contentType : "application/json",
+		url : "getAllVehicleLatestLoc",
+		data : JSON.stringify(search),
+		dataType : 'json',
+		timeout : 100000,
+		success : function(data) {
+			console.log("SUCCESS: ", data);
+			createGridVehicle(data);
+		},
+		error : function(e) {
+			console.log("ERROR: ", e);
+			
+		},
+		done : function(e) {
+			console.log("DONE");
+		
+		}
+	});
+
+}
+
+function createGridVehicle(data){
+	var vehicleData= data.allVehicle;
+	console.log(vehicleData)
+}
 
 function display(data) {
 
@@ -871,8 +909,83 @@ function reSize(side) {
 
 
 
-</script>
 
+
+</script>
+<script>
+var refreshOut= setInterval( function () {
+	//table.ajax.reload(null,false);
+	table.ajax.reload();
+	searchViaAjax();
+}, 300000);
+
+
+var timeOutIterval=300000;
+$('.refreshC').change(function() {
+	if ($('#refreshCheck').is(':checked')) {
+	  var mutliply=1000;
+
+	 if($('#refreshUnit').val()==1){
+		 mutliply=1000*60;
+	 }
+	 if($('#refreshUnit').val()==2){
+		 mutliply=1000*60*60;
+	 }
+	 if($('#refreshValue').val()!='' && $('#refreshValue').val() >0){
+		 mutliply=mutliply*$('#refreshValue').val();
+		clearInterval(refreshOut);
+		refreshOut=  setInterval( function () {
+	    	//table.ajax.reload(null,false);
+	    	table.ajax.reload(null,false);
+	    	searchViaAjax();
+	    }, mutliply); 
+	 }else{
+		 clearInterval(refreshOut);
+	 }
+	 
+	 
+    } else {
+        
+    }
+
+});
+
+$('#refreshCheck').click(function () {
+
+    if ($('#refreshCheck').is(':checked')) {
+
+    	 var mutliply=1000;
+    	  
+      	 if($('#refreshUnit').val()==1){
+      		 mutliply=1000*60;
+      	 }
+      	 if($('#refreshUnit').val()==2){
+      		 mutliply=1000*60*60;
+      	 }
+      	 if($('#refreshValue').val()!='' && $('#refreshValue').val() >0){
+      		 mutliply=mutliply*$('#refreshValue').val();
+      		clearInterval(refreshOut);
+      		refreshOut=  setInterval( function () {
+      	    	//table.ajax.reload(null,false);
+      	    	table.ajax.reload(null,false);
+      	    	searchViaAjax();
+      	    }, mutliply);
+    	
+    } 
+    }
+    else {
+   	 clearInterval(refreshOut);
+   }
+});
+
+$('.fa-refresh').click(function() {
+	    	 table.ajax.reload(null,false);
+	    	searchViaAjax();
+  });
+
+
+
+</script>
 
 
 <!-- Mirrored from kalkisoft.com/adhata/html/ by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 30 Dec 2016 18:15:42 GMT -->

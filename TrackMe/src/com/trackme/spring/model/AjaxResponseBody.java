@@ -13,7 +13,11 @@ public class AjaxResponseBody {
 	String code;
 	@JsonView(Views.Public.class)
 	List<StatusCount> result;
-
+	
+	@JsonView(Views.Public.class)
+	String allVehicle;
+	
+	
 	public String getMsg() {
 		return msg;
 	}
@@ -39,10 +43,19 @@ public class AjaxResponseBody {
 	public void setResult(List<StatusCount> result) {
 		this.result = result;
 	}
+	
+
+	public String getAllVehicle() {
+		return allVehicle;
+	}
+
+	public void setAllVehicle(String allVehicle) {
+		this.allVehicle = allVehicle;
+	}
 
 	@Override
 	public String toString() {
-		return "AjaxResponseResult [msg=" + msg + ", code=" + code + ", result=" + result + "]";
+		return "AjaxResponseResult [msg=" + msg + ", code=" + code + ", allVehicle=" + allVehicle + ", result=" + result + "]";
 	}
 
 }

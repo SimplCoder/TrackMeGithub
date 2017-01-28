@@ -31,7 +31,7 @@ public class MapLatlngDAOImpl implements MapLatlngDAO {
 
 		StringBuffer strBuf = new StringBuffer();
 		strBuf.append(" select vm.vehicleno,  sd.description, gsm.speed, gsm.location, gsm.latitude, gsm.longitude, ");
-		strBuf.append(" gsm.datetimedate + gsm.datetime as datetime1  from vehiclemaster vm join gsmmaster gsm on vm.unitno= gsm.unitNo ");
+		strBuf.append(" to_char(gsm.datetimedate , 'YYYY-MM-DD') ||' '|| to_char(gsm.datetime, 'HH:MI PM') as datetime1  from vehiclemaster vm join gsmmaster gsm on vm.unitno= gsm.unitNo ");
 		strBuf.append(" inner join ");
 		strBuf.append(" (select gsm1.unitno , max(gsm1.datetimedate+gsm1.datetime) as lattime ");
 		strBuf.append(" from  gsmmaster gsm1 group by gsm1.unitno ) latest on ");
