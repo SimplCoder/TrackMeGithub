@@ -1,6 +1,10 @@
 package com.trackme.spring;
 
+import java.util.Date;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -13,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.trackme.constants.Constant;
+import com.trackme.spring.model.UserMaster;
 import com.trackme.spring.model.VehicleGroup;
 import com.trackme.spring.model.VehicleMaster;
 import com.trackme.spring.service.VehicleGroupService;
@@ -49,10 +55,14 @@ public class VehicleGroupController extends BaseController{
 	
 	    //For add and update VehicleMaster both
 		@RequestMapping(value= "/AddOrUpdateVehicleGroup", method = RequestMethod.POST)
-		public String addDriverMaster(@ModelAttribute("VehicleGroup") VehicleGroup vehicleGroup,Model model){		
+		public String addVehicleGroup(@ModelAttribute("VehicleGroup") VehicleGroup vehicleGroup,Model model, HttpServletRequest request, HttpServletResponse response){		
 			//Add Driver
 			VehicleGroup vehicleGroupExist=this.vehicleGroupService.getVehicleGroupById(vehicleGroup.getId());
 			if(vehicleGroupExist==null){
+				UserMaster currentUser=(UserMaster) request.getSession().getAttribute(Constant.CURRENT_USER);
+				vehicleGroupExist.setCreatedBy(currentUser.getUserName());
+				vehicleGroupExist.setCreatedDate(new Date());
+				
 				vehicleGroupService.addVehicleGroup(vehicleGroup);
 				addSuccessMessage("Vehicle group details added successfully.");
 				

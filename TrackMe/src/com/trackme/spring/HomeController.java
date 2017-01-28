@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +21,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.trackme.constants.Constant;
+import com.trackme.spring.model.UserMaster;
 import com.trackme.spring.service.MapLatlngService;
+import com.trackme.spring.service.UserMasterService;
 
 
 
@@ -33,11 +37,21 @@ public class HomeController {
 	@Autowired
 	private MapLatlngService mapLatlngService;
 	
+	@Autowired
+	UserMasterService userMasterService;
+	
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
-	public String home(Locale locale, Model model,Principal principal) {
+	public String home(Locale locale, Model model,Principal principal,HttpServletRequest request) {
 		logger.info("Welcome home! The client locale is {}.", locale);
-		String name = principal.getName();
-		System.out.println("user"+name);
+		if (principal != null) {
+			String userName = principal.getName();
+			HttpSession session = request.getSession();
+			UserMaster currentUser = (UserMaster) session.getAttribute(Constant.CURRENT_USER);
+			if (currentUser == null) {
+				currentUser = userMasterService.getUserMasterById(userName);
+				session.setAttribute(Constant.CURRENT_USER, currentUser);
+			}
+		}
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG,
 				DateFormat.LONG, locale);

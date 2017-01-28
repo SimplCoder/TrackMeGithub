@@ -129,7 +129,13 @@ private String  modifiedDateShow;
   }
 
 public String getCreatedDateShow() {
-	return createdDateShow;
+	if(this.createdDate!=null){
+		return Constant.dateFormater.format(this.createdDate);
+	}
+		else{
+		return "";
+		}
+	//return createdDateShow;
 }
 
 public void setCreatedDateShow(String createdDateShow) {
@@ -147,7 +153,14 @@ public void setCreatedDateShow(String createdDateShow) {
 }
 
 public String getModifiedDateShow() {
-	return modifiedDateShow;
+
+	if(this.modifiedDate!=null){
+		return Constant.dateFormater.format(this.modifiedDate);
+	}
+		else{
+		return "";
+		}
+	//return modifiedDateShow;
 }
 
 public void setModifiedDateShow(String modifiedDateShow) {

@@ -53,6 +53,8 @@
 							<c:if test="${VehicleMaster.editFlag==true }">
 								<form:input path="vehicleNo" type="text" disabled="true" id="primaryKey" class="form-control"></form:input>
 								<form:hidden path="editFlag" value="${VehicleMaster.editFlag}"/>
+								<form:hidden path="createdBy" value="${VehicleMaster.createdBy}"/>
+								<form:hidden path="createdOnShow" value="${VehicleMaster.createdOnShow}"/>
 							</c:if>
 							<c:if test="${VehicleMaster.editFlag==false }">
 							<form:input path="vehicleNo" required="true" type="text" id="primaryKey" class="form-control"></form:input>

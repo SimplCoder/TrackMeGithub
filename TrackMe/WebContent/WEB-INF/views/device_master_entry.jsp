@@ -46,6 +46,9 @@
 							
                                     <form:input type="text"  path="deviceNo" disabled="true" id="primaryKey" class="form-control" />
                                     	<form:hidden path="editFlag" value="${DeviceMaster.editFlag}"/>
+											<form:hidden path="createdBy" value="${DeviceMaster.createdBy}"/>
+								<form:hidden path="createdDateShow" value="${DeviceMaster.createdDateShow}"/>
+						
 							</c:if>
 							<c:if test="${DeviceMaster.editFlag==false }">
 							 	  <form:input type="text"  path="deviceNo"  id="primaryKey" class="form-control" />

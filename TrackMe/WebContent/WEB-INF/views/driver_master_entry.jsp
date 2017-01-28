@@ -44,7 +44,9 @@
                                     <label>Driver Id</label>
                                     <c:if test="${DriverMaster.editFlag==true }">
 								<form:input type="text"  path="id" disabled="true" id="primaryKey" class="form-control" />
-                                    
+                                  <form:hidden path="createdBy" value="${DriverMaster.createdBy}"/>
+								<form:hidden path="formatedCreatedDate" value="${DriverMaster.formatedCreatedDate}"/>
+						  
 								<form:hidden path="editFlag" value="${DriverMaster.editFlag}"/>
 							</c:if>
 							<c:if test="${DriverMaster.editFlag==false }">

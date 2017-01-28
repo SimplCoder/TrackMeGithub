@@ -1,6 +1,10 @@
 package com.trackme.spring;
 
+import java.util.Date;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -13,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.trackme.constants.Constant;
 import com.trackme.spring.model.UserMaster;
 import com.trackme.spring.service.UserMasterService;
 
@@ -48,16 +53,23 @@ public class UserServiceController extends BaseController {
 	 
 	//For add and update UserMaster both
 	@RequestMapping(value= "/UserMasterSave", method = RequestMethod.POST)
-	public String addUserMaster(@ModelAttribute("UserMaster") UserMaster p, Model model){
+	public String addUserMaster(@ModelAttribute("UserMaster") UserMaster p, Model model,  HttpServletRequest request, HttpServletResponse response){
 		
 		if(UserMasterService.getUserMasterById(p.getUserName()) ==null){
 			//new UserMaster, add it
+			UserMaster currentUser=(UserMaster) request.getSession().getAttribute(Constant.CURRENT_USER);
+			p.setCreatedBy(currentUser.getUserName());
+			p.setCreatedDate(new Date());
+			
 			this.UserMasterService.addUserMaster(p);
 			addSuccessMessage("User details added successfully.");
 			
 		}else{
 			//existing UserMaster, call update
 			if(p.isEditFlag()){
+				UserMaster currentUser=(UserMaster) request.getSession().getAttribute(Constant.CURRENT_USER);
+				p.setModifiedBy(currentUser.getUserName());
+				p.setModifiedDate(new Date());
 				
 			this.UserMasterService.updateUserMaster(p);
 			addSuccessMessage("User details updated successfully.");

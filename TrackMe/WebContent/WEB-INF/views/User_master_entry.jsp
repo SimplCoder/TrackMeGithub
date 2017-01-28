@@ -43,6 +43,9 @@
                                    	<c:if test="${UserMaster.editFlag==true }">
 							             <form:input path="userName" type="text" disabled="true" id="primaryKey"  class="form-control editor-field"/>
                             			<form:hidden path="editFlag" value="${UserMaster.editFlag}"/>
+										<form:hidden path="createdBy" value="${UserMaster.createdBy}"/>
+										<form:hidden path="createdDateShow" value="${UserMaster.createdDateShow}"/>
+						
 							</c:if>
 							<c:if test="${UserMaster.editFlag==false }">
 							<form:input path="userName" type="text"  id="primaryKey" class="form-control editor-field"/>

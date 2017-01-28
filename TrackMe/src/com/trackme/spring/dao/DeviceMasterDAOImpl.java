@@ -7,13 +7,14 @@ import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import com.trackme.spring.model.DeviceMaster;
 import com.trackme.spring.model.UserMaster;
 
 
-@Repository("deviceMasterDAO")
+@Repository
 public class DeviceMasterDAOImpl implements DeviceMasterDAO {
 	
 	private static final Logger logger = LoggerFactory.getLogger(DeviceMasterDAOImpl.class);

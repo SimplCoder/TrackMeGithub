@@ -36,14 +36,14 @@
 					  <li> <a aria-expanded="false" role="button" href="html/reports.html">Reports</a> </li>
 					  <li id="hdr_settings" class="dropdown"> <a aria-expanded="false" id="hdr_settings_link" role="button" href="#" class="dropdown-toggle" >Settings<span class="caret"></span></a>
 						<ul role="menu" class="dropdown-menu">
-						  <li ><a href="html/driver_scheduling_view.html"> <i class="fa fa-sitemap"></i> Driver Scheduling </a></li>
-						  <li ><a href="html/vehicle_service_master_view.html"> <i class="fa fa-car"></i> Vehicle Service </a></li>
-						  <li><a href="#"> <i class="fa fa-tencent-weibo"></i> Geofency</a></li>
-						  <li id="hdr_fuel"><a href="ViewFuelDetails"> <i class="fa fa-tint"></i> Fuel </a></li>
-						  <li><a href="html/location_master_entry.html"> <i class="fa fa-map-marker"></i> Location Entry </a></li>
-						  <li id="hdr_route"><a href="ViewRouteDetails"> <i class="fa fa-road"></i> Route </a></li>
-						  <li id="hdr_routeScheduling"><a href="ViewRouteScheduleDetails"> <i class="fa fa-line-chart"></i> Route Scheduling </a></li>
-						</ul>
+						    <li><a href="driver_scheduling_view.html"><i class="fa fa-sitemap"></i>Driver Scheduling </a></li>
+                                        <li><a href="html/vehicle_service_master_view.html"><i class="fa fa-car"></i>Vehicle Service </a></li>
+                                        <li><a href="#"><i class="fa fa-tencent-weibo"></i>Geofency</a></li>
+                                        <li><a href="html/fuel.html"><i class="fa fa-tint"></i>Fuel </a></li>
+                                        <li><a href="html/location_master_entry.html"><i class="fa fa-map-marker"></i>Location Entry </a></li>
+                                        <li><a href="html/Route.html"><i class="fa fa-road"></i>Route </a></li>
+                                        <li><a href="html/route_schedule_view.html"><i class="fa fa-line-chart"></i>Route Scheduling </a></li>
+                                    </ul>
 					  </li>
 					  <li id="hdr_configuration" class="dropdown"> <a aria-expanded="false" id="hdr_configuration_link" role="button" href="#" class="dropdown-toggle" >Configuration<span class="caret"></span></a>
 						<ul role="menu" class="dropdown-menu">
@@ -67,7 +67,7 @@
 					  </li>
 					</ul>
 					<ul class="nav navbar-top-links navbar-right">
-					  <li><span class="cust-name">Welcome to Test</span></li>
+					  <li><span class="cust-name">Welcome ${currentUser.userName } </span></li>
 					  <li> <a href="j_spring_security_logout"> <i class="fa fa-sign-out"></i> Log out </a> </li>
 					</ul>
 				  </div>

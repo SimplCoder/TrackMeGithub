@@ -1,6 +1,10 @@
 package com.trackme.spring;
 
+import java.util.Date;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -14,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.trackme.constants.Constant;
+import com.trackme.spring.model.UserMaster;
 import com.trackme.spring.model.VehicleMaster;
 import com.trackme.spring.service.VehicleMasterService;
 
@@ -29,7 +35,7 @@ public class VehicleServiceController extends BaseController {
 	}
 	
 	@RequestMapping(value = "/VehicleMasters", method = RequestMethod.GET)
-	public String listVehicleMasters(Model model) {
+	public String listVehicleMasters(Model model , HttpServletRequest request, HttpServletResponse response) {
 		model.addAttribute("VehicleMaster", new VehicleMaster());
 	
 	    List<VehicleMaster> vehicleMasters=	this.vehicleMasterService.listVehicleMasters();
@@ -49,17 +55,23 @@ public class VehicleServiceController extends BaseController {
 	 
 	//For add and update VehicleMaster both
 	@RequestMapping(value= "/VehicleMasterSave", method = RequestMethod.POST)
-	public String addVehicleMaster(@ModelAttribute("VehicleMaster") VehicleMaster p, Model model){
+	public String addVehicleMaster(@ModelAttribute("VehicleMaster") VehicleMaster p, Model model, HttpServletRequest request, HttpServletResponse response){
 		if(vehicleMasterService.getVehicleMasterById(p.getVehicleNo()) ==null){
 			//new VehicleMaster, add it
+			UserMaster currentUser=(UserMaster) request.getSession().getAttribute(Constant.CURRENT_USER);
+			p.setCreatedBy(currentUser.getUserName());
+			p.setCreatedDate(new Date());
 			this.vehicleMasterService.addVehicleMaster(p);
 			addSuccessMessage("Vehicle details added successfully.");
 			
 		}else{
 			//existing VehicleMaster, call update
 			if(p.isEditFlag()){
-			this.vehicleMasterService.updateVehicleMaster(p);
-			addSuccessMessage("Vehicle details updated successfully.");
+				UserMaster currentUser=(UserMaster) request.getSession().getAttribute(Constant.CURRENT_USER);
+				p.setModifiedBy(currentUser.getUserName());
+				p.setModifiedDate(new Date());
+				this.vehicleMasterService.updateVehicleMaster(p);
+				addSuccessMessage("Vehicle details updated successfully.");
 			}else{
 				addErrorMessage("Vehicle Number already exists. Please enter unique value.");
 				addSuccessOrErrorMessageToModel(model);
@@ -68,22 +80,22 @@ public class VehicleServiceController extends BaseController {
 			}
 		}
 		addSuccessOrErrorMessageToModel(model);
-		return listVehicleMasters(model);
+		return listVehicleMasters(model,request,response);
 		
 	}
 	
 	@RequestMapping("/VehicleMasterRemove")
-    public String removeVehicleMaster(@RequestParam("id") String id, Model model){
+    public String removeVehicleMaster(@RequestParam("id") String id, Model model, HttpServletRequest request, HttpServletResponse response){
 		
         this.vehicleMasterService.removeVehicleMaster(id);
         addSuccessMessage("Vehicle details removed successfully.");
         addSuccessOrErrorMessageToModel(model);
 		
-        return listVehicleMasters(model);
+        return listVehicleMasters(model,request,response);
     }
   
     @RequestMapping("/VehicleMasterEdit")
-    public String editVehicleMaster(@RequestParam("id") String id, Model model){
+    public String editVehicleMaster(@RequestParam("id") String id, Model model, HttpServletRequest request, HttpServletResponse response){
     	if(id.equals("new")){
     		model.addAttribute("VehicleMaster", new VehicleMaster());
     	}else{

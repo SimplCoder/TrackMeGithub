@@ -20,6 +20,7 @@ public class UserMasterDAOImpl implements UserMasterDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 	
+	
 	public void setSessionFactory(SessionFactory sf){
 		this.sessionFactory = sf;
 	}

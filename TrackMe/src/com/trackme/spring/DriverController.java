@@ -1,6 +1,10 @@
 package com.trackme.spring;
 
+import java.util.Date;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -14,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.trackme.constants.Constant;
 import com.trackme.spring.model.DriverMaster;
+import com.trackme.spring.model.UserMaster;
 import com.trackme.spring.service.DriverMasterService;
 
 
@@ -61,16 +67,24 @@ public class DriverController extends BaseController {
 	
 	//For add and update VehicleMaster both
 	@RequestMapping(value= "/AddOrUpdateDriverMastersRecord", method = RequestMethod.POST)
-	public String addDriverMaster(@ModelAttribute("DriverMasters") DriverMaster driverMaster, Model model){		
+	public String addDriverMaster(@ModelAttribute("DriverMaster") DriverMaster driverMaster, Model model, HttpServletRequest request, HttpServletResponse response){		
 		//Add Driver
 		DriverMaster driverMasterExist=this.driverMasterService.getDriverMasterById(String.valueOf(driverMaster.getId()));
 		if(driverMasterExist==null){
-		driverMasterService.addDriverMaster(driverMaster);
-		addSuccessMessage("Driver details added successfully.");
+			UserMaster currentUser=(UserMaster) request.getSession().getAttribute(Constant.CURRENT_USER);
+			driverMaster.setCreatedBy(currentUser.getUserName());
+			driverMaster.setCreatedDate(new Date());
+			
+			driverMasterService.addDriverMaster(driverMaster);
+			addSuccessMessage("Driver details added successfully.");
 		
 		} else{
 			if(driverMaster.isEditFlag()){
-			driverMasterService.updateDriverMaster(driverMaster);
+				UserMaster currentUser=(UserMaster) request.getSession().getAttribute(Constant.CURRENT_USER);
+				driverMaster.setModifiedBy(currentUser.getUserName());
+				driverMaster.setModifiedDate(new Date());
+				
+				driverMasterService.updateDriverMaster(driverMaster);
 			addSuccessMessage("Driver details updated successfully.");
 			
 			}else{
