@@ -49,7 +49,7 @@
             <div class="graph-txt">Alert</div>
           </div>
           <div class="graph-in">
-            <div class="graph-img"  style="font-size: 25px;"> Unit Count 
+            <div class="graph-img"  style="font-size: 25px;">Unit Count  
               <div class="graph-txt" style="font-size: 20px;" ><span id="vehcileCountShow"></span></div>
            
             </div>
@@ -65,8 +65,8 @@
           <div class="row">
             <div class="col-lg-12">
               <div class="ibox float-e-margins pad-bot-0" style="background:#fff;">
-                <div class="row">
-                  <div id="same-height" class="col-md-6 md-pad-left" style="padding-right:0;">
+                <div class="row">  
+                  <div id="same-height" class="col-md-6 md-pad-left">
                    
                     <div id="gridtoggle" class="ibox-content pad-bot-0">
                       <div class="table-responsive">
@@ -78,8 +78,7 @@
 				
                                                     <th width="15%" align="center" valign="middle">Vehicle No</th>
                                                     <th width="7%" align="center" valign="middle">Status</th>
-                                                    <th width="11%" align="center" valign="middle">Speed</th>
-                                                    <th width="10%" align="center" valign="middle">Movement</th>
+                                                    <th width="11%" align="center" valign="middle">Speed</th>                                               
                                                     <th width="11%" align="center" valign="middle">Location</th>
                                                     <th width="7%" align="center" valign="middle">Date/Time</th>
 												
@@ -92,7 +91,7 @@
                       </div>
                     </div>
                   </div>
-                  <div id="same-height2" class="col-md-6 md-pad-right"  style=" width:50%;height:80%;padding-left:0;">
+                  <div id="same-height2" class="col-md-6 md-pad-right" >
                     <div class="ibox-title">
                       <div class="map-btns">
                         <ul class="subnav-right az-move-right">
@@ -127,7 +126,7 @@
         var marker = new google.maps.Marker({
           position: uluru,
           map: map
-        });
+        });form-inline
       } */
         
         var MY_MAPTYPE_ID = 'custom_style';
@@ -186,9 +185,12 @@
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.html5.min.js"></script>
 <script type="text/javascript" src="html/js/icheck.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.colVis.min.js"></script>
+
+
 <script>
 var table;
 var refreshOut;
+	
 	$(document).ready(function () {
 		 $('#hdr_live').addClass("dropdown active");
 		
@@ -328,7 +330,6 @@ var refreshOut;
                     	 },
                      {data: "description"},
                      {data: "speed"},
-                     {data: "location"},
                      {data: "location"},
                      {data: "datetime1"}
                     ],
@@ -574,6 +575,7 @@ jQuery(document).ready(function($) {
 
 
 		searchViaAjax();
+		$(".form-inline").css('visibility', 'visible');
 
 });
 
@@ -867,6 +869,7 @@ margin: 0;
 	float:left; 
 	
     }
+
 
 </style>
 <script>

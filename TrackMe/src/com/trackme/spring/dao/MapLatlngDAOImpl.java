@@ -52,7 +52,7 @@ public class MapLatlngDAOImpl implements MapLatlngDAO {
 			Session session = this.sessionFactory.getCurrentSession();
 			StringBuffer strBuf = new StringBuffer();
 			strBuf.append(" select vm.vehicleno,  sd.description, gsm.speed, gsm.location,gsm.latitude, gsm.longitude, ");
-			strBuf.append(" gsm.datetimedate + gsm.datetime as datetime1  from vehiclemaster vm join gsmmaster gsm on vm.unitno= gsm.unitNo  ");
+			strBuf.append(" to_char(gsm.datetimedate , 'YYYY-MM-DD') ||' '|| to_char(gsm.datetime, 'HH:MI PM')as datetime1  from vehiclemaster vm join gsmmaster gsm on vm.unitno= gsm.unitNo  ");
 			strBuf.append(" join statusdesc sd on  gsm.status  = sd.code ");
 			strBuf.append(" where vm.vehicleno like '");
 			strBuf.append(vehicleNo.trim());
