@@ -9,7 +9,7 @@
 	<link href="http://fonts.googleapis.com/css?family=Lato:100italic,100,300italic,300,400italic,400,700italic,700,900italic,900" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" type="text/css" href="html/css/bootstrap.min.css" />
 	<link rel="stylesheet" type="text/css" href="html/css/styles.css" />
-	
+	   <link href="html/css/custom.css" rel="stylesheet">
 	<style>
 @CHARSET "UTF-8";
 
@@ -149,6 +149,7 @@ border-bottom: 1px solid #B2B3B4;
 			</form>
 		</section>
 	</section>
+	 <jsp:directive.include file="footer.jsp" />
 <script type="text/javascript" src="html/js/jquery-1.12.4.js"></script>
 	<script src="html/js/bootstrap.min.js"></script>
 	

@@ -359,17 +359,7 @@
             </div>
         </div>
     </div>
-    <div class="foot-fixed">
-        <div class="auto-reloader-bar">
-            <div class="row">
-                <div class="col-xs-6">
-                </div>
-                <div class="col-xs-6 text-right">
-                    <div class="copy-txt"><strong>Copyright</strong> Neha Software Technologies &copy; 2016 </div>
-                </div>
-            </div>
-        </div>
-    </div>
+  <jsp:directive.include file="footer.jsp" />
 </body>
 <script type="text/javascript" src="js/jquery-1.12.4.js"></script>
 <script type="text/javascript" src="js/tether.min.js"></script>
