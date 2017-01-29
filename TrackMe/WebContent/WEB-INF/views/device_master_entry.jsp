@@ -44,14 +44,14 @@
                                     <label>Device No</label>
                                     <c:if test="${DeviceMaster.editFlag==true }">
 							
-                                    <form:input type="text"  path="deviceNo" disabled="true" id="primaryKey" class="form-control" />
+                                    <form:input required="true" type="text"  path="deviceNo" disabled="true" id="primaryKey" class="form-control" />
                                     	<form:hidden path="editFlag" value="${DeviceMaster.editFlag}"/>
 											<form:hidden path="createdBy" value="${DeviceMaster.createdBy}"/>
 								<form:hidden path="createdDateShow" value="${DeviceMaster.createdDateShow}"/>
 						
 							</c:if>
 							<c:if test="${DeviceMaster.editFlag==false }">
-							 	  <form:input type="text"  path="deviceNo"  id="primaryKey" class="form-control" />
+							 	  <form:input type="text" required="true"  path="deviceNo"  id="primaryKey" class="form-control" />
                                   
 							 <form:hidden path="editFlag" value="${DeviceMaster.editFlag}"/>
 							</c:if>
@@ -59,22 +59,22 @@
                                 </div>
                                 <div class="form-group col-sm-4">
                                     <label>Device IMEI</label>
-                                    <form:input type="text" path="deviceIMEI"  class="form-control" id="deviceIMEI" />
+                                    <form:input type="text" required="true"  path="deviceIMEI"  class="form-control" id="deviceIMEI" />
 
                                 </div>
                                 <div class="form-group col-sm-4">
                                     <label>Device Module </label>
-                                    <form:input type="text" path="deviceModule" id="deviceModule" class="form-control" />
+                                    <form:input type="text" required="true" path="deviceModule" id="deviceModule" class="form-control" />
 
-                                </div>
+                                </div> 
                                 <div class="form-group col-sm-4">
                                     <label>Sim Number </label>
-                                    <form:input type="text" path="simNumber" id="simNumber" class="form-control" />
+                                    <form:input type="text" required="true" path="simNumber" id="simNumber" class="form-control" />
 
                                 </div>
                                 <div class="form-group col-sm-4">
                                     <label>Sim Provider </label>
-                                    <form:input type="text" path="simProvider" id="simProvider" class="form-control" />
+                                    <form:input type="text" required="true" path="simProvider" id="simProvider" class="form-control" />
 
                                 </div>
 

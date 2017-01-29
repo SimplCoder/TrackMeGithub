@@ -43,26 +43,26 @@
                                 <div class="form-group col-sm-4">
                                     <label>Driver Id</label>
                                     <c:if test="${DriverMaster.editFlag==true }">
-								<form:input type="text"  path="id" disabled="true" id="primaryKey" class="form-control" />
+								<form:input pattern="\d*" required="true" title="It must be numberic data" type="text"  path="id" disabled="true" id="primaryKey" class="form-control" />
                                   <form:hidden path="createdBy" value="${DriverMaster.createdBy}"/>
 								<form:hidden path="formatedCreatedDate" value="${DriverMaster.formatedCreatedDate}"/>
 						  
 								<form:hidden path="editFlag" value="${DriverMaster.editFlag}"/>
 							</c:if>
 							<c:if test="${DriverMaster.editFlag==false }">
-								<form:input type="text"  path="id" id="primaryKey" class="form-control" />
+								<form:input pattern="\d*" required="true" title="It must be numberic data" type="text"  path="id" id="primaryKey" class="form-control" />
                             <form:hidden path="editFlag" value="${DriverMaster.editFlag}"/>
 							</c:if>
                                      
                                 </div>
                                 <div class="form-group col-sm-4">
                                     <label>Driver Name</label>
-                                    <form:input type="text" path="driverName"  class="form-control" id="Text1" />
+                                    <form:input required="true" type="text" path="driverName"  class="form-control" id="Text1" />
 
                                 </div>
                                 <div class="form-group col-sm-4">
                                     <label>Driving license</label>
-                                    <form:input type="text" path="licenseNo" id="Text5" placeholder="Driving license No." class="form-control" />
+                                    <form:input required="true" type="text" path="licenseNo" id="Text5" placeholder="Driving license No." class="form-control" />
 
                                 </div>
                                 <div class="form-group col-sm-4">
@@ -70,41 +70,41 @@
                                         <label>Driving license Expiry Date</label>
                                         <div class="input-group date">
                                             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                            <form:input type="text" path="formatedExpireDate" id="Text6" class="form-control" value="03/04/2014" />
+                                            <form:input required="true" type="text" path="formatedExpireDate" id="Text6" class="form-control" value="03/04/2014" />
 
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-4">
                                     <label>Issued RTO</label>
-                                    <form:input type="text" id="Text7" placeholder="Issued RTO" path="rtoName" class="form-control" />
+                                    <form:input required="true" type="text" id="Text7" placeholder="Issued RTO" path="rtoName" class="form-control" />
 
                                 </div>
                                 <div class="form-group col-sm-4">
                                     <label>Blood Group</label>
-                                    <form:input type="text" placeholder="Blood Group" path="bloodGroup" id="Text8" class="form-control" />
+                                    <form:input required="true" type="text" placeholder="Blood Group" path="bloodGroup" id="Text8" class="form-control" />
 
                                 </div>
                                 <div class="form-group col-sm-4">
                                     <label>Driving Experience</label>
-                                    <form:input type="text" placeholder="Driving Experience" id="Text9" path="driverexp" class="form-control"/>
+                                    <form:input required="true" type="text" placeholder="Driving Experience" id="Text9" path="driverexp" class="form-control"/>
                                 </div>
                                 <div class="form-group col-sm-4">
                                     <label>Contact 1</label>
-                                    <form:input type="text" placeholder="Contact No" path="contact1" id="Text3" class="form-control"/>
+                                    <form:input required="true" title="Please enter 10 digit number" pattern="[1-9]{1}[0-9]{9}" type="text" placeholder="Contact No" path="contact1" id="Text3" class="form-control"/>
                                 </div>
                                 <div class="form-group col-sm-4">
                                     <label>Contact 2</label>
-                                    <form:input type="text" path="contact2" id="Text4" placeholder="Contact No" class="form-control"/>
+                                    <form:input required="true" title="Please enter 10 digit number" pattern="[1-9]{1}[0-9]{9}" type="text" path="contact2" id="Text4" placeholder="Contact No" class="form-control"/>
                                 </div>
                                 <div class="form-group col-sm-4">
                                     <label>Address</label>
-                                    <textarea class="form-control" type="text" path="address" id="Text2" placeholder="Address"></textarea>
+                                    <form:textarea class="form-control" type="text" path="address" id="Text2" rows="3" placeholder="Address"></form:textarea>
 
                                 </div>
                                 <div class="form-group col-sm-4">
                                     <label>Remark </label>
-                                    <textarea path="remark" rows="2" maxlength="50" id="Textarea1" class="form-control"></textarea>
+                                    <form:textarea path="remark" rows="2" maxlength="50" id="Textarea1" class="form-control"></form:textarea>
                                 </div>
                             </div>
                             <div style="text-align: center">

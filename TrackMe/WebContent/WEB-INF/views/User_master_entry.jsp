@@ -58,13 +58,14 @@
                             <div class="form-group col-sm-12">
                                 <div class="form-group col-sm-6">
                                     <label>Password</label>
-                                    <form:input path="password" type="password" id="password" class="form-control editor-field"/>
+                                    <form:input path="password" type="password" id="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" class="form-control editor-field"/>
                                 </div>
                             </div>
                             <div class="form-group col-sm-12">
                                 <div class="form-group col-sm-6">
                                     <label>Confirm Password</label>
-                                    <input type="password" name="repassword" id="repassword" value="${UserMaster.password}" class="form-control editor-field">
+                                    <input type="password" onChange="myFunction()" name="repassword" id="repassword" value="${UserMaster.password}" class="form-control editor-field">
+                               		<p id="repass" ></p>
                                 </div>
                             </div>
                             <div class="text-center">
@@ -104,13 +105,17 @@
             var pass2 = document.getElementById("repassword").value;
             var ok = true;
             if (pass1 != pass2) {
-                //alert("Passwords Do not match");
-                document.getElementById("pass1").style.borderColor = "#E34234";
-                document.getElementById("pass2").style.borderColor = "#E34234";
+                document.getElementById("password").style.borderColor = "#E34234";
+                document.getElementById("repassword").style.borderColor = "#E34234";
                 ok = false;
+                document.getElementById("repass").innerHTML = "<br/><font color='red'>Password do not matched </font>";
             }
             else {
-                alert("Passwords Match!!!");
+            	 document.getElementById("password").style.borderColor = "#82e334";
+                 document.getElementById("repassword").style.borderColor = "#82e334";
+                
+                document.getElementById("repass").innerHTML = "<br/><font color='green'>Password  matched </font>";
+                
             }
             return ok;
         }
