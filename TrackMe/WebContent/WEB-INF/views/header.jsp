@@ -75,7 +75,7 @@
 						  <li><a href="html/student_master_view.html"> <i class="fa fa-child"></i> Student Entry </a></li>
 						</ul>
 					  </li>
-					  <li class="dropdown"> <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" >Help</a>
+					  <li class="dropdown"> <a aria-expanded="false" role="button" href="help" class="dropdown-toggle" >Help</a>
 						
 					  </li>
 					</ul>
