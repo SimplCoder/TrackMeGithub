@@ -126,4 +126,9 @@ public class HomeController {
 		model.addAttribute("message", "You are not authorized to access");
 		return "login";
 	}
+	
+	@RequestMapping(value="/help")
+	public String redirectOnHelpPage(HttpServletRequest request, Model model){
+		return "help";
+	}
 }
