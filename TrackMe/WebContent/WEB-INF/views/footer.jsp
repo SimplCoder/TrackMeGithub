@@ -2,7 +2,7 @@
     <div class="auto-reloader-bar">
       <div class="row">
         <div class="col-xs-6">
-          <form role="form" class="form-inline">
+          <form role="form" class="form-inline" style="visibility:hidden;">
             <div class="form-group">
              
                 <label>

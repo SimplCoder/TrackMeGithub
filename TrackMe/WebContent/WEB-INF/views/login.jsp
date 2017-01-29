@@ -32,13 +32,14 @@ body {
 	margin: 0 auto;
 	margin-top: 100px;
 	margin-bottom: 200px;
-	max-width: 400px;
+	max-width: 480px;
 }
 	.login-form > section {
 		background: rgba(255,255,255,.9);
-		padding:  35px 45px 25px 45px;
-		height: 420px;
-		border-left:6px solid #2196F5;
+		padding:  15px 15px 15px 15px;
+		height: 315px;
+		width: 420px;
+		
 	}
 	.login-form a {
 		color: #054185;
@@ -55,7 +56,7 @@ form[role=login] {
 }	
 	form[role=login] input,
 	form[role=login] > button {
-		font-size: 16px;
+		font-size: 15px;
 	}
 	form[role=login] input {
 	
@@ -88,7 +89,7 @@ border-bottom: 1px solid #B2B3B4;
 
 
 	form[role=login] > div {
-		margin: 25px 0;
+		margin: 15px 0;
 	}
 	form[role=login] > div button {
 		font-weight: bold;
@@ -127,16 +128,15 @@ border-bottom: 1px solid #B2B3B4;
 	<section class="container login-form">
 		<section>
 			<form method="post" action="${loginUrl}" role="login">
-				<img src="html/images/adhata.png" style="height:62px;" alt="" class="img-responsive" />
-					<label >Please login to track your vehicle	</label >
-			
+				<img src="html/images/adhata.png" style="height:90px;" alt="" class="img-responsive" />
+					
 				<div class=" field">
-					<input type="text" name="username" required class="" placeholder="Enter your Mobile no or Email " />
+					<input type="text" name="username" required class="" placeholder="Username" />
 					
 				</div>
 			
 				<div class=" field">
-					<input type="password" name="password" required 	 placeholder="Password	" />
+					<input type="password" name="password" required 	 placeholder="Password" />
 					<a style="padding-left:60%;" href="#">Trouble logging in?</a>
 					
 					
