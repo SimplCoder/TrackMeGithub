@@ -37,7 +37,7 @@ body {
 	.login-form > section {
 		background: rgba(255,255,255,.9);
 		padding:  15px 15px 15px 15px;
-		height: 315px;
+		height: 332px;
 		width: 420px;
 		
 	}
@@ -117,6 +117,10 @@ border-bottom: 1px solid #B2B3B4;
 	margin-right: 71% !important;
 	margin-top: 0px !important;
 	}
+	
+	#msgTxt{
+	color:#b30000;
+	}
 
 </style>
 	
@@ -129,7 +133,9 @@ border-bottom: 1px solid #B2B3B4;
 		<section>
 			<form method="post" action="${loginUrl}" role="login">
 				<img src="html/images/adhata.png" style="height:90px;" alt="" class="img-responsive" />
-					
+				<c:if test="${not empty message}">
+                <div id="msgTxt" style="margin-top: 2px;margin-bottom: 2px;">* ${message} </div>
+                 </c:if>	
 				<div class=" field">
 					<input type="text" name="username" required class="" placeholder="Username" />
 					
@@ -147,6 +153,7 @@ border-bottom: 1px solid #B2B3B4;
 						<lbel style="padding-right:50px;margin-bottom: 20px;">By Logging in your agree to our <a href="#">T&C</a> and <a href="#">privacy policy</a></label>
 					
 			</form>
+				
 		</section>
 	</section>
 	 <jsp:directive.include file="footer.jsp" />

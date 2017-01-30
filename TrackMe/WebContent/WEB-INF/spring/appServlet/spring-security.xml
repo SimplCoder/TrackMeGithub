@@ -23,6 +23,7 @@
 		access-decision-manager-ref="accessDecisionManager">	
 	
 		<intercept-url pattern="/login" access="ROLE_ANONYMOUS,Admin" />
+		<intercept-url pattern="/denied" access="ROLE_ANONYMOUS,Admin" />
 		<intercept-url pattern="/**" access="Admin" />
 		<form-login login-page="/login" authentication-failure-url="/denied"
 			username-parameter="username" password-parameter="password"
