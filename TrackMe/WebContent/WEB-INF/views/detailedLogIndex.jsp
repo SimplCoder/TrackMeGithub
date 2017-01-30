@@ -88,7 +88,7 @@
                     <div class="ibox-content pad-bot-0">
                       <div class="table-responsive">
                           <!--Rohan code start 1 -->	
-                        <table id="entrydata" class="table table-striped table-bordered new-tbl">
+                        <table id="entrydata" class="table table-striped table-bordered new-tbl" style="width:100%">
                           <thead>
                           <tr class="leftMenu">
                                                     	 <th width="3%" align="center" valign="middle"></th>
@@ -117,9 +117,9 @@
                           <li class="map-vehicles"><a href="#" class="">&nbsp;</a> </li>
                           <li class="map-landmarks"><a href="#" >&nbsp;</a></li>
                           <li class="map-geofences"><a href="#">&nbsp;</a> </li>
-                          <li class="map-layout-toggle1"><a href="#" class="active">&nbsp;</a></li>
-                          <li class="map-layout-toggle2"><a href="#" class="">&nbsp;</a></li>
-                          <li class="map-icon-medium"><a class="active" href="#" >&nbsp;</a></li>
+                        <li class="map-layout-toggle1"><a class="map-layout-togglea1 active" href="javascript:void(0)" onclick ="reSize('side')"></a> </li>
+                          <li class="map-layout-toggle2"><a href="javascript:void(0)" class="map-layout-togglea2" onclick ="reSize('wide')"></a></li>
+                           <li class="map-icon-medium"><a class="active" href="#" >&nbsp;</a></li>
                           <li class="map-icon-large"><a href="#" class="">&nbsp;</a></li>
                           <li class="map-fullscreen"><a href="#">&nbsp;</a></li>
                         </ul>
@@ -172,9 +172,20 @@
                               }   
              map = new google.maps.Map(map_canvas, map_options)
 
+            var image = {
+                url: 'html/images/gps.svg',
+                // This marker is 20 pixels wide by 32 pixels high.
+                size: new google.maps.Size(50, 50),
+                // The origin for this image is (0, 0).
+                origin: new google.maps.Point(0, 0),
+                // The anchor for this image is the base of the flagpole at (0, 32).
+                anchor: new google.maps.Point(0, 0)
+              };
+            
             marker= new google.maps.Marker({
               position: point,
-              map: map
+              map: map,
+              icon:image
            });
                 
                  var routePath = new google.maps.Polyline({
@@ -281,6 +292,8 @@
 <script type="text/javascript" src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.html5.min.js"></script>
 <script type="text/javascript" src="html/js/icheck.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.colVis.min.js"></script>
+
 <script>
 	$(document).ready(function () {
 		 $('#hdr_live').addClass("dropdown active");
@@ -386,7 +399,7 @@
     function drawTable(jsonArr){
         //alert(jsonArr[0]);
       table= $('#entrydata').DataTable({
-			dom: 'Bfrtp',
+    	  dom: '<"top"flB>rt<"bottom"p><"clear">',
             data:jsonArr,
            /* ajax : {
         "url" : "getAllVehicleLatestLoc",
@@ -397,7 +410,7 @@
             return json.result;
         }}, */
              columns:[
-                    {data: "vehicleno",
+                    {data: "datetime1",
                     	 "render": function ( data, type, full, meta ) {
                                      return '<input type="checkbox" id="' + data + '" name="Vehicleno" value="'+data+'">';
                                   
@@ -411,14 +424,23 @@
                      {data: "description"},
                      {data: "speed"},
                      {data: "location"}
-                    ],
-            ordering:false,
-			buttons: [
+                    ],   ordering:false,
+       			 lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+     			buttons: [
+     {
+         extend: 'colvis',
+        text :'',
+         columns: ':gt(1)'
+     },
 
-						'excelHtml5',
-						
-						'pdfHtml5'
-					]
+     {
+         extend: 'excelHtml5',
+         text :''
+      },{
+     	    extend:'pdfHtml5',
+     	    text :''
+     	 }
+     ]
 		}); 
     }
     
@@ -978,6 +1000,192 @@ var currentTallest = 0,
 			});
 	   </script>
 </body>
+
+
+
+<style>
+
+button.dt-button, div.dt-button, a.dt-button {
+    position: relative;
+    display: inline-block;
+    box-sizing: border-box;
+    margin-right: 0.333em;
+    padding: 0.5em 0em;
+    border: 0px solid #999;
+    border-radius: 2px;
+    cursor: pointer;
+    font-size: 0.88em;
+    color: black;
+    white-space: nowrap;
+    overflow: hidden;
+    background-color: rgba(233, 233, 233, 0);
+    background-image: -webkit-linear-gradient(top, #fff 0%, #e9e9e9 100%);
+    background-image: -moz-linear-gradient(top, #fff 0%, #e9e9e9 100%);
+    background-image: -ms-linear-gradient(top, #fff 0%, #e9e9e9 100%);
+    background-image: -o-linear-gradient(top, #fff 0%, #e9e9e9 100%);
+    background-image: linear-gradient(to bottom, #fff 0%, rgba(233, 233, 233, 0) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='white', EndColorStr='#e9e9e9');
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    text-decoration: none;
+    outline: none;
+}
+
+#same-height2 {
+margin: 0;
+        padding: 0;
+        height: 100%;
+	width:50%;
+	height:80%;
+	position:absolute;
+	float:left;
+	right:0px;
+	z-index:100;
+	}
+	#same-height {
+	margin: 0;
+        padding: 0;
+        height: 100%;
+	background-color:white;
+	position:absolute;
+	width:50%;
+	float:left; 
+	
+    }
+
+
+</style>
+
+<script>
+function reSize(side) {
+	var oldside=map.getBounds().getNorthEast().lng()
+	if (side=="wide"){
+
+	document.getElementById("same-height2").style.width="100%"
+	document.getElementById("same-height2").style.height="50%"
+//gridtoggle
+	var sidetable  = document.getElementById('same-height');
+
+	sidetable.style.width = '100%'; 
+	sidetable.style.top = '58%';
+	sidetable.style.marginTop=null;
+	$('#same-height').css({marginTop: '620px'});
+	$(".map-layout-togglea1").removeClass("active");
+	$(".map-layout-togglea2").addClass("active");
+		} else {
+	document.getElementById("same-height2").style.width="50%"
+	document.getElementById("same-height2").style.height="100%"
+	var sidetable  = document.getElementById('same-height');
+	sidetable.style.width = null; 
+	sidetable.style.top = null; 
+	sidetable.style.width = '50%'; 
+	sidetable.style.marginTop=null;
+	$(".map-layout-togglea2").removeClass("active");
+	$(".map-layout-togglea1").addClass("active");
+	
+	
+
+
+	side="wide";
+		} 
+	google.maps.event.trigger(map,'resize');
+	var newside=map.getBounds().getNorthEast().lng()
+	var topan=oldside-newside;
+	map.setCenter(new google.maps.LatLng(map.getCenter().lat(),map.getCenter().lng()+topan));	
+	}
+
+
+
+
+
+</script>
+<script type="text/javascript" src="html/js/markerwithlabel.js"></script>
+
+
+<script>
+
+$('#entrydata').on("change",'input[type=checkbox][name=Vehicleno]',function(){ //we have to register new event handler for dynamically loaded contents after AJAX
+    if ($(this).prop('checked')) {
+       var id = $(this).attr('value');
+ //set to display same vehicle locaion whenever reload
+        $.each(vehicleLocationJSON, function(key,value){
+            if(value.datetime1==id){
+                      	
+            	var map_canvas = document.getElementById('map');
+                 var map_options = {
+                 center: new google.maps.LatLng(value.latitude, value.longitude),
+                 zoom: 10,
+                 mapTypeId: google.maps.MapTypeId.ROADMAP
+                               }   
+                 setMarkers(map,new google.maps.LatLng(value.latitude, 
+                         value.longitude),id,value.location,value.datetime1);
+            }
+        });
+    }else{
+    	
+    	 var id = $(this).attr('value');
+           $.each(vehicleLocationJSON, function(key,value){
+            if(value.datetime1==id){
+                       	
+            	var map_canvas = document.getElementById('map');
+                 var map_options = {
+                 center: new google.maps.LatLng(value.latitude, value.longitude),
+                 zoom: 10,
+                 mapTypeId: google.maps.MapTypeId.ROADMAP
+                               }   
+                 removeMarkers(map,new google.maps.LatLng(value.latitude, 
+                         value.longitude),id,value.location,value.datetime1);
+            }
+        });
+    	
+    }
+});
+
+var markers={};
+
+function setMarkers(map,position,vehicleNo,location,datetime) { 
+    var hoverDiv= '<div style="display:none" class="markerTooltip" id="markerhover'+vehicleNo+'"><p>'+vehicleNo+'</p><p>'+location+'</p><p>'+datetime+'</p></div>';
+    // The final coordinate closes the poly by connecting to the first coordinate.
+   var image1 = {
+      url: 'html/images/gps2.svg',
+      // This marker is 20 pixels wide by 32 pixels high.
+      size: new google.maps.Size(50, 50),
+      // The origin for this image is (0, 0).
+      origin: new google.maps.Point(0, 0),
+      // The anchor for this image is the base of the flagpole at (0, 32).
+      anchor: new google.maps.Point(0, 0)
+    };
+   markers[position] = new google.maps.Marker({
+       position: position,
+       map: map,
+       icon:image1
+    });
+  
+   /* 
+    new MarkerWithLabel({
+        position: position,
+        map: map,
+        icon: image,
+        labelStyle: {opacity: 0.75},
+        draggable: false,
+        raiseOnDrag: true,
+        labelContent: '<div onMouseOver="show(\'markerhover'+vehicleNo+'\')" onMouseOut="hide(\'markerhover'+vehicleNo+'\')">'+vehicleNo+''+hoverDiv+'</div>',
+          labelClass :"labels"
+      });
+    */
+  }	
+
+
+function removeMarkers(map,position,vehicleNo,location,datetime) { 
+  
+
+ markers[position].setMap(null);
+
+  }	
+
+</script>
 
 <!-- Mirrored from kalkisoft.com/adhata/html/ by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 30 Dec 2016 18:15:42 GMT -->
 </html>
