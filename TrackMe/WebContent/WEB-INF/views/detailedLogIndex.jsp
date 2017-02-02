@@ -20,6 +20,32 @@
 <body class="top-navigation">
 <jsp:directive.include file="header.jsp" />
   <div id="page-wrapper2" class="gray-bg" style="top:128px !important">
+  <span><h3>Vehicle No. :  <b>${vehicleName}</b></h3></span>
+      <form:form class="form-inline" action="Vehicle_DetailedLogs" commandName ="LogIndexSearch" >
+          <div id="data_1" class="form-group">
+                                        <label>From Date:</label>
+                                        <div class="input-group date">
+                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                <form:input type="text"  path="fromDate" id="fromDateId" class="form-control" pattern="(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\d\d" />
+                                               
+                                        </div>
+                                    </div>
+          <div id="data_2" class="form-group">
+                                        <label>&nbsp;&nbsp;To Date:</label>
+                                        <div class="input-group date">
+                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                <form:input type="text"  path="toDate" id="toDateId" class="form-control" pattern="(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\d\d"/>    
+                                        </div>
+                                    </div>
+           <form:hidden path="vehicleNo"/>
+          
+          &nbsp;&nbsp;&nbsp;<input class="btn  btn-primary" type="submit" value="Go">
+     </form:form>
+    <!-- Rohan Code End 4 --> 
+  
+  
+  
+  
   <!--  Rohan Code Start 1 -->
     <!--  <div class="rowx wrapper border-bottom white-bg page-heading">
       <div class="col-sm-12">
@@ -111,7 +137,11 @@
                   <div id="same-height2" class="col-md-6 md-pad-right" style="padding-left:0;">
                     <div class="ibox-title">
                       <div class="map-btns">
+                      <a  id="play"></a>
                         <ul class="subnav-right az-move-right">
+                       
+                       
+                          
                           <li class="map-reset"><a href="#" >&nbsp;</a></li>
                           <li class="map-actions"><a href="#" class="">&nbsp;</a> </li>
                           <li class="map-vehicles"><a href="#" class="">&nbsp;</a> </li>
@@ -126,13 +156,23 @@
                       </div>
                     </div>
                     <div class="ibox-content"> 
-                         <div id="map" style="width:100%;height:500px"></div>
+                         <div id="map" style="width:100%;height:500px;"></div>
+                    
 
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCeQdAwrHm8Zap7jwX_gNRA3dhH-CxdCWQ&callback=initialize"></script>
-                  
+<!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCeQdAwrHm8Zap7jwX_gNRA3dhH-CxdCWQ&callback=initialize"></script> -->
+     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCeQdAwrHm8Zap7jwX_gNRA3dhH-CxdCWQ"></script>             
 <!--Rohan code start 3 -->
     <script>
-        vehicleLocationJSON=${vehicleLatlngDetails}; 
+    var isDataPresent;
+    var startPos;
+   if(${vehicleLatlngDetails}==""){
+       isDataPresent=false;
+       console.error("no data");
+   }else{
+   vehicleLocationJSON=${vehicleLatlngDetails}; 
+       startPos = [vehicleLocationJSON[0].latitude, vehicleLocationJSON[0].longitude];
+          isDataPresent=true;
+   } 
    /*   function initMap() {
         var uluru = {lat: 18.5679, lng: 73.9143};
         var map = new google.maps.Map(document.getElementById('map'), {
@@ -146,33 +186,33 @@
           map: map
         });
       } */
-        var map,marker;
-        var startPos = [vehicleLocationJSON[0].latitude, vehicleLocationJSON[0].longitude];
-        var speed = 50; // km/h
-
-        var delay = 100; 
-        
+      var playBool=false;
+      var map,marker;
+      var speed = 50; // km/h
+      var delay = 100; 
         var MY_MAPTYPE_ID = 'custom_style';  
-            function initialize() {
-          // var locations=jQuery.parseJSON(vehicleLocationJSON);
-           var routeLineCoordinates=[];
-           
-           for(index=0;index<vehicleLocationJSON.length; index++){
-               routeLineCoordinates.push(new google.maps.LatLng(vehicleLocationJSON[index].latitude,vehicleLocationJSON[index].longitude));
-           }
-            
-                
-           var point = new google.maps.LatLng(vehicleLocationJSON[0].latitude,vehicleLocationJSON[0].longitude);    //keep marker at center of map, need to change hard coding
-                                               
-            var map_canvas = document.getElementById('map');
-            var map_options = {
-            center: new google.maps.LatLng(vehicleLocationJSON[0].latitude,vehicleLocationJSON[0].longitude),
-            zoom: 10,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-                              }   
-             map = new google.maps.Map(map_canvas, map_options)
+        function initialize() {
+            // var locations=jQuery.parseJSON(vehicleLocationJSON);
+             var routeLineCoordinates=[];
+             
+              if(isDataPresent==true){
+                 for(index=0;index<vehicleLocationJSON.length; index++){
+                     routeLineCoordinates.push(new google.maps.LatLng(vehicleLocationJSON[index].latitude,vehicleLocationJSON[index].longitude));
+                 }
 
-            var image = {
+
+                 var point = new google.maps.LatLng(vehicleLocationJSON[0].latitude,vehicleLocationJSON[0].longitude);    //keep marker at center of map, need to change hard coding
+              
+                                                 
+              var map_canvas = document.getElementById('map');
+              var map_options = {
+              center: new google.maps.LatLng(vehicleLocationJSON[0].latitude,vehicleLocationJSON[0].longitude),
+              zoom: 10,
+              mapTypeId: google.maps.MapTypeId.ROADMAP
+                                }   
+               map = new google.maps.Map(map_canvas, map_options)
+           
+                  var image = {
                 url: 'html/images/gps.svg',
                 // This marker is 20 pixels wide by 32 pixels high.
                 size: new google.maps.Size(50, 50),
@@ -187,29 +227,39 @@
               map: map,
               icon:image
            });
-                
-                 var routePath = new google.maps.Polyline({
-                map: map,
-                path: routeLineCoordinates,
-                strokeColor: "#0000FF",
-                strokeOpacity: 0.50,
-                strokeWeight: 2
-            });
-            
-                var coordsStr="[";
-                for(index=0;index<vehicleLocationJSON.length; index++){
-                   coordsStr=coordsStr+"["+vehicleLocationJSON[index].latitude+","+vehicleLocationJSON[index].longitude+"]";
-                    if(index!=vehicleLocationJSON.length-1){
-                      coordsStr=coordsStr+",";  
-                    }
-                }
-                coordsStr=coordsStr+"]";
-                var coordsJSONArr=jQuery.parseJSON(coordsStr);
-                google.maps.event.addListenerOnce(map, 'idle', function()
-                {
-                    animateMarker(marker, coordsJSONArr, speed);
-                }); 
-            }
+
+                       var routePath = new google.maps.Polyline({
+                      map: map,
+                      path: routeLineCoordinates,
+                      strokeColor: "#0000FF",
+                      strokeOpacity: 0.50,
+                      strokeWeight: 2
+                  });
+
+                      var coordsStr="[";
+                      for(index=0;index<vehicleLocationJSON.length; index++){
+                         coordsStr=coordsStr+"["+vehicleLocationJSON[index].latitude+","+vehicleLocationJSON[index].longitude+"]";
+                          if(index!=vehicleLocationJSON.length-1){
+                            coordsStr=coordsStr+",";  
+                          }
+                      }
+                      coordsStr=coordsStr+"]";
+                      //var coordsJSONArr=jQuery.parseJSON(coordsStr);
+                      var coordsJSONArr=JSON.parse(coordsStr);
+                      google.maps.event.addListenerOnce(map, 'idle', function()
+                      {
+                          animateMarker(marker, coordsJSONArr, speed);
+                      }); 
+                  }else{
+                      var map_canvas = document.getElementById('map');
+                      var map_options = {
+                      center: {lat: 18.5204, lng: 73.8567},
+                      zoom: 10,
+                      mapTypeId: google.maps.MapTypeId.ROADMAP
+                                        }   
+                       map = new google.maps.Map(map_canvas, map_options)
+                  }
+              }
         
         function animateMarker(marker, coords, km_h)
         {
@@ -238,6 +288,7 @@
 
                 function moveMarker()
                 {
+                    if(playBool){
                     lat += deltaLat;
                     lng += deltaLng;
                     i += step;
@@ -254,13 +305,28 @@
 
                         setTimeout(goToPoint, delay);
                     }
+                    }
                 }
                 moveMarker();
             }
             goToPoint();
+            
+            $('#play').click(function(){
+                playBool=!playBool;
+                if(playBool){
+                    goToPoint();
+                }
+            $(this).toggleClass("pause1");
+            });
         } 
         
-            //google.maps.event.addDomListener(window, 'load', initialize);
+       
+          //  google.maps.event.addDomListener(window, 'load', initialize);
+          window.addEventListener('load',function(){
+        	  if(document.getElementById('map')){
+        		  initialize();
+        	  }
+          });
     </script>
 <!--Rohan code end 3 -->
                     </div>
@@ -283,7 +349,10 @@
 <script type="text/javascript" src="html/js/angular.min.js"></script>
 <script type="text/javascript" src="html/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="html/js/dataTables.bootstrap.min.js"></script>
-
+<!-- Rohan Code Start 6 -->
+<script type="text/javascript" src="html/js/bootstrap-datepicker.js"></script>
+<script type="text/javascript" src="html/js/bootstrap-timepicker.js"></script>
+  <!-- Rohan Code end 6 -->  
 <script type="text/javascript" src="html/js/dataTables.buttons.min.js"></script>
 <script type="text/javascript" src="html/js/buttons.flash.min.js"></script>
 <script type="text/javascript" src="html/js/jspdf.min.js"></script>
@@ -294,6 +363,15 @@
 <script type="text/javascript" src="html/js/icheck.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.colVis.min.js"></script>
 
+
+<script type="text/javascript">   
+        $('#data_1 .input-group.date').datepicker({
+            autoclose: true
+        });
+        $('#data_2 .input-group.date').datepicker({
+            autoclose: true
+        });
+    </script>
 <script>
 	$(document).ready(function () {
 		 $('#hdr_live').addClass("dropdown active");
@@ -950,6 +1028,26 @@ var currentTallest = 0,
    
 }
 }
+
+#play
+{text-align:left !important;
+	width:32px;
+	height:32px;
+	background-image: url(html/images/play1.png);
+    background-size: 32px 32px;
+    background-repeat: no-repeat;
+	float:left;
+} 
+.pause1
+{   text-align:left ;
+	width:32px;
+	height:32px;
+	background-image: url(html/images/pause1.png) !important;
+    background-size: 32px 32px;
+    background-repeat: no-repeat;
+	float:left;
+}
+
 
 	   </style>
 	   <script>

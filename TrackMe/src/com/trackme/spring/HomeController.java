@@ -2,6 +2,8 @@ package com.trackme.spring;
 
 import java.security.Principal;
 import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -14,14 +16,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.trackme.constants.Constant;
+import com.trackme.spring.model.LogIndexSearch;
 import com.trackme.spring.model.UserMaster;
 import com.trackme.spring.service.MapLatlngService;
 import com.trackme.spring.service.UserMasterService;
@@ -73,13 +76,37 @@ public class HomeController {
 		return "index";
 	}
 
-	@RequestMapping(value = "/Vehicle_DetailedLogs", method = RequestMethod.GET)
-	public String getDetailedLogsOfVehicle(HttpServletRequest request,
+	@RequestMapping(value = "/Vehicle_DetailedLogs")
+	public String getDetailedLogsOfVehicle(@ModelAttribute("LogIndexSearch") LogIndexSearch logIndexSearch,HttpServletRequest request,
 			Model model) {
-		String vehicleNo = request.getParameter("id");
-		if (vehicleNo != null || !vehicleNo.isEmpty()) {
+		
+		String fromDate=logIndexSearch.getFromDate();
+		String toDate=logIndexSearch.getToDate();
+		String formVehicleNo=logIndexSearch.getVehicleNo();
+		String vehicleNo=request.getParameter("id");
+		if(formVehicleNo==null||"".equals(formVehicleNo)){
+		logIndexSearch.setVehicleNo(vehicleNo);
+		}else{
+			vehicleNo=formVehicleNo;
+		}
+		model.addAttribute("LogIndexSearch", logIndexSearch);
+
+		String sqlFromDate=null;
+		String sqlToDate=null;
+		if((fromDate==null||"".equals(fromDate))&&(toDate==null||"".equals(toDate))){
+			Date date=new Date();
+			 sqlFromDate=convertDateToSqlDate(date);
+			 sqlToDate=sqlFromDate;
+		}
+		if(fromDate!=null&&!"".equals(fromDate)){
+			sqlFromDate=convertStringToSqlDateFormat(fromDate);
+		}
+		if(toDate!=null&&!"".equals(toDate)){
+			sqlToDate=convertStringToSqlDateFormat(toDate);
+		}
+		if (vehicleNo != null && !vehicleNo.isEmpty()) {
 			List vehicleLatlngList = mapLatlngService
-					.getLatlngDetailsByVehicleNo(vehicleNo);
+					.getLatlngDetailsByVehicleNo(vehicleNo, sqlFromDate, sqlToDate);
 			ObjectMapper objMapper = new ObjectMapper();
 			String vehicleLatlngListJSON = null;
 			try {
@@ -90,12 +117,33 @@ public class HomeController {
 				e.printStackTrace();
 			}
 			model.addAttribute("vehicleLatlngDetails", vehicleLatlngListJSON);
+			model.addAttribute("vehicleName", vehicleNo);
 		} else {
 			model.addAttribute("errorMsg", "Vehicle no. is Empty.");
 		}
 		return "detailedLogIndex";
 	}
+
+	private String convertDateToSqlDate(Date date) {
+		SimpleDateFormat sqlFormatter=new SimpleDateFormat("yyyy-MM-dd");
+		String sqlDate=sqlFormatter.format(date);
+		return sqlDate;
+	}
+
+	private String convertStringToSqlDateFormat(String date) {
+		String sqlDate=null;
+		try {
+		SimpleDateFormat formatter=new SimpleDateFormat("MM/dd/yyyy");
+		Date date1 = formatter.parse(date);
+		sqlDate=convertDateToSqlDate(date1);
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		return sqlDate;
+	}
 	
+
 	@RequestMapping(value = "/emp/get/{id}", method = RequestMethod.GET)
 	public String getEmployee(Locale locale, Model model,@PathVariable("id") int id) {
 		logger.info("Welcome user! Requested Emp ID is: "+id);

@@ -46,7 +46,7 @@ public class MapLatlngDAOImpl implements MapLatlngDAO {
 	}
 
 	@Override
-	public List getLatlngDetailsByVehicleNo(String vehicleNo) {
+	public List getLatlngDetailsByVehicleNo(String vehicleNo, String fromDate, String toDate) {
 		List<Map<String, Object>> vehicleLatlngList = null;
 		if (vehicleNo != null || !"".equals(vehicleNo)) {
 			Session session = this.sessionFactory.getCurrentSession();
@@ -56,7 +56,18 @@ public class MapLatlngDAOImpl implements MapLatlngDAO {
 			strBuf.append(" join statusdesc sd on  gsm.status  = sd.code ");
 			strBuf.append(" where vm.vehicleno like '");
 			strBuf.append(vehicleNo.trim());
-			strBuf.append("' order by datetime1 asc ");
+			strBuf.append("'");
+			if (fromDate != null || "".equals(fromDate) ){
+				strBuf.append(" and gsm.datetimedate >=  '");
+				strBuf.append(fromDate);
+				strBuf.append("'");
+			}
+			if (toDate != null || "".equals(toDate) ){
+				strBuf.append(" and gsm.datetimedate <=  '");
+				strBuf.append(toDate);
+				strBuf.append("'");
+			}
+			strBuf.append(" order by datetime1 asc ");
 			String query = strBuf.toString();
 			logger.info("getLatlngDetailsByVehicleNo Query== " + query);
 			Query sqlQuery = session.createSQLQuery(query);

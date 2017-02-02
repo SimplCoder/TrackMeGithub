@@ -22,8 +22,8 @@ public class MapLatlngServiceImpl implements MapLatlngService {
 	
 	@Override
 	@Transactional
-	public List getLatlngDetailsByVehicleNo(String vehicleNo){
-		return mapLatlngDAO.getLatlngDetailsByVehicleNo(vehicleNo);
+	public List getLatlngDetailsByVehicleNo(String vehicleNo, String fromDate, String toDate){
+		return mapLatlngDAO.getLatlngDetailsByVehicleNo(vehicleNo, fromDate, toDate);
 	}
 
 }
