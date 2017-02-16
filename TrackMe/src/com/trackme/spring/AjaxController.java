@@ -7,14 +7,18 @@ import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpRequest;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.trackme.spring.jsonview.Views;
 import com.trackme.spring.model.AjaxResponseBody;
+import com.trackme.spring.model.GPSTracking;
 import com.trackme.spring.model.SearchCriteria;
 import com.trackme.spring.model.StatusCount;
 import com.trackme.spring.service.GsmMasterService;
@@ -89,7 +93,12 @@ public class AjaxController {
 		return result;
 	}
 	
-	
+	@RequestMapping(value = "/api/saveLocation", method = RequestMethod.POST)
+	public @ResponseBody String getGreeting(@RequestBody GPSTracking gpsTracking) {
+		String result=gpsTracking.getDatetime();
+		vehicleMasterService.saveGPSTracking(gpsTracking);
+			return "hii";
+		}
 
 
 }

@@ -48,10 +48,14 @@
             </div>
             <div class="graph-txt">Alert</div>
           </div>
-          <div class="graph-in">
-            <div class="graph-img"  style="font-size: 25px;">Unit Count  
-              <div class="graph-txt" style="font-size: 20px;" ><span id="vehcileCountShow"></span></div>
-           
+          <div class="graph-in" style="padding-top: 2%;" >
+
+            <div class="graph-img"  style="font-size: 20px;">
+             <div class="graph-txt" style="font-size: 30px;" ><span id="vehcileCountShow"></span></div> </div>
+          
+          <div class="graph-txt"  >
+           Unit Count  
+             
             </div>
           </div>
         </div>
@@ -74,12 +78,11 @@
                         <table id="entrydata"  class="table table-striped table-bordered new-tbl" style="width:100%">
                           <thead>
                           <tr class="leftMenu">
-                                                    	 <th width="3%" align="center" valign="middle"></th>
-				
-                                                    <th width="15%" align="center" valign="middle">Vehicle No</th>
-                                                    <th width="7%" align="center" valign="middle">Status</th>
-                                                    <th width="11%" align="center" valign="middle">Speed</th>                                               
-                                                    <th width="11%" align="center" valign="middle">Location</th>
+                                                    	 
+                                                    <th width="8%" align="center" valign="middle">Vehicle No</th>
+                                                    <th width="10%" align="center" valign="middle">Status</th>
+                                                    <th width="5%" align="center" valign="middle">Speed</th>                                               
+                                                    <th width="20%" align="center" valign="middle">Location</th>
                                                     <th width="7%" align="center" valign="middle">Date/Time</th>
 												
                                                 </tr>
@@ -294,6 +297,8 @@ var refreshOut;
         
       table= $('#entrydata').DataTable({
 			dom: '<"top"flB>rt<"bottom"p><"clear">',
+			scrollY:        '53vh',
+	        scrollCollapse: true,
             //data:jsonArr,
             ajax : {
         "url" : "getAllVehicleLatestLoc",
@@ -304,29 +309,11 @@ var refreshOut;
             return json.result;
         }},
              columns:[
-                    {data: "vehicleno",
-                    	 "render": function ( data, type, full, meta ) {
-                             if($('#tempVehicleNo').val()!=""){
-                                 if(data==$('#tempVehicleNo').val()){
-                                     updateMarker(allVehicleAjaxArr,data);
-                                     
-                                     return '<input type="radio" id="' + data + '" name="Vehicleno" class="singleRadio" value="true" checked="checked">';
-                                 }else{
-                                      return '<input type="radio" id="' + data + '" name="Vehicleno" class="singleRadio">';
-                                 }
-                             }else{
-                                updateMarker(allVehicleAjaxArr,data);
-                                if(!callback){
-                                    callback=true;
-                                }
-                                //return '<input type="radio" id="' + data + '" name="Vehicleno" class="singleRadio" value="true" checked="checked">';
-                                return '<input type="radio" id="' + data + '" name="Vehicleno" class="singleRadio">';
-                             }
-                            }
-                    	 },
+                    
                      {data: "vehicleno",
                     	 "render": function ( data, type, full, meta ) {
-                    	      return '<a href="Vehicle_DetailedLogs?id='+data+'">'+data+'</a>';}
+                    		 updateMarker(allVehicleAjaxArr,data);
+                    		 return '<a href="Vehicle_DetailedLogs?id='+data+'">'+data+'</a>';}
                     	 },
                      {data: "description"},
                      {data: "speed"},
@@ -359,24 +346,29 @@ select: {
     
     
     function updateMarker(jsonArrMarker,vehicleId){
-  
+        
+        var map_canvas = document.getElementById('map');
+        var map_options = {
+        center: new google.maps.LatLng(jsonArrMarker[0].latitude, jsonArrMarker[0].longitude),
+        zoom: 10,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+                      } ;  
+        map = new google.maps.Map(map_canvas, map_options);
+        var bounds = new google.maps.LatLngBounds();
         $.each(jsonArrMarker, function(key,value){
-                if(value.vehicleno==vehicleId){
-                    if(!callback){
-                         var map_canvas = document.getElementById('map');
-                         var map_options = {
-                         center: new google.maps.LatLng(value.latitude, value.longitude),
-                         zoom: 10,
-                         mapTypeId: google.maps.MapTypeId.ROADMAP
-                                       } ;  
-                         map = new google.maps.Map(map_canvas, map_options);
+              
+
                          setMarkers(map,new google.maps.LatLng(value.latitude, 
-                                 value.longitude),vehicleId);
-                    }
-                   
+                                 value.longitude),value.vehicleno,value.location,value.datetime1);
+                    
+                         bounds.extend(new google.maps.LatLng(value.latitude, 
+                                 value.longitude));  
+                    
                  
-                }
+                
             });
+        
+        map.fitBounds(bounds);
     }
             
     
@@ -991,5 +983,42 @@ $('.fa-refresh').click(function() {
 </script>
 
 
+<style>
+.rowx.page-heading {
+    padding: 0 0 0px !important;
+    
+}
+
+.graphs {
+    overflow: hidden;
+    padding: 0 0 0;
+}
+
+canvas {
+           
+            max-width: 200px !important;
+            height: auto !important;
+}
+
+
+.auto-reloader-bar select {
+    color: #012b73;
+    padding: 0;
+    height: 20px;
+}
+
+.form-control, .single-line {
+    background-color: #FFFFFF;
+    background-image: none;
+    border: 1px solid #e5e6e7;
+    border-radius: 1px;
+    color: inherit;
+    /* display: block; */
+    padding: 6px 12px;
+    transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+    width: 100%;
+    font-size: 12px;
+}
+</style>
 <!-- Mirrored from kalkisoft.com/adhata/html/ by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 30 Dec 2016 18:15:42 GMT -->
 </html>

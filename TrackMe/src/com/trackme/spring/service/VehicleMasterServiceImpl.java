@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.trackme.spring.dao.VehicleMasterDAO;
+import com.trackme.spring.model.GPSTracking;
 import com.trackme.spring.model.VehicleMaster;
 
 @Service("vehicleMasterService")
@@ -54,6 +55,12 @@ public class VehicleMasterServiceImpl implements VehicleMasterService {
 	public int totaNoOffVehicle() {
 		// TODO Auto-generated method stub
 		return this.vehicleMasterDAO.totaNoOffVehicle();
+	}
+
+	@Override
+	@Transactional
+	public void saveGPSTracking(GPSTracking gpsTracking) {
+	this.vehicleMasterDAO.saveGPSTracking(gpsTracking);
 	}
 
 }

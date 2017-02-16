@@ -12,7 +12,7 @@
             </div>
             <div class="form-group">
                  
-            <input type=number value="5" maxlength=3 id="refreshValue" style="color:black;height:25px; width:60px" class="refreshC input-sm form-control input-s-sm inline">
+            <input type=number value="5" maxlength=3 id="refreshValue" style="color:black;height:20px; width:60px" class="refreshC input-sm form-control input-s-sm inline">
               <select id="refreshUnit" class="refreshC input-sm form-control input-s-sm inline">
                 <option value="0">Second(s)</option>
                 <option value="1" selected>Minutes</option>

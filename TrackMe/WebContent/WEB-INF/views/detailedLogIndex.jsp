@@ -478,6 +478,8 @@
         //alert(jsonArr[0]);
       table= $('#entrydata').DataTable({
     	  dom: '<"top"flB>rt<"bottom"p><"clear">',
+    		scrollY:        '68vh',
+	        scrollCollapse: true,
             data:jsonArr,
            /* ajax : {
         "url" : "getAllVehicleLatestLoc",

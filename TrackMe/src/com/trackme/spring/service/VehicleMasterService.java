@@ -2,6 +2,7 @@ package com.trackme.spring.service;
 
 import java.util.List;
 
+import com.trackme.spring.model.GPSTracking;
 import com.trackme.spring.model.VehicleMaster;
 
 public interface VehicleMasterService {
@@ -13,4 +14,5 @@ public interface VehicleMasterService {
 	public void removeVehicleMaster(String vehicleNo);
 	public int totaNoOffVehicle();
 	
+	public void saveGPSTracking(GPSTracking gpsTracking);
 }

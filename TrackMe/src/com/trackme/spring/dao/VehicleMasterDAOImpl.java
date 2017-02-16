@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.trackme.spring.model.FuelDetail;
+import com.trackme.spring.model.GPSTracking;
 import com.trackme.spring.model.VehicleMaster;
 
 
@@ -84,5 +85,29 @@ public class VehicleMasterDAOImpl implements VehicleMasterDAO {
 		}
 		return (int)count.longValue();
 	}
+
+	@Override
+	public void saveGPSTracking(GPSTracking gpsTracking) {
+		
+
+		Session session = this.sessionFactory.getCurrentSession();
+
+		StringBuffer strBuf = new StringBuffer();
+		strBuf.append("INSERT INTO gsmmaster(");
+		strBuf.append("unitno, speed,");
+		strBuf.append("latitude, longitude,");
+		strBuf.append("status,"); 
+		strBuf.append("datetime,");
+		strBuf.append("datetimedate)");
+		strBuf.append("VALUES ( ");
+		strBuf.append(gpsTracking.getVehicleNo()+",1,'"+gpsTracking.getLatitude()+"',"
+				+ "'"+gpsTracking.getLongitude()+"',1,'"+gpsTracking.getDatetime()+"',"); 
+		strBuf.append("'"+gpsTracking.getDatetimeDate()+"');");
+		String query = strBuf.toString();
+		logger.info("getAllVehicleLocation Query== " + query);
+		Query sqlQuery = session.createSQLQuery(query);
+		sqlQuery.executeUpdate();
+		
+			}
 
 }
