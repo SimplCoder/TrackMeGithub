@@ -11,8 +11,8 @@
 <link href="html/font-awesome/css/font-awesome.css" rel="stylesheet">
 <link href="html/css/plugins/iCheck/custom.css" rel="stylesheet">
 <link href="html/css/animate.css" rel="stylesheet">
-<link href="html/css/style.css" rel="stylesheet">
-<link href="html/css/custom.css" rel="stylesheet">
+<link href="html/css/style1.css" rel="stylesheet">
+<link href="html/css/custom1.css" rel="stylesheet">
 <link href="html/css/dataTables.bootstrap.min.css" rel="stylesheet">
 <link href="html/css/buttons.dataTables.min.css" rel="stylesheet">
 
@@ -20,27 +20,25 @@
 <body class="top-navigation">
 <jsp:directive.include file="header.jsp" />
   <div id="page-wrapper2" class="gray-bg" style="top:128px !important">
-  <span><h3>Vehicle No. :  <b>${vehicleName}</b></h3></span>
       <form:form class="form-inline" action="Vehicle_DetailedLogs" commandName ="LogIndexSearch" >
+      
           <div id="data_1" class="form-group">
                                         <label>From Date:</label>
-                                        <div class="input-group date">
-                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                                <form:input type="text"  path="fromDate" id="fromDateId" class="form-control" pattern="(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\d\d" />
-                                               
-                                        </div>
+                                       <form:input  autocomplete="off" type ="text" path="fromDate" class="filthypillow-demo"></form:input>
                                     </div>
           <div id="data_2" class="form-group">
                                         <label>&nbsp;&nbsp;To Date:</label>
-                                        <div class="input-group date">
-                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                                <form:input type="text"  path="toDate" id="toDateId" class="form-control" pattern="(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\d\d"/>    
-                                        </div>
+                                       <form:input type ="text" autocomplete="off" path="toDate" class="filthypillow-demo1"></form:input>
                                     </div>
            <form:hidden path="vehicleNo"/>
           
-          &nbsp;&nbsp;&nbsp;<input class="btn  btn-primary" type="submit" value="Go">
+         &nbsp;&nbsp;&nbsp;<input class="btn  btn-primary" type="submit" value="Go">
+          <input class="btn btn-primary" id ="resetDates"  type="button" value="reset">
+          <div id="data_3" class="form-group" >
+          &nbsp;&nbsp;&nbsp;    <span id ='LogIndexSearchSpan' style="font-size:12pt"><b>Vehicle No. </b> :  ${vehicleName} &nbsp;&nbsp;&nbsp;</span>
+     </div>
      </form:form>
+     
     <!-- Rohan Code End 4 --> 
   
   
@@ -219,7 +217,7 @@
                 // The origin for this image is (0, 0).
                 origin: new google.maps.Point(0, 0),
                 // The anchor for this image is the base of the flagpole at (0, 32).
-                anchor: new google.maps.Point(0, 0)
+                anchor: new google.maps.Point(15, 15)
               };
             
             marker= new google.maps.Marker({
@@ -1255,7 +1253,7 @@ function setMarkers(map,position,vehicleNo,location,datetime) {
       // The origin for this image is (0, 0).
       origin: new google.maps.Point(0, 0),
       // The anchor for this image is the base of the flagpole at (0, 32).
-      anchor: new google.maps.Point(0, 0)
+      anchor: new google.maps.Point(15, 15)
     };
    markers[position] = new google.maps.Marker({
        position: position,
@@ -1286,6 +1284,81 @@ function removeMarkers(map,position,vehicleNo,location,datetime) {
   }	
 
 </script>
+<script type="text/javascript" src="html/js/moment.js"></script>
+  <script type="text/javascript" src="html/js/jquery.filthypillow.js"></script>
+    <link rel="stylesheet" type="text/css" href="html/css/jquery.filthypillow.css">
+   
+<script>
+var $fp = $( ".filthypillow-demo" );
 
+var minDate;
+var maxDate;
+
+$fp.filthypillow( {
+	minDateTime:minDate,
+	use24hours:true,
+	
+	} );
+
+$fp.on( "focus", function( ) {
+	$fp.filthypillow( "show" );
+    } );
+$fp.on( "fp:save", function( e, dateObj ) {
+	
+	minDate=dateObj;
+	$fp.val( dateObj.format( "YYYY-MM-DD HH:mm:ss" ) );
+    $fp.filthypillow( "hide" );
+    } );
+
+
+var $fp1 = $( ".filthypillow-demo1" );
+
+$fp1.filthypillow( {
+	use24hours:true
+} );
+$fp1.on( "focus", function( ) {
+    $fp1.filthypillow( "show" );
+    } );
+$fp1.on( "fp:save", function( e, dateObj ) {
+	minDate=$fp1.val();
+	$fp1.val( dateObj.format( "YYYY-MM-DD HH:mm:ss" ) );
+    $fp1.filthypillow( "hide" );
+    } ); 
+
+
+$("#resetDates").click(function(){
+	alert("dfg");
+
+    $("#fromDate").val("");
+
+    });
+</script>
+<script>
+
+
+
+</script>
+<style>
+#LogIndexSearchSpan {
+    text-align: left;
+  font-size:12pt;
+}
+#LogIndexSearch {
+padding-left: 16%;
+text-align: center; 
+font-size:12pt; 
+}
+
+
+.ibox-content {
+  background-color: #ffffff;
+  color: inherit;
+  padding: 1px 1px 1px 1px;
+  border-color: #e7eaec;
+  border-image: none;
+  border-style: solid solid none;
+  border-width: 1px 0;
+}
+</style>
 <!-- Mirrored from kalkisoft.com/adhata/html/ by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 30 Dec 2016 18:15:42 GMT -->
 </html>

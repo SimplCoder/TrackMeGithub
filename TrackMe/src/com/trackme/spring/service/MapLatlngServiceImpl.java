@@ -26,4 +26,11 @@ public class MapLatlngServiceImpl implements MapLatlngService {
 		return mapLatlngDAO.getLatlngDetailsByVehicleNo(vehicleNo, fromDate, toDate);
 	}
 
+	@Override
+	@Transactional
+	public String getLastIngnitionOf(String vehicleNo) {
+		// TODO Auto-generated method stub
+		return mapLatlngDAO.getLastIngnitionOf(vehicleNo);
+	}
+
 }

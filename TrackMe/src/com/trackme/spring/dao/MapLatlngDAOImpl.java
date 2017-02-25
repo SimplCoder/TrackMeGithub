@@ -1,5 +1,6 @@
 package com.trackme.spring.dao;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
@@ -57,26 +58,52 @@ public class MapLatlngDAOImpl implements MapLatlngDAO {
 			strBuf.append(" where vm.vehicleno like '");
 			strBuf.append(vehicleNo.trim());
 			strBuf.append("'");
-			if (fromDate != null || "".equals(fromDate) ){
-				strBuf.append(" and gsm.datetimedate >=  '");
+			if (fromDate != null && !"".equals(fromDate) ){
+				strBuf.append(" and gsm.datetimedate+gsm.datetime >= '");
 				strBuf.append(fromDate);
 				strBuf.append("'");
 			}
-			if (toDate != null || "".equals(toDate) ){
-				strBuf.append(" and gsm.datetimedate <=  '");
+			if (toDate != null && !"".equals(toDate) ){
+				strBuf.append(" and gsm.datetimedate+gsm.datetime <=  '");
 				strBuf.append(toDate);
 				strBuf.append("'");
 			}
-			strBuf.append(" order by datetime1 asc ");
+			strBuf.append(" order by gsm.datetimedate+gsm.datetime asc ");
 			String query = strBuf.toString();
 			logger.info("getLatlngDetailsByVehicleNo Query== " + query);
 			Query sqlQuery = session.createSQLQuery(query);
 			sqlQuery.setResultTransformer(AliasToEntityMapResultTransformer.INSTANCE);
 			vehicleLatlngList = sqlQuery.list();
-		} else {
 			logger.info("Empty VehicleNo returning NULL");
 		}
 		return vehicleLatlngList;
+	}
+
+	@Override
+	public String getLastIngnitionOf(String vehicleNo) {
+		// TODO Auto-generated method stub
+		Session session = this.sessionFactory.getCurrentSession();
+		StringBuffer strBuf= new StringBuffer();
+		strBuf.append("select gsm1.datetimedate+ gsm1.datetime as lastIgnition "
+				+ "from gsmmaster  gsm1 " );
+		if(vehicleNo !=null && vehicleNo !="" ){
+			strBuf.append(" join vehiclemaster vm on ( gsm1.unitno= vm.unitno and vm.vehicleno = '"+vehicleNo +"') ");
+		}
+		
+		strBuf.append( "  where gsm1.status=1  order by gsm1.datetimedate+ gsm1.datetime desc  fetch first 1 rows only ");
+		
+        		
+		String query = strBuf.toString();
+		logger.info("getInginationOf Query== " + query);
+		Query sqlQuery = session.createSQLQuery(query);
+		sqlQuery.setResultTransformer(AliasToEntityMapResultTransformer.INSTANCE);
+		List<Map<String, Object>>	vehicleLatlngList = sqlQuery.list();
+		if(vehicleLatlngList!=null && !vehicleLatlngList.isEmpty() ){
+			return ((Timestamp)vehicleLatlngList.get(0).get("lastignition")).toString();
+			
+		}
+		
+		return "";
 	}
 
 }

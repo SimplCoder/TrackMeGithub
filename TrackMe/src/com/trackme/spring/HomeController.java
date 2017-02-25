@@ -94,19 +94,13 @@ public class HomeController {
 		String sqlFromDate=null;
 		String sqlToDate=null;
 		if((fromDate==null||"".equals(fromDate))&&(toDate==null||"".equals(toDate))){
-			Date date=new Date();
-			 sqlFromDate=convertDateToSqlDate(date);
-			 sqlToDate=sqlFromDate;
+			fromDate =mapLatlngService.getLastIngnitionOf(vehicleNo);
 		}
-		if(fromDate!=null&&!"".equals(fromDate)){
-			sqlFromDate=convertStringToSqlDateFormat(fromDate);
-		}
-		if(toDate!=null&&!"".equals(toDate)){
-			sqlToDate=convertStringToSqlDateFormat(toDate);
-		}
+		
+		
 		if (vehicleNo != null && !vehicleNo.isEmpty()) {
 			List vehicleLatlngList = mapLatlngService
-					.getLatlngDetailsByVehicleNo(vehicleNo, sqlFromDate, sqlToDate);
+					.getLatlngDetailsByVehicleNo(vehicleNo, fromDate, toDate);
 			ObjectMapper objMapper = new ObjectMapper();
 			String vehicleLatlngListJSON = null;
 			try {
