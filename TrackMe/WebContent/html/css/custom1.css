@@ -1,5 +1,5 @@
 .loginscreen.middle-box { width:auto;}
-select.input-sm{ height:35px;}
+select.input-sm{ height:30px;}
 .btn-group-sm > .btn, .btn-sm{ padding:5px 15px; font-size:16px;}
 .mar-top5{ margin-top:5px;}
 .top-navigation .navbar-brand{ background:#f3f3f4; height:auto;}
@@ -94,7 +94,7 @@ a:focus{ outline:none;}
     padding: 0;
 }
 .no-pad-in div select.input-sm {
-    height: 35px;
+    height: 30px;
 }
 #same-height .float-e-margins .btn {
 }

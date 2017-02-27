@@ -589,8 +589,7 @@ function searchViaAjax() {
 			display(data);
 		},
 		error : function(e) {
-			console.log("ERROR: ", e);
-			display(e);
+			location.reload();
 		},
 		done : function(e) {
 			console.log("DONE");
@@ -614,11 +613,11 @@ function searchViaAjaxVehicle() {
 		dataType : 'json',
 		timeout : 100000,
 		success : function(data) {
-			console.log("SUCCESS: ", data);
+			
 			createGridVehicle(data);
 		},
 		error : function(e) {
-			console.log("ERROR: ", e);
+			location.reload();
 			
 		},
 		done : function(e) {
@@ -631,7 +630,7 @@ function searchViaAjaxVehicle() {
 
 function createGridVehicle(data){
 	var vehicleData= data.allVehicle;
-	console.log(vehicleData)
+	
 }
 
 function display(data) {
@@ -698,14 +697,14 @@ function display(data) {
 	    tooltipYOffset: 1
        
     };
- var totalVeh =parseInt(data.result["0"].totalVehicle-data.result["0"].ignitionOn);
+ var totalVeh =parseInt(data.result["0"].totalVehicle);
  var igniOn= parseInt(data.result["0"].ignitionOn);
  var igniOff= parseInt(data.result["0"].ignitionOff);
 
 $("#vehcileCountShow").text(totalVeh); 
     var doughnutData = [
                         {
-                            value: totalVeh,
+                            value: totalVeh-igniOff,
                             labelFontSize : '2',
                             color: "#d9d9d9",
                             labelColor : 'blue'
@@ -730,7 +729,7 @@ $("#vehcileCountShow").text(totalVeh);
 	var doughnutData2 = [
  
         {
-            value: totalVeh,
+            value: totalVeh-igniOn,
             color: "#d9d9d9",
             highlight: "#d9d9d9",
             label: ""
@@ -780,7 +779,7 @@ $("#vehcileCountShow").text(totalVeh);
 	var doughnutData4 = [
  
         {
-            value: totalVeh,
+            value: totalVeh-alertNo,
             color: "#d9d9d9",
             highlight: "#d9d9d9",
             label: ""
@@ -913,8 +912,10 @@ $(".vsplitbar").hide();
 <script>
 var refreshOut= setInterval( function () {
 	//table.ajax.reload(null,false);
+
 	table.ajax.reload();
 	searchViaAjax();
+	
 }, 300000);
 
 
