@@ -84,6 +84,7 @@
                                                     <th width="5%" align="center" valign="middle">Speed</th>                                               
                                                     <th width="45%" align="center" valign="middle">Location</th>
                                                     <th width="7%" align="center" valign="middle">Date/Time</th>
+                                                    <th width="7%" align="center" valign="middle">Idle Time (Hrs.)</th>
 												
                                                 </tr>
                           </thead>
@@ -244,7 +245,7 @@ var refreshOut;
                                    }   
                      map = new google.maps.Map(map_canvas, map_options)
                      setMarkers(map,new google.maps.LatLng(value.latitude, 
-                             value.longitude),id,value.location,value.datetime1);
+                             value.longitude),id,value.location,value.datetime1,value.description);
                 }
             });
         }
@@ -318,7 +319,8 @@ var refreshOut;
                      {data: "description"},
                      {data: "speed"},
                      {data: "location"},
-                     {data: "datetime1"}
+                     {data: "datetime1"},
+                     {data: "idletime"}
                     ],
             ordering:false,
 			 lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
@@ -359,7 +361,7 @@ select: {
               
 
                          setMarkers(map,new google.maps.LatLng(value.latitude, 
-                                 value.longitude),value.vehicleno,value.location,value.datetime1);
+                                 value.longitude),value.vehicleno,value.location,value.datetime1, value.description);
                     
                          bounds.extend(new google.maps.LatLng(value.latitude, 
                                  value.longitude));  
@@ -391,7 +393,7 @@ select: {
      
 	
 	
-	function setMarkers(map,position,vehicleNo,location,datetime) {
+	function setMarkers(map,position,vehicleNo,location,datetime,description) {
        
         var hoverDiv= '<div style="display:none" class="markerTooltip" id="markerhover'+vehicleNo+'"><p>'+vehicleNo+'</p><p>'+location+'</p><p>'+datetime+'</p></div>';
         // The final coordinate closes the poly by connecting to the first coordinate.
@@ -404,15 +406,18 @@ select: {
           // The anchor for this image is the base of the flagpole at (0, 32).
           anchor: new google.maps.Point(0, 32)
         };
-        
+        var bgColor= '#1e8427';
+        if(description =='Ignition Off'){
+        	bgColor ='#d60002'
+        }
           var marker = new MarkerWithLabel({
             position: position,
             map: map,
             icon: image,
-            labelStyle: {opacity: 0.75},
+            labelStyle: {'background-color': bgColor,opacity: 0.75},
             draggable: false,
             raiseOnDrag: true,
-            labelContent: '<div onMouseOver="show(\'markerhover'+vehicleNo+'\')" onMouseOut="hide(\'markerhover'+vehicleNo+'\')">'+vehicleNo+''+hoverDiv+'</div>',
+            labelContent: '<div>'+vehicleNo+''+hoverDiv+'</div>',
               labelClass :"labels"
           });
         
@@ -421,7 +426,7 @@ select: {
 	
 	function show(id) {
 	    document.getElementById(id).style.display = "block";
-	    document.getElementById(id).style.zIndex = 10;
+	    document.getElementById(id).style.zIndex = -3;
 	
 	  }
 	  function hide(id) {
@@ -431,10 +436,10 @@ select: {
 <style>
 .markerTooltip {
 color: #fff;
-    background-color: #d60002;
+  
     font-family: "Lucida Grande", "Arial", sans-serif;
-    
-    position: fixed;
+    width : 80px;
+    position: relative;
     z-index: 10000000009;
     font-size: 11px;
     text-align: left;
@@ -444,12 +449,12 @@ color: #fff;
 
   .labels {
     color: #fff;
-    background-color: #d60002;
+    
     font-family: "Lucida Grande", "Arial", sans-serif;
     font-size: 14px;
     font-weight: bold;
     text-align: center;
-    width: 70px;
+    width: 100px;
     border: 2px solid black;
     white-space: nowrap;
 }

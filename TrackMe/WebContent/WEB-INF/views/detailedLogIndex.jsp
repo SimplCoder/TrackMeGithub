@@ -161,13 +161,16 @@
      <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCeQdAwrHm8Zap7jwX_gNRA3dhH-CxdCWQ"></script>             
 <!--Rohan code start 3 -->
     <script>
+    var map;
      var isDataPresent;
+     var vehicleLocationJSON1; 
          var startPos;
         if(${vehicleLatlngDetails}==""){
             isDataPresent=false;
             console.error("no data");
         }else{
         vehicleLocationJSON=${vehicleLatlngDetails}; 
+        vehicleLocationJSON1=${vehicleLatlngDetails}; 
             startPos = [vehicleLocationJSON[0].latitude, vehicleLocationJSON[0].longitude];
                isDataPresent=true;
         } 
@@ -243,7 +246,7 @@
 	   function startPathPlay(){     
        
        var playBool=false;
-        var map,marker;
+        var marker;
         var speed = 100; // km/h
         var delay = 100; 
         
@@ -462,6 +465,7 @@
         //{"vehicleno":"","description":"Normal Direction","location":"Unnamed Road Bengaluru Karnataka 635103 India","datetime1":1464771657000,"speed":25}
         try{
         vehicleLocationJSON=${vehicleLatlngDetails};
+        vehicleLocationJSON1=${vehicleLatlngDetails};
         drawTable(vehicleLocationJSON); 
      
     /*$('input[type=radio][name=Vehicleno]').each(function () {
@@ -1277,35 +1281,29 @@ function reSize(side) {
 
 $('#entrydata').on("change",'input[type=checkbox][name=Vehicleno]',function(){ //we have to register new event handler for dynamically loaded contents after AJAX
     if ($(this).prop('checked')) {
-       var id = $(this).attr('value');
+     
+    	var id = $(this).attr('value');
  //set to display same vehicle locaion whenever reload
-        $.each(vehicleLocationJSON, function(key,value){
-            if(value.datetime1==id){
+        $.each(vehicleLocationJSON1, function(key,value){
+          
+        	if(value.datetime1==id){
                       	
-            	var map_canvas = document.getElementById('map');
-                 var map_options = {
-                 center: new google.maps.LatLng(value.latitude, value.longitude),
-                 zoom: 10,
-                 mapTypeId: google.maps.MapTypeId.ROADMAP
-                               }   
+            	
                  setMarkers(map,new google.maps.LatLng(value.latitude, 
                          value.longitude),id,value.location,value.datetime1);
+              return false;
             }
         });
     }else{
     	
     	 var id = $(this).attr('value');
-           $.each(vehicleLocationJSON, function(key,value){
+           $.each(vehicleLocationJSON1, function(key,value){
             if(value.datetime1==id){
                        	
-            	var map_canvas = document.getElementById('map');
-                 var map_options = {
-                 center: new google.maps.LatLng(value.latitude, value.longitude),
-                 zoom: 10,
-                 mapTypeId: google.maps.MapTypeId.ROADMAP
-                               }   
+            	 
                  removeMarkers(map,new google.maps.LatLng(value.latitude, 
                          value.longitude),id,value.location,value.datetime1);
+                return false; 
             }
         });
     	
@@ -1315,8 +1313,8 @@ $('#entrydata').on("change",'input[type=checkbox][name=Vehicleno]',function(){ /
 var markers={};
 
 function setMarkers(map,position,vehicleNo,location,datetime) { 
-    var hoverDiv= '<div style="display:none" class="markerTooltip" id="markerhover'+vehicleNo+'"><p>'+vehicleNo+'</p><p>'+location+'</p><p>'+datetime+'</p></div>';
-    // The final coordinate closes the poly by connecting to the first coordinate.
+   
+	  // The final coordinate closes the poly by connecting to the first coordinate.
    var image1 = {
       url: 'html/images/gps2.svg',
       // This marker is 20 pixels wide by 32 pixels high.
@@ -1326,7 +1324,7 @@ function setMarkers(map,position,vehicleNo,location,datetime) {
       // The anchor for this image is the base of the flagpole at (0, 32).
       anchor: new google.maps.Point(15, 15)
     };
-   markers[position] = new google.maps.Marker({
+   markers[datetime] = new google.maps.Marker({
        position: position,
        map: map,
        icon:image1
@@ -1350,7 +1348,7 @@ function setMarkers(map,position,vehicleNo,location,datetime) {
 function removeMarkers(map,position,vehicleNo,location,datetime) { 
   
 
- markers[position].setMap(null);
+ markers[datetime].setMap(null);
 
   }	
 
