@@ -29,12 +29,15 @@ public class MapLatlngDAOImpl implements MapLatlngDAO {
 	@Override
 	public List getAllVehicleLocation() {
 		Session session = this.sessionFactory.getCurrentSession();
-
 		StringBuffer strBuf = new StringBuffer();
 		strBuf.append(" select vm.vehicleno,  sd.description, gsm.speed, gsm.location, gsm.latitude, gsm.longitude, ");
-		strBuf.append(" to_char(gsm.datetimedate , 'YYYY-MM-DD') ||' '|| to_char(gsm.datetime, 'HH:MI PM') as datetime1  from vehiclemaster vm join gsmmaster gsm on vm.unitno= gsm.unitNo ");
-		strBuf.append(" inner join ");
-		strBuf.append(" (select gsm1.unitno , max(gsm1.datetimedate+gsm1.datetime) as lattime ");
+		strBuf.append(" to_char(gsm.datetimedate , 'YYYY-MM-DD') ||' '|| to_char(gsm.datetime, 'HH:MI PM') ");
+		strBuf.append(" as datetime1 , case when sd.description='Ignition Off' then ");
+		strBuf.append(" Cast (EXTRACT(EPOCH FROM current_timestamp-(gsm.datetimedate + gsm.datetime))/3600 As Integer) ");
+		strBuf.append(" when sd.description='Idling Start' then ");
+		strBuf.append(" Cast (EXTRACT(EPOCH FROM current_timestamp-(gsm.datetimedate + gsm.datetime))/3600 As Integer) ");
+		strBuf.append(" else 0 end as idleTime from vehiclemaster vm join gsmmaster gsm on vm.unitno= gsm.unitNo ");
+		strBuf.append(" inner join (select gsm1.unitno , max(gsm1.datetimedate+gsm1.datetime) as lattime ");
 		strBuf.append(" from  gsmmaster gsm1 group by gsm1.unitno ) latest on ");
 		strBuf.append(" gsm.unitno = latest.unitno and (gsm.datetimedate+gsm.datetime)=latest.lattime ");
 		strBuf.append(" join statusdesc sd on  gsm.status  = sd.code ");
