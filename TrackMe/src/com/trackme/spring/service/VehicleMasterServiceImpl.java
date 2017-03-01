@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.trackme.constants.Constant;
 import com.trackme.spring.dao.VehicleMasterDAO;
 import com.trackme.spring.model.GPSTracking;
 import com.trackme.spring.model.VehicleMaster;
@@ -47,7 +48,9 @@ public class VehicleMasterServiceImpl implements VehicleMasterService {
 	@Override
 	@Transactional
 	public void removeVehicleMaster(String vehicleNo) {
-		this.vehicleMasterDAO.removeVehicleMaster(vehicleNo);
+		VehicleMaster vehicleMaster=vehicleMasterDAO.getVehicleMasterById(vehicleNo);
+		vehicleMaster.setStatus(Constant.STATUS_INACTIVE);
+		this.vehicleMasterDAO.updateVehicleMaster(vehicleMaster);
 	}
 
 	@Override

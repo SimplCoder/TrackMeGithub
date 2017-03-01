@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
+import com.trackme.constants.Constant;
 import com.trackme.spring.model.DeviceMaster;
 import com.trackme.spring.model.UserMaster;
 
@@ -45,7 +46,7 @@ public class DeviceMasterDAOImpl implements DeviceMasterDAO {
 	@Override
 	public List<DeviceMaster> listDeviceMaster() {
 		Session session = this.sessionFactory.getCurrentSession();
-		List<DeviceMaster> deviceMasterList = session.createQuery("from DeviceMaster").list();
+		List<DeviceMaster> deviceMasterList = session.createQuery("from DeviceMaster where status like '"+Constant.STATUS_ACTIVE+"' ").list();
 		
 		return deviceMasterList;
 	}

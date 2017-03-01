@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
+import com.trackme.constants.Constant;
 import com.trackme.spring.model.DriverMaster;
 
 
@@ -29,7 +30,7 @@ public class DriverMasterDAOImpl implements DriverMasterDAO{
 	@Override
 	public List<DriverMaster> getDriverMasterList() {
 		Session session = this.sessionFactory.getCurrentSession();
-		List<DriverMaster> driverMasterList = session.createQuery("from DriverMaster").list();
+		List<DriverMaster> driverMasterList = session.createQuery("from DriverMaster where status like '"+Constant.STATUS_ACTIVE+"' ").list();	
 		return driverMasterList;
 	}
 

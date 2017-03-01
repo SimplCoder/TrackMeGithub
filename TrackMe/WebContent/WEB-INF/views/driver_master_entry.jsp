@@ -108,7 +108,12 @@
                                 </div>
                             </div>
                             <div style="text-align: center">
+                            <c:if test="${DriverMaster.editFlag==false }">
                                 <input name="action" type="submit" class="btn  btn-primary" onclick=" return validate()" id="Submit1" value="Add Driver" />
+                            </c:if>
+                               <c:if test="${DriverMaster.editFlag==true }">
+                                <input name="action" type="submit" class="btn  btn-primary" onclick=" return validate()" id="Submit1" value="Update Driver" />
+                               </c:if>
                                 <input name="button3" type="button" class="btn btn-danger" id="button1" onclick="location.href = 'DriverMasters'" value="Exit" />
                             </div>
                         </form:form>

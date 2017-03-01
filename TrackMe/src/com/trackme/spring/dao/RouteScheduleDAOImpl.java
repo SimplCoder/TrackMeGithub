@@ -8,6 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import com.trackme.constants.Constant;
 import com.trackme.spring.model.RouteSchedule;
 
 @Repository("RouteScheduleDAO")
@@ -39,7 +41,7 @@ public class RouteScheduleDAOImpl implements RouteScheduleDAO{
 		Session session = this.sessionFactory.getCurrentSession();
 		List<RouteSchedule> routeScheduleList =null;
 		try{
-			routeScheduleList = session.createQuery("from RouteSchedule").list();
+			routeScheduleList = session.createQuery("from RouteSchedule where status like '"+Constant.STATUS_ACTIVE+"' ").list();
 		}catch(Exception e){
 			return null;
 		}

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.trackme.constants.Constant;
 import com.trackme.spring.dao.VehicleGroupDAO;
 import com.trackme.spring.model.VehicleGroup;
 
@@ -44,7 +45,9 @@ public class VehicleGroupServiceImpl implements VehicleGroupService {
 	@Override
 	@Transactional
 	public void removeVehicleGroup(String VehicleGroupId) {
-		vehicleGroupDAO.removeVehicleGroup(VehicleGroupId);
+		VehicleGroup vehicleGroup = vehicleGroupDAO.getVehicleGroupById(VehicleGroupId);
+		vehicleGroup.setStatus(Constant.STATUS_INACTIVE);
+	vehicleGroupDAO.updateVehicleGroup(vehicleGroup);
 		
 	}
 

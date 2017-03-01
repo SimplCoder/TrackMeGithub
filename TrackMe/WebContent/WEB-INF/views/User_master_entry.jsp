@@ -69,7 +69,13 @@
                                 </div>
                             </div>
                             <div class="text-center">
+                            <c:if test="${UserMaster.editFlag==false }">
                                 <input type="submit" onclick=" return validate()" name="action" id="button" class="btn btn-primary" value="Save User">
+                             </c:if>
+                             <c:if test="${UserMaster.editFlag==true }">
+                                <input type="submit" onclick=" return validate()" name="action" id="button" class="btn btn-primary" value="Update User">
+                             
+                             </c:if>
                                 <input type="button" name="button3" id="button3" value="Exit" class="btn btn-danger" onclick="location.href = 'UserMasters'">
                            
                         </form:form>

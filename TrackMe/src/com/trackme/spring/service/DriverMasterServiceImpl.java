@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.trackme.constants.Constant;
 import com.trackme.spring.dao.DriverMasterDAO;
 import com.trackme.spring.dao.GenericDAO;
 import com.trackme.spring.model.DriverMaster;
@@ -49,6 +50,8 @@ public class DriverMasterServiceImpl implements DriverMasterService {
 	@Override
 	@Transactional
 	public void removeDriverMaster(String driverId) {
-		this.driverMastersDAO.removeDriverMaster(driverId);
+		DriverMaster driverMaster= driverMastersDAO.getDriverMaster(driverId);
+		driverMaster.setStatus(Constant.STATUS_INACTIVE);
+		this.driverMastersDAO.updateDriverMaster(driverMaster);
 	}
 }

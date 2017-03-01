@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.trackme.constants.Constant;
 import com.trackme.spring.model.Route;
 
 @Repository("RouteDetailsDAO")
@@ -40,7 +41,7 @@ public class RouteDetailsDAOImpl implements RouteDetailsDAO{
 		Session session = this.sessionFactory.getCurrentSession();
 		List<Route> routeDetailList =null;
 		try{
-			routeDetailList = session.createQuery("from Route").list();
+			routeDetailList = session.createQuery("from Route where status like '"+Constant.STATUS_ACTIVE+"' ").list();
 		}catch(Exception e){
 			return null;
 		}

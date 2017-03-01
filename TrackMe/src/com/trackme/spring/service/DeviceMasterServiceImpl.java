@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.trackme.constants.Constant;
 import com.trackme.spring.dao.DeviceMasterDAO;
 import com.trackme.spring.dao.UserMasterDAO;
 import com.trackme.spring.model.DeviceMaster;
@@ -57,7 +58,9 @@ public class DeviceMasterServiceImpl implements DeviceMasterService {
 	@Override
 	@Transactional
 	public void removeDeviceMaster(String deviceNo) {
-		deviceMasterDAO.removeDeviceMaster(deviceNo);
+		DeviceMaster deviceMaster= deviceMasterDAO.getDeviceMasterByDeviceNo(deviceNo);
+		deviceMaster.setStatus(Constant.STATUS_INACTIVE);
+		deviceMasterDAO.updateDeviceMaster(deviceMaster);
 		
 	}
 

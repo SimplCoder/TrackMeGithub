@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.trackme.constants.Constant;
 import com.trackme.spring.dao.UserMasterDAO;
 import com.trackme.spring.model.UserMaster;
 
@@ -46,7 +47,9 @@ public class UserMasterServiceImpl implements UserMasterService {
 	@Override
 	@Transactional
 	public void removeUserMaster(String userName) {
-		this.UserMasterDAO.removeUserMaster(userName);
+		UserMaster userMaster=UserMasterDAO.getUserMasterById(userName);
+		userMaster.setStatus(Constant.STATUS_INACTIVE);
+		this.UserMasterDAO.updateUserMaster(userMaster);
 	}
 
 }

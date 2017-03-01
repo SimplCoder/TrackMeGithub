@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.trackme.constants.Constant;
 import com.trackme.spring.model.FuelDetail;
 
 @Repository("FuelDetailsDAO")
@@ -41,7 +42,7 @@ public class FuelDetailsDAOImpl implements FuelDetailsDAO{
 		Session session = this.sessionFactory.getCurrentSession();
 		List<FuelDetail> fuelDetailList =null;
 		try{
-		 fuelDetailList = session.createQuery("from FuelDetail").list();
+		 fuelDetailList = session.createQuery("from FuelDetail where status like '"+Constant.STATUS_ACTIVE+"' ").list();
 		}catch(Exception e){
 			return null;
 		}

@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.trackme.constants.Constant;
 import com.trackme.spring.model.FuelDetail;
 import com.trackme.spring.model.GPSTracking;
 import com.trackme.spring.model.VehicleMaster;
@@ -45,7 +46,7 @@ public class VehicleMasterDAOImpl implements VehicleMasterDAO {
 	@Override
 	public List<VehicleMaster> listVehicleMasters() {
 		Session session = this.sessionFactory.getCurrentSession();
-		List<VehicleMaster> VehicleMastersList = session.createQuery("from VehicleMaster").list();
+		List<VehicleMaster> VehicleMastersList = session.createQuery("from VehicleMaster where status like '"+Constant.STATUS_ACTIVE+"' ").list();
 		
 		return VehicleMastersList;
 	}

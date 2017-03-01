@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.trackme.constants.Constant;
 import com.trackme.spring.model.UserMaster;
 
 
@@ -43,7 +44,7 @@ public class UserMasterDAOImpl implements UserMasterDAO {
 	@Override
 	public List<UserMaster> listUserMasters() {
 		Session session = this.sessionFactory.getCurrentSession();
-		List<UserMaster> UserMastersList = session.createQuery("from UserMaster").list();
+		List<UserMaster> UserMastersList = session.createQuery("from UserMaster where status like '"+Constant.STATUS_ACTIVE+"' ").list();
 		
 		return UserMastersList;
 	}

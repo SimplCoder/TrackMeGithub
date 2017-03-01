@@ -61,6 +61,7 @@ public class VehicleServiceController extends BaseController {
 			UserMaster currentUser=(UserMaster) request.getSession().getAttribute(Constant.CURRENT_USER);
 			p.setCreatedBy(currentUser.getUserName());
 			p.setCreatedDate(new Date());
+			p.setStatus(Constant.STATUS_ACTIVE);
 			this.vehicleMasterService.addVehicleMaster(p);
 			addSuccessMessage("Vehicle details added successfully.");
 			

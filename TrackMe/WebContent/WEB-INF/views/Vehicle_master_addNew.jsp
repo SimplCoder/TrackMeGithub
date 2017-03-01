@@ -160,7 +160,13 @@
 						
 					</div>
 					<div class="form-group" style="text-align:center">
+					<c:if test="${VehicleMaster.editFlag==false }">
 						<input type="submit" class="btn  btn-primary" onclick=" return validate()" name="action" value="Save Vehicle">
+					</c:if>
+				<c:if test="${VehicleMaster.editFlag==true }">
+							<input type="submit" class="btn  btn-primary" onclick=" return validate()" name="action" value="Update Vehicle">
+				
+				</c:if>
 						<input type="button" class="btn  btn-danger" id="Exit"  onClick="location.href='VehicleMasters'" value="Close" >
                     </div>
 				</div>

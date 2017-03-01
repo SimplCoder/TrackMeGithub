@@ -80,7 +80,13 @@
 
                             </div>
                             <div style="text-align: center">
-                                <input name="action" type="submit" onclick=" return validate()" class="btn  btn-primary" id="Submit1" value="Save Device" />
+                               <c:if test="${DeviceMaster.editFlag==true }">
+							
+                                <input name="action" type="submit" onclick=" return validate()" class="btn  btn-primary" id="Submit1" value="Update Device" />
+                            </c:if>
+                            <c:if test="${DeviceMaster.editFlag==false }">
+							     <input name="action" type="submit" onclick=" return validate()" class="btn  btn-primary" id="Submit1" value="Save Device" />
+                           </c:if>
                                 <input name="button3" type="button" class="btn btn-danger" id="button1" onclick="location.href = 'DeviceMasters'" value="Exit" />
                             </div>
                         </form:form>

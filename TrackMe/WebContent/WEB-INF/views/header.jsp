@@ -7,7 +7,7 @@
  
  $(document).ready(function(){
 	    $(".icondelete").click(function(){
-	    	  if (!confirm("Do you want to delete ?")){
+	    	  if (!confirm("Do you want to inactivate ?")){
 	  		      return false;
 	    	  }
 	    });
