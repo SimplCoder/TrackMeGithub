@@ -21,6 +21,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.trackme.constants.Constant;
 import com.trackme.spring.model.UserMaster;
 import com.trackme.spring.model.VehicleMaster;
+import com.trackme.spring.service.VehicleGroupService;
 import com.trackme.spring.service.VehicleMasterService;
 
 @Controller
@@ -28,6 +29,19 @@ public class VehicleServiceController extends BaseController {
 	
 	private VehicleMasterService vehicleMasterService;
 	
+	public VehicleGroupService VehicleGroupService;
+	
+	
+	
+	public VehicleGroupService getVehicleGroupService() {
+		return VehicleGroupService;
+	}
+	@Autowired(required=true)
+	@Qualifier(value="vehicleGroupService")
+	public void setVehicleGroupService(VehicleGroupService vehicleGroupService) {
+		VehicleGroupService = vehicleGroupService;
+	}
+
 	@Autowired(required=true)
 	@Qualifier(value="vehicleMasterService")
 	public void setVehicleMasterService(VehicleMasterService ps){
@@ -104,6 +118,7 @@ public class VehicleServiceController extends BaseController {
     		vehicleMaster.setEditFlag(true);
         model.addAttribute("VehicleMaster",vehicleMaster );
         }
+    	model.addAttribute("vehicleGroup",VehicleGroupService.listVehicleGroup());
         model.addAttribute("listVehicleMasters", this.vehicleMasterService.listVehicleMasters());
         return "Vehicle_master_addNew";
     }

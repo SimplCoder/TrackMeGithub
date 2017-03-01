@@ -70,6 +70,16 @@
 							<form:input required="true" path="vehicleType" type="text" id="vehicleType" class="form-control"></form:input>
 						</div>
 						<div class="form-group col-sm-4">
+							<label>Vehicle Group:</label>
+							<form:select  path="groupName" id="vehicleGroup" class="form-control">
+   
+    <form:options items="${vehicleGroup}" itemValue="id" itemLabel="id"></form:options>
+    </form:select>
+							
+						</div>
+						
+						
+						<div class="form-group col-sm-4">
 							<label>Make:</label>
 							<form:input required="true" path="vehicleMake" type="text" id="vehicleMake" class="form-control"></form:input>
 						</div>
