@@ -161,16 +161,16 @@
      <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCeQdAwrHm8Zap7jwX_gNRA3dhH-CxdCWQ"></script>             
 <!--Rohan code start 3 -->
     <script>
-    var isDataPresent;
-    var startPos;
-   if(${vehicleLatlngDetails}==""){
-       isDataPresent=false;
-       console.error("no data");
-   }else{
-   vehicleLocationJSON=${vehicleLatlngDetails}; 
-       startPos = [vehicleLocationJSON[0].latitude, vehicleLocationJSON[0].longitude];
-          isDataPresent=true;
-   } 
+     var isDataPresent;
+         var startPos;
+        if(${vehicleLatlngDetails}==""){
+            isDataPresent=false;
+            console.error("no data");
+        }else{
+        vehicleLocationJSON=${vehicleLatlngDetails}; 
+            startPos = [vehicleLocationJSON[0].latitude, vehicleLocationJSON[0].longitude];
+               isDataPresent=true;
+        } 
    /*   function initMap() {
         var uluru = {lat: 18.5679, lng: 73.9143};
         var map = new google.maps.Map(document.getElementById('map'), {
@@ -184,33 +184,92 @@
           map: map
         });
       } */
-      var playBool=false;
-      var map,marker;
-      var speed = 50; // km/h
-      var delay = 100; 
-        var MY_MAPTYPE_ID = 'custom_style';  
-        function initialize() {
-            // var locations=jQuery.parseJSON(vehicleLocationJSON);
-             var routeLineCoordinates=[];
-             
-              if(isDataPresent==true){
-                 for(index=0;index<vehicleLocationJSON.length; index++){
-                     routeLineCoordinates.push(new google.maps.LatLng(vehicleLocationJSON[index].latitude,vehicleLocationJSON[index].longitude));
-                 }
+	  
+	   //Snap to road API
+        var latLngString='';
+        /*jQuery.each(vehicleLocationJSON, function(key,value){
+            latLngString+=value.latitude+','+value.longitude+'|';
+        });*/
+        if(isDataPresent){
+        vehicleLocationJSON.forEach(function(value){
+            if(value!=undefined||value!=null||value!=''){
+                latLngString+=value.latitude+','+value.longitude+'|'; 
+            }
+        });
+        latLngString=latLngString.slice(0,-1);
+        var app_Key='AIzaSyCeQdAwrHm8Zap7jwX_gNRA3dhH-CxdCWQ';
+        var api_Url='https://roads.googleapis.com/v1/snapToRoads?path='+latLngString+'&interpolate=true&key='+app_Key;
+        var snapResult = new Array();
+        $(function() {
+               $.ajax({
+                    type: 'POST',
+                    url: api_Url,
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    success: function(response) {
+                        if(response.snappedPoints!=undefined){
+                             response.snappedPoints.forEach(function(value){
+                                        snapResult.push(value.location);
 
-
-                 var point = new google.maps.LatLng(vehicleLocationJSON[0].latitude,vehicleLocationJSON[0].longitude);    //keep marker at center of map, need to change hard coding
-              
-                                                 
+                            });
+                        }
+                    
+                    vehicleLocationJSON=  snapResult;  
+                    startPathPlay();
+                    
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+        });
+        
+        }else{
+            
+            showEmptyMap();  
+            
+        }
+        
+        function showEmptyMap(){
               var map_canvas = document.getElementById('map');
-              var map_options = {
-              center: new google.maps.LatLng(vehicleLocationJSON[0].latitude,vehicleLocationJSON[0].longitude),
-              zoom: 10,
-              mapTypeId: google.maps.MapTypeId.ROADMAP
-                                }   
-               map = new google.maps.Map(map_canvas, map_options)
+                var map_options = {
+                    center: {lat: 18.5204, lng: 73.8567},
+                    zoom: 10,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                }   
+             map = new google.maps.Map(map_canvas, map_options)
+        }
+       
+	   function startPathPlay(){     
+       
+       var playBool=false;
+        var map,marker;
+        var speed = 100; // km/h
+        var delay = 100; 
+        
+        var MY_MAPTYPE_ID = 'custom_style';  
+            //function initialize() {
+          // var locations=jQuery.parseJSON(vehicleLocationJSON);
+           var routeLineCoordinates=[];
            
-                  var image = {
+            if(isDataPresent==true){
+               for(index=0;index<vehicleLocationJSON.length; index++){
+                   routeLineCoordinates.push(new google.maps.LatLng(vehicleLocationJSON[index].latitude,vehicleLocationJSON[index].longitude));
+               }
+
+
+               var point = new google.maps.LatLng(vehicleLocationJSON[0].latitude,vehicleLocationJSON[0].longitude);    //keep marker at center of map, need to change hard coding
+            
+                                               
+            var map_canvas = document.getElementById('map');
+            var map_options = {
+            center: new google.maps.LatLng(vehicleLocationJSON[0].latitude,vehicleLocationJSON[0].longitude),
+            zoom: 10,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+                              }   
+             map = new google.maps.Map(map_canvas, map_options)
+				
+				var image = {
                 url: 'html/images/gps.svg',
                 // This marker is 20 pixels wide by 32 pixels high.
                 size: new google.maps.Size(50, 50),
@@ -219,49 +278,50 @@
                 // The anchor for this image is the base of the flagpole at (0, 32).
                 anchor: new google.maps.Point(15, 15)
               };
-            
-            marker= new google.maps.Marker({
+		 
+             marker= new google.maps.Marker({
               position: point,
               map: map,
               icon:image
            });
 
-                       var routePath = new google.maps.Polyline({
-                      map: map,
-                      path: routeLineCoordinates,
-                      strokeColor: "#0000FF",
-                      strokeOpacity: 0.50,
-                      strokeWeight: 2
-                  });
+                     var routePath = new google.maps.Polyline({
+                    map: map,
+                    path: routeLineCoordinates,
+                    strokeColor: "#0000FF",
+                    strokeOpacity: 0.50,
+                    strokeWeight: 2
+                });
 
-                      var coordsStr="[";
-                      for(index=0;index<vehicleLocationJSON.length; index++){
-                         coordsStr=coordsStr+"["+vehicleLocationJSON[index].latitude+","+vehicleLocationJSON[index].longitude+"]";
-                          if(index!=vehicleLocationJSON.length-1){
-                            coordsStr=coordsStr+",";  
-                          }
-                      }
-                      coordsStr=coordsStr+"]";
-                      //var coordsJSONArr=jQuery.parseJSON(coordsStr);
-                      var coordsJSONArr=JSON.parse(coordsStr);
-                      google.maps.event.addListenerOnce(map, 'idle', function()
-                      {
-                          animateMarker(marker, coordsJSONArr, speed);
-                      }); 
-                  }else{
-                      var map_canvas = document.getElementById('map');
-                      var map_options = {
-                      center: {lat: 18.5204, lng: 73.8567},
-                      zoom: 10,
-                      mapTypeId: google.maps.MapTypeId.ROADMAP
-                                        }   
-                       map = new google.maps.Map(map_canvas, map_options)
-                  }
-              }
+                    var coordsStr="[";
+                    for(index=0;index<vehicleLocationJSON.length; index++){
+                       coordsStr=coordsStr+"["+vehicleLocationJSON[index].latitude+","+vehicleLocationJSON[index].longitude+"]";
+                        if(index!=vehicleLocationJSON.length-1){
+                          coordsStr=coordsStr+",";  
+                        }
+                    }
+                    coordsStr=coordsStr+"]";
+                    //var coordsJSONArr=jQuery.parseJSON(coordsStr);
+                    var coordsJSONArr=JSON.parse(coordsStr);
+                    google.maps.event.addListenerOnce(map, 'idle', function()
+                    {
+                        animateMarker(marker, coordsJSONArr, speed);
+                    }); 
+                }else{
+                    var map_canvas = document.getElementById('map');
+                    var map_options = {
+                    center: {lat: 18.5204, lng: 73.8567},
+                    zoom: 10,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                                      }   
+                     map = new google.maps.Map(map_canvas, map_options)
+                }
+           // }
         
         function animateMarker(marker, coords, km_h)
         {
             var target = 0;
+            var endFlag=false;
             var km_h = km_h || 50;
          //  coords.push([startPos[0], startPos[1]]);
 
@@ -299,7 +359,12 @@
                     else
                     {   marker.setPosition(dest);
                         target++;
-                        if (target == coords.length){ target = 0; }
+                        if (target == coords.length){ 
+                            //target = 0; 
+                            endFlag=true;
+                        playBool=false;
+                             $('#play').toggleClass("pause1");
+                        }
 
                         setTimeout(goToPoint, delay);
                     }
@@ -311,18 +376,24 @@
             
             $('#play').click(function(){
                 playBool=!playBool;
+                if(endFlag){
+                    endFlag=false;
+                    target = 0;
+                    marker.setPosition(new google.maps.LatLng(coords[0][0], coords[0][1]));
+                } 
                 if(playBool){
                     goToPoint();
                 }
             $(this).toggleClass("pause1");
             });
         } 
-        
+       
+   } 
        
           //  google.maps.event.addDomListener(window, 'load', initialize);
           window.addEventListener('load',function(){
         	  if(document.getElementById('map')){
-        		  initialize();
+        		  showEmptyMap();
         	  }
           });
     </script>
