@@ -7,7 +7,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vehicle Service View</title>
+    <title>Alert View</title>
     <link href="html/css/css.css" rel="stylesheet" type="text/css" />
     <link href="html/css/bootstrap.min.css" rel="stylesheet">
 
@@ -20,75 +20,69 @@
     <link href="html/css/buttons.dataTables.min.css" rel="stylesheet">
 </head>
 <body class="top-navigation" >
-     <jsp:directive.include file="header.jsp" />
-      <div id="wrapper">
-        <div id="page-wrapper2" class="gray-bg">
-           <div id="messagePrepender" class="rowx wrapper border-bottom white-bg page-heading">
-             <div class="col-sm-6">
-                    <h2>Device Details</h2>
-                </div>
+  <jsp:directive.include file="header.jsp" />
+   
+    <div id="wrapper">
+    <div id="page-wrapper2" class="gray-bg">
+            <div class="rowx wrapper border-bottom white-bg page-heading">
                 <div class="col-sm-6">
+                    <h2>Alert View</h2>
+                </div>
+				<div class="col-sm-6">
                     <div class="text-right">
-                    <form>
-                        <a href="addDeviceMastersView" class="btn btn-primary">Add Device</a>
-                    </form>
+                        <a href="addAlertsView" target="frame1" style="width:120px" class="btn btn-primary">Add Alert</a>
                     </div>
                 </div>
+                
             </div>
             <div class="row">
                 <div class="col-lg-12">
-                
                     <div class="">
                         <div class="row">
-                       
                             <div class="col-lg-12">
                                 <div class="ibox float-e-margins">
                                     <div class="ibox-content">
+
                                         <div class="table-responsive">
-
-                                                    <table width="100%" id="entrydata" class="entrydata table table-striped table-bordered new-tbl">
-                                                        <thead>
-                                                            <tr class="leftMenu">
-                                                                <th ></th>
-																   <th ></th>
-																   
-   
-                                                                <th>Device No</th>
-                                                                <th>Device IMEI</th>
-                                                                <th>Device Module</th>
-                                                                <th>Sim Number</th>
-                                                                <th>Sim Provider</th>
-                                                                
-                                                                
-                                                               
-                                                                <th>Created By</th>
-                                                                <th>Created Date</th>
-                                                                <th>Modify By</th>
-                                                                <th>Modify Date</th>
-                                                            </tr>
-															
-                                                        </thead>
+                                            <table width="100%" id="entrydata" class="entrydata table table-striped table-bordered new-tbl dt-responsive nowrap">
+                                                <thead>
+                                                    <tr class="leftMenu">
+                                                        <th></th>
+														<th></th>
+                                                        
+                                                        <th>Vehicle No</th>
                                                      
-                                                    </table>
-
-                                                </div>
-
-                              
-
+                                                        <th>Over Speed</th>
+                                                        <th>Sudden Break</th>
+                                                        <th>Idle Time</th>
+                                                        <th>Panic</th>
+                                                        <th>Geo Fency</th>
+                                                       
+                                                        <th>Alert By SMS</th>
+                                                        <th>Alert By Mail</th>
+                                                         <th>Snooze Time</th>
+                                                        <th>Contact No</th>
+                                                        <th>Created By</th>
+                                                        <th>Created On</th>
+                                                         <th>Modified By</th>
+                                                        <th>Modified On</th>
+                                                    </tr>
+                                                </thead>
+											  </table>
                                         </div>
+
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-
             </div>
-          
-             <jsp:directive.include file="footer.jsp" />
         </div>
-    
+        
+         <jsp:directive.include file="footer.jsp" />
+    </div>
+
 </body>
 <script type="text/javascript" src="html/js/jquery-1.12.4.js"></script>
 <script type="text/javascript" src="html/js/tether.min.js"></script>
@@ -108,33 +102,37 @@
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.colVis.min.js"></script>
 
 <script>
-  var driverMasterJSON = ${deviceMasterJSON};
+  var alertJSON = ${alertJSON};
       $(document).ready(function () {
     	  $('#hdr_configuration').addClass("dropdown active");
   		$('#hdr_configuration_link').click();
-  		$('#hdr_DeviceMasters').addClass("active");
+  		$('#hdr_Alerts').addClass("active");
   		$('#successMessage').fadeOut(5000);
 		$('#errorMessage').fadeOut(5000);
     	  
           $('#entrydata').DataTable({
         	  dom: '<"top"lBf>rt<"bottom"p><"clear">',
-          	data:driverMasterJSON,
+          	data:alertJSON,
               columns:[
-                       {data: "deviceNo",
+                       {data: "vehicleNo",
                     	 "render": function ( data, type, full, meta ) {
-                    	      return '<a href="EditDeviceMastersView?id='+data+'"><i class="fa fa-pencil-square-o iconedit"  aria-hidden="true"></i></a>';}
+                    	      return '<a href="EditAlertsView?id='+data+'"><i class="fa fa-pencil-square-o iconedit"  aria-hidden="true"></i></a>';}
                     	 },
-                     {data: "deviceNo",
+                     {data: "vehicleNo",
                         	 "render": function ( data, type, full, meta ) {
-                       	      return '<a href="RemoveDeviceMastersRecord?id='+data+'"><i class="fa fa-trash  icondelete" aria-hidden="true"></i></a>';}           	
+                       	      return '<a href="RemoveAlertsRecord?id='+data+'"><i class="fa fa-trash  icondelete" aria-hidden="true"></i></a>';}           	
                     		 
                      },
-                       {data: "deviceNo"},
-                       {data: "deviceIMEI"},
-                       {data: "deviceModule"},
-                       {data: "simNumber"},
-                       {data: "simProvider"},
-                   
+                       {data: "vehicleNo"},
+                       {data: "overSpeed"},
+                       {data: "suddenBreak"},
+                       {data: "idleTime"},
+                       {data: "panic"},
+                       {data: "geofency"},
+                       {data: "alertBySms"},
+                       {data: "alertByMail"},
+                       {data: "snoozeTime"},
+                        {data: "contactNo"},
                        {data: "createdBy"},
                        {data: "createdDateShow"},
                        {data: "modifiedBy"},  
@@ -173,10 +171,6 @@
       });
 
    
-      function validate(){
-			$('#primaryKey').prop('disabled', false);
-			return true;
-		}
   </script>
 
 <style>

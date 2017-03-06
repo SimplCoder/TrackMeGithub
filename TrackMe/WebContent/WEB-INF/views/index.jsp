@@ -84,7 +84,7 @@
                                                     <th width="5%" align="center" valign="middle">Speed</th>                                               
                                                     <th width="45%" align="center" valign="middle">Location</th>
                                                     <th width="7%" align="center" valign="middle">Date/Time</th>
-                                                    <th width="7%" align="center" valign="middle">Idle Time (Hrs.)</th>
+                                                    <th width="7%" align="center" valign="middle">Idle Time (dd:hh:mm)</th>
 												
                                                 </tr>
                           </thead>
@@ -320,7 +320,10 @@ var refreshOut;
                      {data: "speed"},
                      {data: "location"},
                      {data: "datetime1"},
-                     {data: "idletime"}
+                     {data: "idletime",
+                         "render": function (data,type,full,meta){
+                            return sformat(data); 
+                         }}
                     ],
             ordering:false,
 			 lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
@@ -345,7 +348,15 @@ select: {
 		}); 
     }
     
-    
+    function sformat(s) {
+        var fm = [
+              Math.floor(s / 60 / 60 / 24), // DAYS
+              Math.floor(s / 60 / 60) % 24, // HOURS
+              Math.floor(s / 60) % 60 // MINUTES
+             // ,s % 60 // SECONDS
+        ];
+        return $.map(fm, function(v, i) { return ((v < 10) ? '0' : '') + v; }).join(':');
+  }
     
     function updateMarker(jsonArrMarker,vehicleId){
         

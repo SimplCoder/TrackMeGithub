@@ -117,10 +117,10 @@
                           <tr class="leftMenu">
                                                     	 <th width="3%" align="center" valign="middle"></th>
 				
-                                                    <th width="15%" align="center" valign="middle">Date</th>
-                                                    <th width="7%" align="center" valign="middle">Event</th>
-                                                    <th width="11%" align="center" valign="middle">Speed</th>
-                                                    <th width="10%" align="center" valign="middle">Location</th>
+                                                    <th width="12%" align="center" valign="middle">Date</th>
+                                                    <th width="9%" align="center" valign="middle">Event</th>
+                                                    <th width="4%" align="center" valign="middle">Speed</th>
+                                                    <th width="17%" align="center" valign="middle">Location</th>
                                       
 												
                                                 </tr>

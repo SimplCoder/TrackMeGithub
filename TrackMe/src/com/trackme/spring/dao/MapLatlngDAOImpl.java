@@ -43,7 +43,7 @@ public class MapLatlngDAOImpl implements MapLatlngDAO {
 		strBuf.append(" from gsmmaster gsm2 join statusdesc sd1 on  gsm2.status  = sd1.code ");
 		strBuf.append(" where sd1.description='Idling Start' and gsm2.unitno=gsm.unitNo ");
 		strBuf.append(" ))) as Integer ) "); 
-		strBuf.append(" else 0 end as idleTime from vehiclemaster vm join gsmmaster gsm on vm.unitno= gsm.unitNo and vm.status like 'ACTIVE' ");
+		strBuf.append(" else 0 end as idleTime from vehiclemaster vm join gsmmaster gsm on vm.unitno= gsm.unitNo and LOWER(vm.status)=LOWER('ACTIVE') ");
 		strBuf.append(" inner join (select gsm1.unitno , max(gsm1.datetimedate+gsm1.datetime) as lattime ");
 		strBuf.append(" from  gsmmaster gsm1 group by gsm1.unitno ) latest on ");
 		strBuf.append(" gsm.unitno = latest.unitno and (gsm.datetimedate+gsm.datetime)=latest.lattime ");

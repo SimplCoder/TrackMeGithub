@@ -49,6 +49,8 @@
 				<beans:value>com.trackme.spring.model.Route</beans:value>
 				<beans:value>com.trackme.spring.model.RouteSchedule</beans:value>
 				<beans:value>com.trackme.spring.model.DeviceMaster</beans:value>
+					<beans:value>com.trackme.spring.model.Alert</beans:value>
+										<beans:value>com.trackme.spring.model.Movement</beans:value>
 			</beans:list>
 		</beans:property>
 		

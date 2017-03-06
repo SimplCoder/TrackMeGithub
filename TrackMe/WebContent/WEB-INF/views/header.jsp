@@ -63,9 +63,9 @@
 						  <li id="hdr_vehicleMaster" ><a href="VehicleMasters"> <i class="fa fa-car"></i> Vehicle Master</a></li>
 						  <li id="hdr_DriverMasters"><a href="DriverMasters"> <i class="fa fa-user"></i> Driver Details</a></li>
 						  <li id="hdr_VehicleGroupView"><a href="VehicleGroupView"> <i class="fa fa-bus"></i> Vehicle Groups</a></li>
-						  <li id="hdr_alertMaster"><a href="html/alert_master_view.html"> <i class="fa fa-bell-o"></i> Alert</a></li>
+						  <li id="hdr_Alerts"><a href="Alerts"> <i class="fa fa-bell-o"></i> Alert</a></li>
 						  <li id="hdr_UserMasters"><a href="UserMasters"> <i class="fa fa-user"></i> User</a></li>
-						  <li id="hdr_NoMovement"><a href="html/No_movements_view.html"> <i class="fa fa-stop"></i> No Movement </a></li>
+						  <li id="hdr_NoMovement"><a href="Movements"> <i class="fa fa-stop"></i> No Movement </a></li>
 						  <li id="hdr_DeviceMasters"><a href="DeviceMasters"> <i class="fa fa-car"></i> Device Master</a></li>
 						 
 						</ul>
