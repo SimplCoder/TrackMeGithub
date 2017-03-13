@@ -8,6 +8,7 @@ import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.trackme.constants.Constant;
@@ -23,6 +24,10 @@ public class VehicleMasterDAOImpl implements VehicleMasterDAO {
 
 	@Autowired
 	private SessionFactory sessionFactory;
+	
+	@Autowired
+	private JdbcTemplate jdbcTemplate;  
+	
 	
 	public void setSessionFactory(SessionFactory sf){
 		this.sessionFactory = sf;
@@ -76,15 +81,20 @@ public class VehicleMasterDAOImpl implements VehicleMasterDAO {
 
 	@Override
 	public int totaNoOffVehicle() {
-		Session session = this.sessionFactory.getCurrentSession();
-		Long count=null;
+		
+		
+		int total=0;
 		try{
-		Query query=session.createQuery("select count(*)from VehicleMaster ");
-		 count = (Long)query.uniqueResult();	
-		}catch(Exception e){
-			return 0;
+		StringBuilder queryStr=new StringBuilder();
+		queryStr.append("select count(distinct gsm.unitno) from gsmmaster gsm join vehiclemaster vm on gsm.unitno= vm.unitno");
+		
+		total = jdbcTemplate.queryForInt(queryStr.toString());
+		return total;}catch(Exception e){
+			return total;
 		}
-		return (int)count.longValue();
+		
+		
+		
 	}
 
 	@Override

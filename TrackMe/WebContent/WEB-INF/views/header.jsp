@@ -46,7 +46,7 @@
 						  <li><a href="#"><i class="fa fa-list-ul"></i> Vehicle I/O List</a></li>
 						</ul>
 					  </li>
-					  <li> <a aria-expanded="false" role="button" href="html/reports.html">Reports</a> </li>
+					  <li> <a aria-expanded="false" role="button" href="Reports">Reports</a> </li>
 					  <li id="hdr_settings" class="dropdown"> <a aria-expanded="false" id="hdr_settings_link" role="button" href="#" class="dropdown-toggle" >Settings<span class="caret"></span></a>
 						<ul role="menu" class="dropdown-menu">
 						    <li><a href="driver_scheduling_view.html"><i class="fa fa-sitemap"></i>Driver Scheduling </a></li>

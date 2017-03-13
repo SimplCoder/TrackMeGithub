@@ -1396,7 +1396,7 @@ $fp1.on( "fp:save", function( e, dateObj ) {
 
 
 $("#resetDates").click(function(){
-	alert("dfg");
+	
 
     $("#fromDate").val("");
 
@@ -1422,7 +1422,7 @@ font-size:12pt;
 .ibox-content {
   background-color: #ffffff;
   color: inherit;
-  padding: 1px 1px 1px 1px;
+  padding: 14px 1px 1px 1px;
   border-color: #e7eaec;
   border-image: none;
   border-style: solid solid none;

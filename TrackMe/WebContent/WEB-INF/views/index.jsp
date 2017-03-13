@@ -418,7 +418,7 @@ select: {
           anchor: new google.maps.Point(0, 32)
         };
         var bgColor= '#1e8427';
-        if(description =='Ignition Off'){
+        if(description =='Ignition Off' || description =='Health Check'){
         	bgColor ='#d60002'
         }
           var marker = new MarkerWithLabel({
@@ -1308,7 +1308,7 @@ width:97.5% !important;
 .ibox-content {
   background-color: #ffffff;
   color: inherit;
-  padding: 1px 1px 1px 1px;
+  padding: 14px 1px 1px 1px;
   border-color: #e7eaec;
   border-image: none;
   border-style: solid solid none;
