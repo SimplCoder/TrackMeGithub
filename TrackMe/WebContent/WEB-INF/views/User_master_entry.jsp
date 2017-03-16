@@ -36,10 +36,12 @@
                 <div class="ibox-content">
                     <h3 class="m-t-none m-b">Add New User</h3>
                     <div class="row">
-                        <form:form role="form" action="UserMasterSave" commandName="UserMaster" method="post" onsubmit="return myFunction()">
+                        <form:form role="form" action="UserMasterSave" commandName="UserMaster" method="post"  onsubmit="return myFunction()">
                             <div class="form-group col-sm-12">
                                 <div class="form-group col-sm-6">
                                     <label>User Name</label>
+                                    <form:hidden path="status" value="Active"/>
+										
                                    	<c:if test="${UserMaster.editFlag==true }">
 							             <form:input path="userName" type="text" disabled="true" id="primaryKey"  class="form-control editor-field"/>
                             			<form:hidden path="editFlag" value="${UserMaster.editFlag}"/>
@@ -52,6 +54,7 @@
                             			
 							<form:hidden path="editFlag" value="${UserMaster.editFlag}"/>
 							</c:if>
+							
 							
                                 </div>
                             </div>
@@ -68,6 +71,14 @@
                                		<p id="repass" ></p>
                                 </div>
                             </div>
+                            
+                            <div class="form-group col-sm-12">
+                                <div class="form-group col-sm-6">
+                                    <label>Company</label>
+                                   <form:select class="form-control" required="true" path="companyMaster.id" items="${companyMasters}" itemLabel="companyName" itemValue="id"></form:select>
+                                </div>
+                            </div>
+                            
                             <div class="text-center">
                             <c:if test="${UserMaster.editFlag==false }">
                                 <input type="submit" onclick=" return validate()" name="action" id="button" class="btn btn-primary" value="Save User">

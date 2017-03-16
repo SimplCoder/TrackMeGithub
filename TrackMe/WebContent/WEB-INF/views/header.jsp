@@ -26,7 +26,7 @@
 	 			<div class="top-title"> VEHICLE TRACKING AND FLEET MANAGMENT SYSTEM</div>
 			</div>
 			<div class="col-xs-3 col-sm-3 text-right">
-				<div class="cust-logo"> <img src="html/images/cust-logo.jpg" alt=""/> <span>Customer Logo</span> </div>
+				<div class="cust-logo"> <img src="${currentUser.companyMaster.logoPath}" alt=""/> <span>${currentUser.companyMaster.companyName}</span> </div>
 			</div>
 		</div>
 		<div class="row border-bottom white-bgx">
@@ -66,7 +66,8 @@
 						  <li id="hdr_Alerts"><a href="Alerts"> <i class="fa fa-bell-o"></i> Alert</a></li>
 						  <li id="hdr_UserMasters"><a href="UserMasters"> <i class="fa fa-user"></i> User</a></li>
 						  <li id="hdr_NoMovement"><a href="Movements"> <i class="fa fa-stop"></i> No Movement </a></li>
-						  <li id="hdr_DeviceMasters"><a href="DeviceMasters"> <i class="fa fa-car"></i> Device Master</a></li>
+						    <li id="hdr_CompanyMaster"><a href="CompanyMasters"> <i class="fa fa-stop"></i> Company </a></li>
+						<li id="hdr_DeviceMasters"><a href="DeviceMasters"> <i class="fa fa-car"></i> Device Master</a></li>
 						 
 						</ul>
 					  </li>

@@ -9,4 +9,6 @@ public class Constant {
 	public static final String CURRENT_USER="currentUser";
 	public static final String STATUS_ACTIVE="Active";
 	public static final String STATUS_INACTIVE="Inactive";
+	public static final String logoPath="html\\images\\logo";
+	public static final String PROJECT_NAME = "TrackMe";
 }

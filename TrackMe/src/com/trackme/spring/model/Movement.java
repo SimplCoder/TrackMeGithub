@@ -36,7 +36,7 @@ public class Movement
   @Column(name="tosnooze")
   private String toSnooze;
   
-  
+ 
   @Column(name="startdate")
   private Date startdate;
   

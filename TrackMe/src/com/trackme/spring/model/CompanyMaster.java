@@ -5,9 +5,9 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -16,36 +16,33 @@ import org.springframework.util.StringUtils;
 import com.trackme.constants.Constant;
 
 @Entity
-@Table(name="usermaster")
-public class UserMaster
+@Table(name="company")
+public class CompanyMaster
 {
-@Id
-@Column(name="username")
-  private String userName;
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="id")
+	  private Integer id;
 
-@Column(name="password")
-  private String password;
+@Column(name="companyname")
+  private String companyName;
 
-@Column(name="level")
-  private String level;
 
-@Column(name="mapview")
-  private String mapView;
+@Column(name="logopath")
+private String logoPath;
 
-@OneToOne
-@JoinColumn(name="company")
-CompanyMaster companyMaster;
+
 
 @Column(name="createdby")
   private String createdBy;
 
-@Column(name="createddate")
+@Column(name="createdon")
   private Date createdDate;
 
 @Column(name="modifiedBy")
   private String modifiedBy;
 
-@Column(name="modifiedDate")
+@Column(name="modifiedon")
   private Date modifiedDate;
 
 @Transient
@@ -54,48 +51,33 @@ private String  createdDateShow;
 private String  modifiedDateShow;
 
 
-  public String getUserName()
-  {
-    return this.userName;
-  }
+
+
   
-  public void setUserName(String userName)
-  {
-    this.userName = userName;
-  }
-  
-  public String getPassword()
-  {
-    return this.password;
-  }
-  
-  public void setPassword(String password)
-  {
-    this.password = password;
-  }
-  
-  public String getLevel()
-  {
-    return this.level;
-  }
-  
-  public void setLevel(String level)
-  {
-    this.level = level;
-  }
-  
-  
-  
- 
-public String getMapView()
-  {
-    return this.mapView;
-  }
-  
-  public void setMapView(String mapView)
-  {
-    this.mapView = mapView;
-  }
+  public Integer getId() {
+	return id;
+}
+
+public void setId(Integer id) {
+	this.id = id;
+}
+
+public String getCompanyName() {
+	return companyName;
+}
+
+public void setCompanyName(String companyName) {
+	this.companyName = companyName;
+}
+
+public String getLogoPath() {
+	return logoPath;
+}
+
+public void setLogoPath(String logoPath) {
+	this.logoPath = logoPath;
+}
+
   
   public String getCreatedBy()
   {
@@ -207,14 +189,4 @@ public String getStatus() {
 public void setStatus(String status) {
 	this.status = status;
 }
-
-public CompanyMaster getCompanyMaster() {
-	return companyMaster;
-}
-
-public void setCompanyMaster(CompanyMaster companyMaster) {
-	this.companyMaster = companyMaster;
-}
-
-
 }

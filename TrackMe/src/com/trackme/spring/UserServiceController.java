@@ -1,5 +1,8 @@
 package com.trackme.spring;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.Date;
 import java.util.List;
 
@@ -14,11 +17,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.trackme.constants.Constant;
+import com.trackme.spring.model.CompanyMaster;
 import com.trackme.spring.model.UserMaster;
+import com.trackme.spring.service.CompanyMasterService;
 import com.trackme.spring.service.UserMasterService;
 
 @Controller
@@ -31,6 +37,15 @@ public class UserServiceController extends BaseController {
 	public void setUserMasterService(UserMasterService ps){
 		this.UserMasterService = ps;
 	}
+	
+private CompanyMasterService companyMasterService;
+	
+	@Autowired(required=true)
+	@Qualifier(value="companyMasterService")
+	public void setCompanyMasterServicee(CompanyMasterService ps){
+		this.companyMasterService = ps;
+	}
+	
 	
 	@RequestMapping(value = "/UserMasters", method = RequestMethod.GET)
 	public String listUserMasters(Model model) {
@@ -54,6 +69,9 @@ public class UserServiceController extends BaseController {
 	//For add and update UserMaster both
 	@RequestMapping(value= "/UserMasterSave", method = RequestMethod.POST)
 	public String addUserMaster(@ModelAttribute("UserMaster") UserMaster p, Model model,  HttpServletRequest request, HttpServletResponse response){
+		
+		
+	
 		
 		if(UserMasterService.getUserMasterById(p.getUserName()) ==null){
 			//new UserMaster, add it
@@ -99,6 +117,11 @@ public class UserServiceController extends BaseController {
   
     @RequestMapping("/UserMasterEdit")
     public String editUserMaster(@RequestParam("id") String id, Model model){
+    	
+    	 List<CompanyMaster> companyMasters=	this.companyMasterService.listCompanyMasters();
+    	 model.addAttribute("companyMasters", companyMasters);
+         
+    	
     	if(id.equals("new")){
     		model.addAttribute("UserMaster", new UserMaster());
     	}else{

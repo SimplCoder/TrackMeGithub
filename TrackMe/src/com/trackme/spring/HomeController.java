@@ -43,7 +43,7 @@ public class HomeController {
 	@Autowired
 	UserMasterService userMasterService;
 	
-	@RequestMapping(value = "/home", method = RequestMethod.GET)
+	@RequestMapping(value = "/*", method = RequestMethod.GET)
 	public String home(Locale locale, Model model,Principal principal,HttpServletRequest request) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		if (principal != null) {
