@@ -74,9 +74,9 @@
                                                 <form:hidden path="radius" id="radiusId"  />
                                                 <form:hidden path="id" id="geoFenceId" />
                                             </div>
-                                             <div class="form-group col-sm-12" id="infoDiv" style="visibility: hidden; display:inline;">
-                                                <label>Radius:</label>
-                                               <span id="displayInfo"></span><span id="unit">&nbsp;K.M.</span>
+                                             <div class="form-group col-sm-12"  id="infoDiv" style="visibility: hidden; display:inline;">
+                                                <label >Radius:</label>
+                                               <span id="displayInfo" style="font-size:14px"></span><span style="font-size:12px" id="unit">&nbsp;K.M.</span>
                                             </div>
                                             <div class="form-group col-sm-12">
                                                 

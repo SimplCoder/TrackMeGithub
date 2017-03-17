@@ -26,7 +26,8 @@ public class GeoFencingServiceImpl implements GeoFencingService {
 	@Override
 	@Transactional
 	public void addGeoFence(GeoFenceDetail geoFenceDetail) {
-		geoFencingDAO.addGeoFence(geoFenceDetail);
+		//geoFencingDAO.addGeoFence(geoFenceDetail);
+		geoFencingDAO.saveGeoFenceUsingHibrnate(geoFenceDetail);
 	}
 
 	@Override

@@ -91,7 +91,7 @@ public class GeoFencingController extends BaseController {
 			@ModelAttribute("GeoFenceDetail") GeoFenceDetail geoFenceDetail,
 			Model model, HttpServletRequest request,
 			HttpServletResponse response) {
-		if (geoFenceDetail.getId() == 0) {
+		if (geoFenceDetail.getId() ==null ) {
 			UserMaster currentUser = (UserMaster) request.getSession()
 					.getAttribute(Constant.CURRENT_USER);
 			geoFenceDetail.setCreatedBy(currentUser.getUserName());

@@ -11,4 +11,6 @@ public interface GeoFencingDAO {
 	public List<GeoFenceDetail> getGeoFenceList();
 	public GeoFenceDetail getGeoFenceById(int geoFenceId);
 	public void removeGeoFence(int geoFenceId);
+	
+	public void saveGeoFenceUsingHibrnate(GeoFenceDetail geoFenceDetail);
 }

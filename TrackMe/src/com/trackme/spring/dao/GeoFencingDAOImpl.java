@@ -28,46 +28,12 @@ public class GeoFencingDAOImpl implements GeoFencingDAO {
 		this.sessionFactory = sessionFactory;
 	}
 
+	
+	
+	
+	
 	@Override
-	public void addGeoFence(GeoFenceDetail geoFenceDetail) {
-		Session session = this.sessionFactory.getCurrentSession();
-		//session.persist(geoFenceDetail);
-		StringBuffer queryBuf=new StringBuffer("INSERT INTO ");
-		queryBuf.append(" geofencemaster (geofencename,latitude,longitude,radius,location,createdby,createdon,status,username) VALUES ( ");
-		queryBuf.append(" '");
-		queryBuf.append(geoFenceDetail.getGeoFenceName());
-		queryBuf.append("' ");
-		queryBuf.append(" , ");
-		queryBuf.append(geoFenceDetail.getLatitude());
-		queryBuf.append(" , ");
-		queryBuf.append(geoFenceDetail.getLongitude());
-		queryBuf.append(" , ");
-		queryBuf.append(geoFenceDetail.getRadius());
-		queryBuf.append(" , ");
-		queryBuf.append(" '");
-		queryBuf.append(geoFenceDetail.getLocation());
-		queryBuf.append("' ");
-		queryBuf.append(" , ");
-		queryBuf.append(" '");
-		queryBuf.append(geoFenceDetail.getCreatedBy());
-		queryBuf.append("' ");
-		queryBuf.append(" , ");
-		queryBuf.append(" '");
-		queryBuf.append(Constant.dateFormater.format(geoFenceDetail.getCreatedDate()));
-		queryBuf.append("' ");
-		queryBuf.append(" , ");
-		queryBuf.append(" '");
-		queryBuf.append(geoFenceDetail.getStatus());
-		queryBuf.append("' ");
-		queryBuf.append(" , ");
-		queryBuf.append(" '");
-		queryBuf.append(geoFenceDetail.getUserName());
-		queryBuf.append("' ");
-		queryBuf.append(" ); ");
-		int result = session.createSQLQuery(queryBuf.toString()).executeUpdate();
-		logger.info("geoFenceDetail saved successfully, record inserted result= "+result);
-
-	}
+	public void addGeoFence(GeoFenceDetail geoFenceDetail) {}
 
 	@Override
 	public void updateGeoFence(GeoFenceDetail geoFenceDetail) {
@@ -115,6 +81,15 @@ public class GeoFencingDAOImpl implements GeoFencingDAO {
 			session.flush();
 		}
 		logger.info("GeoFenceDetail deleted successfully, GeoFenceDetail details="+geoFenceDetail);
+	}
+
+	@Override
+	public void saveGeoFenceUsingHibrnate(GeoFenceDetail geoFenceDetail) {
+	Session session = this.sessionFactory.getCurrentSession();
+	session.save(geoFenceDetail);
+		
+		// TODO Auto-generated method stub
+		
 	}
 
 }

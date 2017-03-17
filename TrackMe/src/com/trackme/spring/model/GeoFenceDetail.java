@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -12,8 +14,9 @@ import javax.persistence.Transient;
 @Table(name = "geofencemaster")
 public class GeoFenceDetail {
 	@Id
+	@GeneratedValue(strategy=GenerationType.)
 	@Column(name = "ID")
-	private int id;
+	private Integer id;
 	@Column(name = "geoFenceName")
 	private String geoFenceName;
 	@Column(name = "latitude")
@@ -63,11 +66,11 @@ public class GeoFenceDetail {
 		this.geoFenceType = geoFenceType;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
