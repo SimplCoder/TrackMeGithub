@@ -14,7 +14,7 @@ import javax.persistence.Transient;
 @Table(name = "geofencemaster")
 public class GeoFenceDetail {
 	@Id
-	@GeneratedValue(strategy=GenerationType.)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name = "ID")
 	private Integer id;
 	@Column(name = "geoFenceName")
