@@ -51,7 +51,7 @@
 						<ul role="menu" class="dropdown-menu">
 						    <li><a href="driver_scheduling_view.html"><i class="fa fa-sitemap"></i>Driver Scheduling </a></li>
                                         <li><a href="html/vehicle_service_master_view.html"><i class="fa fa-car"></i>Vehicle Service </a></li>
-                                        <li><a href="#"><i class="fa fa-tencent-weibo"></i>Geofency</a></li>
+                                        <li id="hdr_goeFence"><a href="listGeoFenceDetails.html"><i class="fa fa-tencent-weibo"></i>Geofences</a></li>
                                         <li><a href="html/fuel.html"><i class="fa fa-tint"></i>Fuel </a></li>
                                         <li><a href="html/location_master_entry.html"><i class="fa fa-map-marker"></i>Location Entry </a></li>
                                         <li><a href="html/Route.html"><i class="fa fa-road"></i>Route </a></li>
