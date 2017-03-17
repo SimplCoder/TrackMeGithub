@@ -52,6 +52,7 @@
 					<beans:value>com.trackme.spring.model.Alert</beans:value>
 				<beans:value>com.trackme.spring.model.Movement</beans:value>
 				<beans:value>com.trackme.spring.model.CompanyMaster</beans:value>
+                <beans:value>com.trackme.spring.model.GeoFenceDetail</beans:value>
 			</beans:list>
 		</beans:property>
 		
