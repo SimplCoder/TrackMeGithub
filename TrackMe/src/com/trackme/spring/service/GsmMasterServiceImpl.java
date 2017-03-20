@@ -56,5 +56,9 @@ public class GsmMasterServiceImpl implements GsmMasterService{
 		String arrStatus="5,7,15";
 		return gsmMasterJDBC.getVehicleCountByStatus(arrStatus);
 	}
-
+	@Override
+	@Transactional 
+	public int getNotRespondingVehicleCount(){
+		return gsmMasterJDBC.getNotRespondingVehicleCount();
+	}
 }

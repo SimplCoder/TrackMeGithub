@@ -48,6 +48,14 @@
             </div>
             <div class="graph-txt">Alert</div>
           </div>
+          
+          <div class="graph-in">
+            <div class="graph-img">
+              <canvas id="doughnutChart5" height="100"></canvas>
+            </div>
+            <div class="graph-txt">Not Responding</div>
+          </div> 
+          
           <div class="graph-in" style="padding-top: 2%;" >
 
             <div class="graph-img"  style="font-size: 20px;">
@@ -815,6 +823,26 @@ $("#vehcileCountShow").text(totalVeh);
 	/* -------------------555-------------------------------- */
 	
 
+    var notResponding= parseInt(data.result["0"].notResponding);
+    
+	var doughnutData4 = [
+ 
+        {
+            value: totalVeh-notResponding,
+            color: "#d9d9d9",
+            highlight: "#d9d9d9",
+            label: ""
+        },
+        {
+            value: notResponding,
+            color: "#ed5564",
+            highlight: "#00aeff",
+            label: ""
+        }
+    ];
+	  
+    var ctx4 = document.getElementById("doughnutChart5").getContext("2d");
+    var myNewChart4 = new Chart(ctx4).Doughnut(doughnutData4, doughnutOptions);
 	
 	
 	
@@ -1011,7 +1039,7 @@ $('.fa-refresh').click(function() {
 
 .graphs {
     overflow: hidden;
-    padding: 0 0 0;
+    padding: 10px 0 0;
 }
 
 canvas {

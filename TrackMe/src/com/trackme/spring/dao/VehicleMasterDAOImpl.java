@@ -86,7 +86,7 @@ public class VehicleMasterDAOImpl implements VehicleMasterDAO {
 		int total=0;
 		try{
 		StringBuilder queryStr=new StringBuilder();
-		queryStr.append("select count(distinct gsm.unitno) from gsmmaster gsm join vehiclemaster vm on gsm.unitno= vm.unitno");
+		queryStr.append("select count(distinct gsm.unitno) from gsmstatus gsm join vehiclemaster vm on gsm.unitno= vm.unitno");
 		
 		total = jdbcTemplate.queryForInt(queryStr.toString());
 		return total;}catch(Exception e){

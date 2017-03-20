@@ -9,4 +9,5 @@ public interface GsmMasterService {
 	public int idleVehicleCount();
 	public int overSpeedVehicleCount();
 	public int alertOnVehicleCount();
+	public int getNotRespondingVehicleCount();
 }

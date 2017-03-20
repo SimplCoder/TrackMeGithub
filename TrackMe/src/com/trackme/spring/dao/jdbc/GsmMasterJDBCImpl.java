@@ -29,18 +29,33 @@ public class GsmMasterJDBCImpl implements GsmMasterJDBC {
 		int total=0;
 		try{
 		StringBuilder queryStr=new StringBuilder();
-		queryStr.append("select count(*)  from vehiclemaster vm join gsmmaster gsm on vm.unitno= gsm.unitNo ");
-		queryStr.append("inner join ");
-		queryStr.append("(select gsm1.unitno , max(gsm1.datetimedate+gsm1.datetime) as lattime ");
-		queryStr.append("from  gsmmaster gsm1 group by gsm1.unitno");
-		queryStr.append(" ) latest on ");
-		queryStr.append(" gsm.unitno = latest.unitno and (gsm.datetimedate+gsm.datetime)=latest.lattime");
+		queryStr.append("select count(*)  from vehiclemaster vm join gsmstatus gsm on vm.unitno= gsm.unitNo ");
 		queryStr.append(" where gsm.status in("+status);
 		queryStr.append(")");
 		 total = jdbcTemplate.queryForInt(queryStr.toString());
 		return total;}catch(Exception e){
 			return total;
 		}
+	}
+
+	@Override
+	public int getNotRespondingVehicleCount() {
+		// TODO Auto-generated method stub
+		int total = 0;
+		try{
+		String query =			
+               " select count(*) from gsmstatus gm join vehiclemaster vm on (gm.unitno= vm.unitno "+
+				" and vm.status like 'Active') where  "+
+				" ((DATE_PART('day', now()::timestamp - (gm.datetimedate+gm.datetime) ) * 24 +  "+
+				"  DATE_PART('hour', now()::timestamp - (gm.datetimedate+gm.datetime))) * 60+  "+
+				" DATE_PART('minute', now()::timestamp- (gm.datetimedate+gm.datetime)))/60 > 6 ";
+		 total = jdbcTemplate.queryForInt(query);
+		 return total;
+		}catch(Exception e){
+			
+		}	
+		
+		return 0;
 	}
 
 
