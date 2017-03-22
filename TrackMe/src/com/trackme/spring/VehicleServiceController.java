@@ -1,7 +1,9 @@
 package com.trackme.spring;
 
+import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,6 +23,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.trackme.constants.Constant;
 import com.trackme.spring.model.UserMaster;
 import com.trackme.spring.model.VehicleMaster;
+import com.trackme.spring.service.MapLatlngService;
 import com.trackme.spring.service.VehicleGroupService;
 import com.trackme.spring.service.VehicleMasterService;
 
@@ -31,6 +34,8 @@ public class VehicleServiceController extends BaseController {
 	
 	public VehicleGroupService VehicleGroupService;
 	
+	@Autowired
+	private MapLatlngService mapLatlngService;
 	
 	
 	public VehicleGroupService getVehicleGroupService() {
@@ -122,5 +127,51 @@ public class VehicleServiceController extends BaseController {
         model.addAttribute("listVehicleMasters", this.vehicleMasterService.listVehicleMasters());
         return "Vehicle_master_addNew";
     }
+    
+    
+    @RequestMapping("/VehicleView")
+    public String showVehicleView(Locale locale,Model model, HttpServletRequest request, HttpServletResponse response){
+    	List mapLatlngList = mapLatlngService.getAllVehicleLocation();
+
+    	Date date = new Date();
+		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG,
+				DateFormat.LONG, locale);
+		String formattedDate = dateFormat.format(date);
+		
+		ObjectMapper objectMapper = new ObjectMapper();
+		String allVehicleLocationJson = null;
+		try {
+			allVehicleLocationJson = objectMapper
+					.writeValueAsString(mapLatlngList);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		// System.out.println("JSON=== "+allVehicleLocationJson);
+		model.addAttribute("allVehicleLocation", allVehicleLocationJson);
+		model.addAttribute("serverTime", formattedDate);
+		
+    	
+    	
+    	return "vehicle_view";
+    }
 	
+	@RequestMapping(value = "/VehicleInfo", method = RequestMethod.GET)
+	public String showVehicleInfo(Model model , HttpServletRequest request, HttpServletResponse response) {
+		model.addAttribute("VehicleMaster", new VehicleMaster());
+	
+	    List<VehicleMaster> vehicleMasters=	this.vehicleMasterService.listVehicleMasters();
+		
+		ObjectMapper objectMapper = new ObjectMapper();
+		String vehicleMastersJSON=null; 
+		try {
+			vehicleMastersJSON = objectMapper.writeValueAsString(vehicleMasters);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		model.addAttribute("vehicleMastersJSON", vehicleMastersJSON);
+		return "Vehicle_info_view";
+	}
 }

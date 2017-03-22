@@ -38,11 +38,10 @@
 				  <div class="navbar-collapse collapse" id="navbar">
 					<ul class="nav navbar-nav">
 					  <li id="hdr_live"> <a aria-expanded="false" role="button" href="home">Live</a> </li>
-					  <li class="dropdown"> <a aria-expanded="false" role="button" href="#" class="dropdown-toggle">Vehicle Information<span class="caret"></span></a>
+					  <li id="hdr_vehicle" class="dropdown"> <a id="hdr_vehicleLink" aria-expanded="false" role="button" href="#" class="dropdown-toggle">Vehicle Information<span class="caret"></span></a>
 						<ul  role="menu" class="dropdown-menu">
-						  <li ><a href="html/VehicleView.html"><i class="fa fa-eye"></i> Vehicle View</a></li>
-						  <li ><a href="html/VehicleInfo_map_view.html"><i class="fa fa-thumb-tack"></i> Vehicle Map View</a></li>
-						  <li ><a href="html/Vehicle_master_view.html"><i class="fa fa-info-circle"></i> Vehicle information </a></li>
+						  <li id="hdr_vehicleView" ><a href="VehicleView"><i class="fa fa-eye"></i> Vehicle View</a></li>
+						  <li id="hdr_vehicleInfo" ><a href="VehicleInfo"><i class="fa fa-info-circle"></i> Vehicle information </a></li>
 						  <li><a href="#"><i class="fa fa-list-ul"></i> Vehicle I/O List</a></li>
 						</ul>
 					  </li>
