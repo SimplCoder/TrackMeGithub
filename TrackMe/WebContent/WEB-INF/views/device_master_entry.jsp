@@ -35,7 +35,7 @@
             <div class="wrapper wrapper-content  animated fadeInRight">
 
                 <div class="ibox-content">
-                   
+                    <h3 class="m-t-none m-b">Device Master Entry </h3>
                     <div class="row">
                        <form:form action="AddOrUpdateDeviceMastersRecord" commandName ="DeviceMaster" >
 

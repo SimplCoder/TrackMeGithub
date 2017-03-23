@@ -51,10 +51,10 @@
 						    <li><a href="driver_scheduling_view.html"><i class="fa fa-sitemap"></i>Driver Scheduling </a></li>
                                         <li><a href="html/vehicle_service_master_view.html"><i class="fa fa-car"></i>Vehicle Service </a></li>
                                         <li id="hdr_goeFence"><a href="listGeoFenceDetails.html"><i class="fa fa-tencent-weibo"></i>Geofences</a></li>
-                                        <li><a href="html/fuel.html"><i class="fa fa-tint"></i>Fuel </a></li>
-                                        <li><a href="html/location_master_entry.html"><i class="fa fa-map-marker"></i>Location Entry </a></li>
-                                        <li><a href="html/Route.html"><i class="fa fa-road"></i>Route </a></li>
-                                        <li><a href="html/route_schedule_view.html"><i class="fa fa-line-chart"></i>Route Scheduling </a></li>
+                                        <li id="hdr_vehicleFuel"><a href="ViewFuelDetails"><i class="fa fa-tint"></i>Fuel </a></li>
+                                        <li id="hdr_vehicleLocation"><a href="LocationMasters"><i class="fa fa-map-marker"></i>Location Entry </a></li>
+                                        <li id="hdr_vehicleRoute"><a href="ViewRouteDetails"><i class="fa fa-road"></i>Route </a></li>
+                                        <li id="hdr_vehicleRouteSch"><a href="ViewRouteScheduleDetails"><i class="fa fa-line-chart"></i>Route Scheduling </a></li>
                                     </ul>
 					  </li>
 					  <li id="hdr_configuration" class="dropdown"> <a aria-expanded="false" id="hdr_configuration_link" role="button" href="#" class="dropdown-toggle" >Configuration<span class="caret"></span></a>
