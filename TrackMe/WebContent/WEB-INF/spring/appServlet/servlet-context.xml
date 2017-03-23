@@ -53,7 +53,7 @@
 				<beans:value>com.trackme.spring.model.Movement</beans:value>
 					<beans:value>com.trackme.spring.model.Location</beans:value>
 				<beans:value>com.trackme.spring.model.CompanyMaster</beans:value>
-				
+				   <beans:value>com.trackme.spring.model.VehicleIO</beans:value>
                 <beans:value>com.trackme.spring.model.GeoFenceDetail</beans:value>
 			</beans:list>
 		</beans:property>

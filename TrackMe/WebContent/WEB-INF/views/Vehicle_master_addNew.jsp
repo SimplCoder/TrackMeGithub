@@ -15,7 +15,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NST GPS</title>
+    <title>Vehicle Master</title>
     <link href="html/css/css.css" rel="stylesheet" type="text/css" />
     <link href="html/css/bootstrap.css" rel="stylesheet">
   	<link href="html/css/dataTables.bootstrap.min.css" rel="stylesheet">
