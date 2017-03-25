@@ -41,38 +41,41 @@
 					  <li id="hdr_vehicle" class="dropdown"> <a id="hdr_vehicleLink" aria-expanded="false" role="button" href="#" class="dropdown-toggle">Vehicle Information<span class="caret"></span></a>
 						<ul  role="menu" class="dropdown-menu">
 						  <li id="hdr_vehicleView" ><a href="VehicleView"><i class="fa fa-eye"></i> Vehicle View</a></li>
-						  <li id="hdr_vehicleInfo" ><a href="VehicleInfo"><i class="fa fa-info-circle"></i> Vehicle information </a></li>
-						  <li id="hdr_vehicleIO"><a href="VehicleIOs"><i class="fa fa-list-ul"></i> Vehicle I/O List</a></li>
+						  <li id="hdr_vehicleInfo" ><a href="VehicleInfo"><i class="fa fa-info-circle"></i>Vehicle information </a></li>
+						  <li id="hdr_vehicleIO"><a href="VehicleIOs"><i class="fa fa-list-ul"></i>Vehicle I/O List</a></li>
 					</ul>
 					  </li>
 					  <li> <a aria-expanded="false" role="button" href="Reports">Reports</a> </li>
 					  <li id="hdr_settings" class="dropdown"> <a aria-expanded="false" id="hdr_settings_link" role="button" href="#" class="dropdown-toggle" >Settings<span class="caret"></span></a>
 						<ul role="menu" class="dropdown-menu">
-						    <li><a href="driver_scheduling_view.html"><i class="fa fa-sitemap"></i>Driver Scheduling </a></li>
-                                        <li><a href="html/vehicle_service_master_view.html"><i class="fa fa-car"></i>Vehicle Service </a></li>
+						    <li><a href="driver_scheduling_view.html"><i class="fa fa-sitemap"></i>Driver Scheduling</a></li>
+                                        <li><a href="html/vehicle_service_master_view.html"><i class="fa fa-car"></i>Vehicle Service</a></li>
                                         <li id="hdr_goeFence"><a href="listGeoFenceDetails.html"><i class="fa fa-tencent-weibo"></i>Geofences</a></li>
-                                        <li id="hdr_vehicleFuel"><a href="ViewFuelDetails"><i class="fa fa-tint"></i>Fuel </a></li>
-                                        <li id="hdr_vehicleLocation"><a href="LocationMasters"><i class="fa fa-map-marker"></i>Location Entry </a></li>
-                                        <li id="hdr_vehicleRoute"><a href="ViewRouteDetails"><i class="fa fa-road"></i>Route </a></li>
-                                        <li id="hdr_vehicleRouteSch"><a href="ViewRouteScheduleDetails"><i class="fa fa-line-chart"></i>Route Scheduling </a></li>
+                                        <li id="hdr_vehicleFuel"><a href="ViewFuelDetails"><i class="fa fa-tint"></i>Fuel</a></li>
+                                        <li id="hdr_vehicleLocation"><a href="LocationMasters"><i class="fa fa-map-marker"></i>Location Entry</a></li>
+                                        <li id="hdr_vehicleRoute"><a href="ViewRouteDetails"><i class="fa fa-road"></i>Route</a></li>
+                                        <li id="hdr_vehicleRouteSch"><a href="ViewRouteScheduleDetails"><i class="fa fa-line-chart"></i>Route Scheduling</a></li>
                                     </ul>
 					  </li>
 					  <li id="hdr_configuration" class="dropdown"> <a aria-expanded="false" id="hdr_configuration_link" role="button" href="#" class="dropdown-toggle" >Configuration<span class="caret"></span></a>
 						<ul role="menu" class="dropdown-menu">
-						  <li id="hdr_vehicleMaster" ><a href="VehicleMasters"> <i class="fa fa-car"></i> Vehicle Master</a></li>
-						  <li id="hdr_DriverMasters"><a href="DriverMasters"> <i class="fa fa-user"></i> Driver Details</a></li>
-						  <li id="hdr_VehicleGroupView"><a href="VehicleGroupView"> <i class="fa fa-bus"></i> Vehicle Groups</a></li>
-						  <li id="hdr_Alerts"><a href="Alerts"> <i class="fa fa-bell-o"></i> Alert</a></li>
-						  <li id="hdr_UserMasters"><a href="UserMasters"> <i class="fa fa-user"></i> User</a></li>
-						  <li id="hdr_NoMovement"><a href="Movements"> <i class="fa fa-stop"></i> No Movement </a></li>
-						    <li id="hdr_CompanyMaster"><a href="CompanyMasters"> <i class="fa fa-stop"></i> Company </a></li>
-						<li id="hdr_DeviceMasters"><a href="DeviceMasters"> <i class="fa fa-car"></i> Device Master</a></li>
+						  <li id="hdr_vehicleMaster" ><a href="VehicleMasters"> <i class="fa fa-car"></i>Vehicle Master</a></li>
+						  <li id="hdr_DriverMasters"><a href="DriverMasters"> <i class="fa fa-user"></i>Driver Details</a></li>
+						  <li id="hdr_VehicleGroupView"><a href="VehicleGroupView"> <i class="fa fa-bus"></i>Vehicle Groups</a></li>
+						  <li id="hdr_Alerts"><a href="Alerts"> <i class="fa fa-bell-o"></i>Alert</a></li>
+						  <li id="hdr_UserMasters"><a href="UserMasters"> <i class="fa fa-user"></i>User</a></li>
+						  
+						   <li id="hdr_RoleMasters"><a href="RoleMasters"> <i class="fa fa-user"></i>Roles</a></li>
+						 
+						  <li id="hdr_NoMovement"><a href="Movements"> <i class="fa fa-stop"></i>No Movement</a></li>
+						    <li id="hdr_CompanyMaster"><a href="CompanyMasters"> <i class="fa fa-stop"></i>Company</a></li>
+						<li id="hdr_DeviceMasters"><a href="DeviceMasters"> <i class="fa fa-car"></i>Device Master</a></li>
 						 
 						</ul>
 					  </li>
 					  <li class="dropdown"> <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" >School<span class="caret"></span></a>
 						<ul role="menu" class="dropdown-menu">
-						  <li><a href="html/student_master_view.html"> <i class="fa fa-child"></i> Student Entry </a></li>
+						  <li><a href="html/student_master_view.html"> <i class="fa fa-child"></i>Student Entry</a></li>
 						</ul>
 					  </li>
 					  <li class="dropdown"> <a aria-expanded="false" role="button" href="help" class="dropdown-toggle" >Help</a>

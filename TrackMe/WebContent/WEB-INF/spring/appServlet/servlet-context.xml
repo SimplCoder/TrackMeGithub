@@ -55,7 +55,9 @@
 				<beans:value>com.trackme.spring.model.CompanyMaster</beans:value>
 				   <beans:value>com.trackme.spring.model.VehicleIO</beans:value>
                 <beans:value>com.trackme.spring.model.GeoFenceDetail</beans:value>
-			</beans:list>
+			    <beans:value>com.trackme.spring.model.RoleMaster</beans:value>
+		    <beans:value>com.trackme.spring.model.LinkConf</beans:value>
+		</beans:list>
 		</beans:property>
 		
 		<beans:property name="hibernateProperties">
