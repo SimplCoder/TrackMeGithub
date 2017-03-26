@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.trackme.constants.Constant;
 import com.trackme.spring.dao.UserMasterDAO;
+import com.trackme.spring.model.LinkConf;
 import com.trackme.spring.model.UserMaster;
 
 @Service("UserMasterService")
@@ -51,5 +52,36 @@ public class UserMasterServiceImpl implements UserMasterService {
 		userMaster.setStatus(Constant.STATUS_INACTIVE);
 		this.UserMasterDAO.updateUserMaster(userMaster);
 	}
+
+	public static boolean checkForModule(UserMaster userMaster , String module){
+		
+		if(userMaster !=null && userMaster.getRoleMaster()!=null && userMaster.getRoleMaster().getLinks()!=null ){
+
+			for(LinkConf linkConf : userMaster.getRoleMaster().getLinks()  ){
+				
+				if(module.equalsIgnoreCase(linkConf.getModule())){
+                 return true;
+				}
+			}
+			return false;
+		}
+		return true;
+	}
+	
+public static boolean checkForLink(UserMaster userMaster,String link){
+		
+		if(userMaster !=null && userMaster.getRoleMaster()!=null && userMaster.getRoleMaster().getLinks()!=null ){
+
+			for(LinkConf linkConf : userMaster.getRoleMaster().getLinks()  ){
+				
+				if(link.equalsIgnoreCase(linkConf.getName())){
+                 return true;
+				}
+			}
+			return false;
+		}
+		return true;
+	}
+
 
 }

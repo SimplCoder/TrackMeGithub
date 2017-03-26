@@ -36,6 +36,16 @@ public class UserMaster
 @JoinColumn(name="company")
 CompanyMaster companyMaster;
 
+
+@OneToOne
+@JoinColumn(name="vehiclegroup")
+VehicleGroup vehicleGroup;
+
+@OneToOne
+@JoinColumn(name="roleid")
+RoleMaster roleMaster;
+
+
 @Column(name="createdby")
   private String createdBy;
 
@@ -52,7 +62,6 @@ CompanyMaster companyMaster;
 private String  createdDateShow;
 @Transient
 private String  modifiedDateShow;
-
 
   public String getUserName()
   {
@@ -215,6 +224,23 @@ public CompanyMaster getCompanyMaster() {
 public void setCompanyMaster(CompanyMaster companyMaster) {
 	this.companyMaster = companyMaster;
 }
+
+public RoleMaster getRoleMaster() {
+	return roleMaster;
+}
+
+public void setRoleMaster(RoleMaster roleMaster) {
+	this.roleMaster = roleMaster;
+}
+
+public VehicleGroup getVehicleGroup() {
+	return vehicleGroup;
+}
+
+public void setVehicleGroup(VehicleGroup vehicleGroup) {
+	this.vehicleGroup = vehicleGroup;
+}
+
 
 
 }

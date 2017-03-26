@@ -75,11 +75,11 @@
                                        <div class="form-group col-sm-12 text-center">
                                   <c:if test="${RoleMaster.editFlag==true }">
 						            	
-                                <input name="action" type="submit" class="btn btn-primary" id="button" value="Update Company">
+                                <input name="action" type="submit" class="btn btn-primary" id="button" value="Update Role">
                                 </c:if>
                                  <c:if test="${RoleMaster.editFlag==false }">
 						            	
-                                <input name="action" type="submit" class="btn btn-primary" id="button" value="Add Company">
+                                <input name="action" type="submit" class="btn btn-primary" id="button" value="Add Role">
                                 </c:if>
                                 <input name="button3" type="button" class="btn btn-danger" id="button3" onclick="location.href = 'RoleMasters'" value="Exit">
                             </div>

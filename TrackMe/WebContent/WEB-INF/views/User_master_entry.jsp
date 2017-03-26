@@ -37,7 +37,6 @@
                     <h3 class="m-t-none m-b">Add New User</h3>
                     <div class="row">
                         <form:form role="form" action="UserMasterSave" commandName="UserMaster" method="post"  onsubmit="return myFunction()">
-                            <div class="form-group col-sm-12">
                                 <div class="form-group col-sm-6">
                                     <label>User Name</label>
                                     <form:hidden path="status" value="Active"/>
@@ -57,27 +56,47 @@
 							
 							
                                 </div>
-                            </div>
-                            <div class="form-group col-sm-12">
+                           
+                           
+                           
+                            <div class="form-group col-sm-6">
+                                    <label>Role</label>
+                                   <form:select class="form-control" required="true" path="roleMaster.id" items="${roles}" itemLabel="role" itemValue="id"></form:select>
+                                </div>
+                            
                                 <div class="form-group col-sm-6">
                                     <label>Password</label>
                                     <form:input path="password" type="password" id="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" class="form-control editor-field"/>
                                 </div>
-                            </div>
-                            <div class="form-group col-sm-12">
+                           
+                           
                                 <div class="form-group col-sm-6">
                                     <label>Confirm Password</label>
                                     <input type="password" onChange="myFunction()" name="repassword" id="repassword" value="${UserMaster.password}" class="form-control editor-field">
                                		<p id="repass" ></p>
                                 </div>
-                            </div>
+                          
                             
-                            <div class="form-group col-sm-12">
                                 <div class="form-group col-sm-6">
                                     <label>Company</label>
                                    <form:select class="form-control" required="true" path="companyMaster.id" items="${companyMasters}" itemLabel="companyName" itemValue="id"></form:select>
                                 </div>
-                            </div>
+                            
+                            <div class="form-group col-sm-6">
+                                    <label>Group</label>
+                                   <form:select class="form-control" path="vehicleGroup.id">
+                                    <form:option value="">Select</form:option>
+                                  
+                                   
+                                   <c:forEach items="${groups}" var="group">
+                                   
+                                   <form:option value="${group.id}">${group.id}</form:option>
+                                   </c:forEach>
+                                   
+                                   </form:select>
+                                </div>
+                           
+                               
                             
                             <div class="text-center">
                             <c:if test="${UserMaster.editFlag==false }">

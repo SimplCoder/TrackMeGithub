@@ -3,6 +3,13 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 
+ <jsp-config>
+      <taglib>
+          <taglib-uri>/WEB-INF/spring/customTagLibrary</taglib-uri>
+          <taglib-location>/WEB-INF/spring/customTagLibrary.tld</taglib-location>
+      </taglib>
+  </jsp-config>
+
 <!-- Spring Security hibernate File -->
 	<!-- Spring Security Configuration File -->
 	<context-param>

@@ -52,6 +52,9 @@
                                                     <tr class="leftMenu">
                                                         <th></th><th></th>
                                                         <th>User name</th>
+                                                         <th>Role</th>
+                                                        <th>Company</th>
+                                                        <th>Group</th>
                                                         <th>Created By</th>
                                                         <th>Created Date</th>
                                                         <th>Modify By</th>
@@ -99,7 +102,7 @@
        		$('#hdr_UserMasters').addClass("active");
        		$('#successMessage').fadeOut(5000);
     		$('#errorMessage').fadeOut(5000);
-    		
+    		$.fn.dataTable.ext.errMode = 'none';
             $('#entrydata').DataTable({
             	dom: '<"top"lBf>rt<"bottom"p><"clear">',
             	data:userJson,
@@ -115,6 +118,11 @@
                         		 
                          },
                          {data: "userName"},
+                         {data: "roleMaster.role"},
+                         
+                         {data: "companyMaster.companyName"},
+                         {data: "vehicleGroup.id"},
+                         
                          {data: "createdBy"},
                          {data: "createdDateShow"},
                          {data: "modifiedBy"},

@@ -25,7 +25,9 @@ import com.trackme.constants.Constant;
 import com.trackme.spring.model.CompanyMaster;
 import com.trackme.spring.model.UserMaster;
 import com.trackme.spring.service.CompanyMasterService;
+import com.trackme.spring.service.RoleMasterService;
 import com.trackme.spring.service.UserMasterService;
+import com.trackme.spring.service.VehicleGroupService;
 
 @Controller
 public class UserServiceController extends BaseController {
@@ -38,7 +40,13 @@ public class UserServiceController extends BaseController {
 		this.UserMasterService = ps;
 	}
 	
-private CompanyMasterService companyMasterService;
+	@Autowired
+	private RoleMasterService roleMasterService;
+
+	@Autowired
+	private VehicleGroupService vehicleGroupService;
+	
+ CompanyMasterService companyMasterService;
 	
 	@Autowired(required=true)
 	@Qualifier(value="companyMasterService")
@@ -71,8 +79,9 @@ private CompanyMasterService companyMasterService;
 	public String addUserMaster(@ModelAttribute("UserMaster") UserMaster p, Model model,  HttpServletRequest request, HttpServletResponse response){
 		
 		
-	
-		
+	    if(p.getVehicleGroup()!=null && "".equals(p.getVehicleGroup().getId()) )
+	    	p.setVehicleGroup(null);
+		model.addAttribute("roles",	roleMasterService.listRoleMasters());
 		if(UserMasterService.getUserMasterById(p.getUserName()) ==null){
 			//new UserMaster, add it
 			UserMaster currentUser=(UserMaster) request.getSession().getAttribute(Constant.CURRENT_USER);
@@ -120,7 +129,10 @@ private CompanyMasterService companyMasterService;
     	
     	 List<CompanyMaster> companyMasters=	this.companyMasterService.listCompanyMasters();
     	 model.addAttribute("companyMasters", companyMasters);
-         
+    	 model.addAttribute("roles",	roleMasterService.listRoleMasters());
+    	 model.addAttribute("groups",	vehicleGroupService.listVehicleGroup());
+ 		 
+     	 
     	
     	if(id.equals("new")){
     		model.addAttribute("UserMaster", new UserMaster());
