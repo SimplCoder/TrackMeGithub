@@ -11,4 +11,8 @@ public class Constant {
 	public static final String STATUS_INACTIVE="Inactive";
 	public static final String logoPath="html\\images\\logo";
 	public static final String PROJECT_NAME = "TrackMe";
+	
+	public static boolean isObjectNotNullOrNotEmpty(Object obj){
+		return obj!=null&&!obj.equals("")?true:false;
+	}
 }

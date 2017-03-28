@@ -26,6 +26,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.trackme.constants.Constant;
 import com.trackme.spring.model.LogIndexSearch;
 import com.trackme.spring.model.UserMaster;
+import com.trackme.spring.model.VehicleSearchForm;
 import com.trackme.spring.service.MapLatlngService;
 import com.trackme.spring.service.UserMasterService;
 
@@ -73,6 +74,7 @@ public class HomeController {
 		// System.out.println("JSON=== "+allVehicleLocationJson);
 		model.addAttribute("serverTime", formattedDate);
 		model.addAttribute("allVehicleLocation", allVehicleLocationJson);
+		model.addAttribute("VehicleSearchForm",new VehicleSearchForm());
 		return "index";
 	}
 
