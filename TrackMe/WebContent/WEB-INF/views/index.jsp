@@ -18,9 +18,25 @@
     <link href="html/css/buttons.dataTables.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/select/1.2.1/css/select.dataTables.min.css" rel="stylesheet">
     <link href="html/css/jquery.mobile-1.4.5.css" rel="stylesheet">
+    
+    <style>
+.no-js #loader { display: none;  }
+.js #loader { display: block; position: absolute; left: 100px; top: 0; }
+.se-pre-con {
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: 9999;
+	background: url(html/images/loader4.gif) center no-repeat #fff;
+}
+</style>
+
 </head>
 
 <body class="top-navigation">
+    <div class="se-pre-con"></div>
     <jsp:directive.include file="header.jsp" />
     <div id="page-wrapper2" class="gray-bg">
         <div class="rowx wrapper border-bottom white-bg page-heading">
@@ -192,12 +208,16 @@
                                                 
                                                  window.addEventListener('load',function(){
                                                       if(document.getElementById('map')){
-                                                           initialize();
+                                                        //initialize();
+                                                        //   drawTable(null);
+                                                          table.ajax.reload();
                                                       }
                                                      if($('.pac-container')){
                                                          $('.pac-container.pac-logo').css({'z-index':'10000'});
                                                      }
                                                      $('a').prop('rel', 'external');
+                                                     $("#vehicleSearchFilterId").removeProp('rel');
+                                                     $(".se-pre-con").fadeOut("slow");
                                                   });
                                             </script>
                                             <!--Rohan code end 3 -->
@@ -216,6 +236,8 @@
 
     <!-- Mainly scripts -->
     <script type="text/javascript" src="html/js/jquery-1.12.4.js"></script>
+    <script type="text/javascript" src="html/js/jquery.geocomplete.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.js"></script>
     <script type="text/javascript" src="html/js/tether.min.js"></script>
     <script type="text/javascript" src="html/js/bootstrap.js"></script>
     <script type="text/javascript" src="html/js/angular.min.js"></script>
@@ -234,7 +256,7 @@
     <script type="text/javascript" src="html/js/icheck.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.colVis.min.js"></script>
     <script type="text/javascript" src="html/js/jquery.mobile-1.4.5.js"></script>
-    <script type="text/javascript" src="html/js/jquery.geocomplete.js"></script>
+  
 
     <script>
         var table;
@@ -242,6 +264,7 @@
 
         $(document).ready(function() {
             $('a').prop('rel', 'external');
+            $("#vehicleSearchFilterId").removeProp('rel');
             $('#hdr_live').addClass("dropdown active");
 
             // <!--Rohan code start 2 -->	
@@ -363,7 +386,7 @@
                                 data: "vehicleno",
                                 "render": function(data, type, full, meta) {
                                     updateMarker(allVehicleAjaxArr, data);
-                                    return '<a href="Vehicle_DetailedLogs?id=' + data + '">' + data + '</a>';
+                                    return '<a href="Vehicle_DetailedLogs?id=' + data + '" rel="external">' + data + '</a>';
                                 }
                             },
                             {

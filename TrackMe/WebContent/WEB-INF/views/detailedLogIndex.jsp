@@ -158,7 +158,7 @@
                     
 
 <!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCeQdAwrHm8Zap7jwX_gNRA3dhH-CxdCWQ&callback=initialize"></script> -->
-     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCeQdAwrHm8Zap7jwX_gNRA3dhH-CxdCWQ"></script>             
+     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCeQdAwrHm8Zap7jwX_gNRA3dhH-CxdCWQ&callback=showEmptyMap"></script>             
 <!--Rohan code start 3 -->
     <script>
     var map;
@@ -394,11 +394,11 @@
    } 
        
           //  google.maps.event.addDomListener(window, 'load', initialize);
-          window.addEventListener('load',function(){
+        /*  window.addEventListener('load',function(){
         	  if(document.getElementById('map')){
         		  showEmptyMap();
         	  }
-          });
+          }); */
     </script>
 <!--Rohan code end 3 -->
                     </div>
@@ -768,8 +768,8 @@ if(xmlHttpRequest.readyState == 4 && xmlHttpRequest.status == 200)
         </script> 
 
 <!-- ChartJS--> 
-<script src="html/js/Chart.min.js"></script> 
-<script>
+<!--<script src="html/js/Chart.min.js"></script> -->
+<!--<script>
 $(function () {    
     var doughnutData = [
         {
@@ -1036,7 +1036,7 @@ $(function () {
 	
 	
 });
-</script> 
+</script> -->
 <script>
 	
 /* Thanks to CSS Tricks for pointing out this bit of jQuery
