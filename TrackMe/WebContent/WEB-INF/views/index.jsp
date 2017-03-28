@@ -197,6 +197,7 @@
                                                      if($('.pac-container')){
                                                          $('.pac-container.pac-logo').css({'z-index':'10000'});
                                                      }
+                                                     $('a').prop('rel', 'external');
                                                   });
                                             </script>
                                             <!--Rohan code end 3 -->
@@ -240,6 +241,7 @@
         var refreshOut;
 
         $(document).ready(function() {
+            $('a').prop('rel', 'external');
             $('#hdr_live').addClass("dropdown active");
 
             // <!--Rohan code start 2 -->	
