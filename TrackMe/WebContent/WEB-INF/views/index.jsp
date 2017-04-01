@@ -17,8 +17,10 @@
     <link href="html/css/dataTables.bootstrap.min.css" rel="stylesheet">
     <link href="html/css/buttons.dataTables.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/select/1.2.1/css/select.dataTables.min.css" rel="stylesheet">
-    <link href="html/css/jquery.mobile-1.4.5.css" rel="stylesheet">
+	<link href="html/css/jquery-ui.min.css" rel="stylesheet">
     
+   <!-- <link href="html/css/jquery.mobile-1.4.5.css" rel="stylesheet"> -->
+     
     <style>
 .no-js #loader { display: none;  }
 .js #loader { display: block; position: absolute; left: 100px; top: 0; }
@@ -131,19 +133,28 @@
                                                     <li class="map-actions"><a href="#myPopup" id="vehicleSearchFilterId" data-rel="popup" class="">&nbsp;</a>
 
 
-                                                        <div data-role="popup" id="myPopup" class="ui-content" style="min-width:250px; position:relative">
+                                                        <div data-role="popup" id="myPopup" title="Vehicle Search" class="ui-content" style="min-width:250px; position:relative">
                                                             <form:form class="form-inline" action="#" commandName="VehicleSearchForm">
                                                                 <div>
-                                                                    <h3>Vehicle Search</h3>
-                                                                    <label class="ui-accessible" for="geocomplete"><h4>Location:</h4></label>
-                                                                    <form:input autocomplete="off" type="text" id="geocomplete" path="area" class="filthypillow-demo"></form:input>
+                                                                   <!-- <h3>Vehicle Search</h3>  -->
+                                                                    <div>
+                                                                    <label class="ui-accessible"><h4>Location:</h4></label>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                    <form:input autocomplete="off" type="text" id="geocomplete" path="area" 
+                                                                    class="form-control" size="30"></form:input>
+                                                                    </div>
+                                                                    <br/>
+                                                                    <div class="form-group">
                                                                     <label for="distanceId" class="ui-accessible"><h4>Distance(KM):</h4></label>
-                                                                    <form:input autocomplete="off" type="text" id="distanceId" path="distance" class="filthypillow-demo;" maxlength="5" size="6"></form:input>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                    <form:input autocomplete="off" type="text" id="distanceId" path="distance" 
+                                                                    class="form-control" placeholder="Distance" maxlength="5" size="30"></form:input>
+                                                                    </div>
                                                                     <form:hidden path="lat"/>
                                                                     <form:hidden path="lng"/>
                                                                     <input type="hidden" id="isSearchedId" value="false">
-                                                                    <input class="btn btn-primary" type="button" data-inline="true" id="btnSearch" value="Search">
-                                                                    <input class="btn btn-primary" data-inline="true" id="btnReset" type="button" value="Reset">
                                                                 </div>
                                                             </form:form>
                                                         </div>
@@ -255,14 +266,58 @@
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.html5.min.js"></script>
     <script type="text/javascript" src="html/js/icheck.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.colVis.min.js"></script>
-    <script type="text/javascript" src="html/js/jquery.mobile-1.4.5.js"></script>
-  
+<!--    <script type="text/javascript" src="html/js/jquery.mobile-1.4.5.js"></script>  -->
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
     <script>
+        $(document).on('pagebeforecreate', function( e ) {
+            $( "input, textarea, select, div, button", e.target ).attr( "data-role", "none" );
+            $("#myPopup").removeAttr("data-role");
+            $("#myPopup").children().each(function(){
+                $(this).removeAttr("data-role");
+            });
+            //$('element').removeClass('ui-widget');
+        });
         var table;
         var refreshOut;
 
         $(document).ready(function() {
+            
+            $("#myPopup").dialog({
+                autoOpen: false,
+                width: 250,
+                buttons: [
+                    {
+                        text: "Search",
+                        click: function() {
+                            if(($("#geocomplete").val()!="")&&($("#distanceId").val()!="")&&($("#lat").val()!="")&&($("#lng").val()!="")){
+                               $("#vehicleSearchFilterId").addClass("active");
+                               $("#isSearchedId").val("true");
+                            }    
+                                table.ajax.reload();
+                            $( this ).dialog( "close" );
+                        }
+                    },
+                    {
+                        text: "Reset",
+                        click: function() {
+                            $("#geocomplete").val("");
+                            $("#distanceId").val("");
+                            $("#lat").val("");
+                            $("#lng").val("");
+                            $("#vehicleSearchFilterId").removeClass("active");
+                            $("#isSearchedId").val("false");
+                        }
+                    }
+                ]
+            });
+
+            $("#vehicleSearchFilterId").click(function(){
+                 $( function() {
+                    $( "#myPopup" ).dialog("open");
+                  } );
+            });
+            
             $('a').prop('rel', 'external');
             $("#vehicleSearchFilterId").removeProp('rel');
             $('#hdr_live').addClass("dropdown active");
