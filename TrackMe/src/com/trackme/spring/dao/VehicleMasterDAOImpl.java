@@ -1,5 +1,7 @@
 package com.trackme.spring.dao;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -120,5 +122,72 @@ public class VehicleMasterDAOImpl implements VehicleMasterDAO {
 		sqlQuery.executeUpdate();
 		
 			}
+
+	@Override
+	public List<VehicleMaster> getInsuranceExpiringVehicle(Date date) {
+		// TODO Auto-generated method stub
+		
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		StringBuffer query =new StringBuffer("from VehicleMaster vm where 1=1 and vm.status like 'Active' ");
+		query.append(" and year(vm.insuranceExpiryDate)= "+ calendar.get(Calendar.YEAR)); 
+	query.append(" and month(vm.insuranceExpiryDate)=  " + (calendar.get(Calendar.MONTH)+1)); 
+		query.append(" and day(vm.insuranceExpiryDate)=" + calendar.get(Calendar.DAY_OF_MONTH)); 
+		
+		try{
+			Session session = this.sessionFactory.getCurrentSession();
+			Query q= session.createQuery(query.toString());
+			List<VehicleMaster> vehicleMastersList = q.list();
+			return vehicleMastersList;
+		}catch(Exception e){
+			logger.error(e.getMessage());
+		}
+		
+		return null;
+	}
+	
+	
+
+	@Override
+	public List<VehicleMaster> getNPExpiringVehicle(Date date) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		StringBuffer query =new StringBuffer("from VehicleMaster vm where 1=1 and vm.status like 'Active' ");
+		query.append(" and year(vm.nationalPermitExpiryDate)= "+ calendar.get(Calendar.YEAR)); 
+	query.append(" and month(vm.nationalPermitExpiryDate)=  " + (calendar.get(Calendar.MONTH)+1)); 
+		query.append(" and day(vm.nationalPermitExpiryDate)=" + calendar.get(Calendar.DAY_OF_MONTH)); 
+		
+		try{
+			Session session = this.sessionFactory.getCurrentSession();
+			Query q= session.createQuery(query.toString());
+			List<VehicleMaster> vehicleMastersList = q.list();
+			return vehicleMastersList;
+		}catch(Exception e){
+			logger.error(e.getMessage());
+		}
+		
+		return null;
+	}
+
+	@Override
+	public List<VehicleMaster> getServicingVeicle(Date date) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		StringBuffer query =new StringBuffer("from VehicleMaster vm where 1=1 and vm.status like 'Active' ");
+		query.append(" and year(vm.serviceDate)= "+ calendar.get(Calendar.YEAR)); 
+	query.append(" and month(vm.serviceDate)=  " + (calendar.get(Calendar.MONTH)+1)); 
+		query.append(" and day(vm.serviceDate)=" + calendar.get(Calendar.DAY_OF_MONTH)); 
+		
+		try{
+			Session session = this.sessionFactory.getCurrentSession();
+			Query q= session.createQuery(query.toString());
+			List<VehicleMaster> vehicleMastersList = q.list();
+			return vehicleMastersList;
+		}catch(Exception e){
+			logger.error(e.getMessage());
+		}
+		
+		return null;
+	}
 
 }

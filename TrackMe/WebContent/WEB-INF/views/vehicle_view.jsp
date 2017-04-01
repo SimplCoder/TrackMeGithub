@@ -42,10 +42,10 @@
                           <tr class="leftMenu" >
                                                     	 
                                                     <th width="8%" align="center" valign="middle">Vehicle No</th>
-                                                    <th width="25%" align="center" valign="middle">Status</th>
+                                                    <th width="15%" align="center" valign="middle">Status</th>
                                                     <th width="5%" align="center" valign="middle">Speed</th>                                               
                                                     <th width="45%" align="center" valign="middle">Location</th>
-                                                    <th width="7%" align="center" valign="middle">Date/Time</th>
+                                                    <th width="20%" align="center" valign="middle">Date/Time</th>
                                                     <th width="7%" align="center" valign="middle">Idle Time (dd:hh:mm)</th>
 												
                                                 </tr>

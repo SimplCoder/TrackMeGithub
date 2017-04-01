@@ -1,5 +1,6 @@
 package com.trackme.spring.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import com.trackme.spring.model.GPSTracking;
@@ -16,4 +17,7 @@ public interface VehicleMasterDAO {
 	public int totaNoOffVehicle();
 	
 	public void saveGPSTracking(GPSTracking gpsTracking);
+	public List<VehicleMaster> getInsuranceExpiringVehicle(Date date);
+	public List<VehicleMaster> getNPExpiringVehicle(Date date);
+	public List<VehicleMaster> getServicingVeicle(Date date);
 }

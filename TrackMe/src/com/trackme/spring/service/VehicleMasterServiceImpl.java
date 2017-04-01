@@ -1,5 +1,6 @@
 package com.trackme.spring.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,6 +65,27 @@ public class VehicleMasterServiceImpl implements VehicleMasterService {
 	@Transactional
 	public void saveGPSTracking(GPSTracking gpsTracking) {
 	this.vehicleMasterDAO.saveGPSTracking(gpsTracking);
+	}
+
+	@Override
+	@Transactional
+	public List<VehicleMaster> getInsuranceExpiringVehicle(Date date) {
+		// TODO Auto-generated method stub
+		return vehicleMasterDAO.getInsuranceExpiringVehicle(date);
+	}
+
+	@Override
+	@Transactional
+	public List<VehicleMaster> getNPExpiringVehicle(Date date) {
+		// TODO Auto-generated method stub
+		return vehicleMasterDAO.getNPExpiringVehicle(date);
+	}
+
+	@Override
+	@Transactional
+	public List<VehicleMaster> getServicingVeicle(Date date) {
+		// TODO Auto-generated method stub
+		return vehicleMasterDAO.getServicingVeicle(date);
 	}
 
 }

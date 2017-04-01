@@ -49,6 +49,7 @@
 						<div class="form-group col-sm-4">
 							<label>Vehicle No:</label>
 							
+								<form:hidden path="status" value="Active"/>
 							
 							<c:if test="${VehicleMaster.editFlag==true }">
 								<form:input path="vehicleNo" type="text" disabled="true" id="primaryKey" class="form-control"></form:input>
