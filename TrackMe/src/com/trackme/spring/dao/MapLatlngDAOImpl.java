@@ -79,6 +79,7 @@ public class MapLatlngDAOImpl implements MapLatlngDAO {
 				strBuf.append("'");
 			}
 			strBuf.append(" order by gsm.datetimedate+gsm.datetime asc ");
+			strBuf.append(" fetch first 99 rows only ");			//google map api limit
 			String query = strBuf.toString();
 			logger.info("getLatlngDetailsByVehicleNo Query== " + query);
 			Query sqlQuery = session.createSQLQuery(query);
