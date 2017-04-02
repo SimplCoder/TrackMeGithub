@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.trackme.constants.Constant;
 import com.trackme.spring.dao.RouteDetailsDAO;
 import com.trackme.spring.model.Route;
 
@@ -18,36 +19,34 @@ public class RouteServiceImpl implements RouteService{
 	@Override
 	@Transactional
 	public void addRouteDetails(Route routeDetails) {
-		// TODO Auto-generated method stub
-		
+	routeDetailsDAO.addRouteDetails(routeDetails);	
 	}
 
 	@Override
 	@Transactional
 	public void updateRouteDetails(Route routeDetails) {
-		// TODO Auto-generated method stub
-		
+		routeDetailsDAO.updateRouteDetails(routeDetails);
 	}
 
 	@Override
 	@Transactional
 	public List<Route> listRouteDetails() {
-		// TODO Auto-generated method stub
 		return routeDetailsDAO.listRouteDetails();
 	}
 
 	@Override
 	@Transactional
 	public Route getRouteDetailsById(String routeDetailsId) {
-		// TODO Auto-generated method stub
-		return null;
+		return routeDetailsDAO.getRouteDetailsById(routeDetailsId);
+		
 	}
 
 	@Override
 	@Transactional
 	public void removeRouteDetails(String routeDetailsId) {
-		// TODO Auto-generated method stub
-		
+		Route Route = routeDetailsDAO.getRouteDetailsById(routeDetailsId);
+		Route.setStatus(Constant.STATUS_INACTIVE);
+		routeDetailsDAO.updateRouteDetails(Route);
 	}
 
 }
