@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.trackme.constants.Constant;
+import com.trackme.spring.model.DeviceMaster;
+import com.trackme.spring.model.LocationsForRoute;
 import com.trackme.spring.model.Route;
 
 @Repository("RouteDetailsDAO")
@@ -26,14 +28,25 @@ public class RouteDetailsDAOImpl implements RouteDetailsDAO{
 	
 	@Override
 	public void addRouteDetails(Route routeDetails) {
-		// TODO Auto-generated method stub
+		Session session = this.sessionFactory.getCurrentSession();
 		
+		session.saveOrUpdate(routeDetails);
+	/*	for(LocationsForRoute l : routeDetails.getLocationsForRoute()){
+			session.saveOrUpdate(l);
+		}*/
+		logger.info("routeDetails saved successfully, routeDetails Details="+routeDetails);
 	}
+
+	
+	
 
 	@Override
 	public void updateRouteDetails(Route routeDetails) {
-		// TODO Auto-generated method stub
-		
+		Session session = this.sessionFactory.getCurrentSession();
+		session.update(routeDetails);
+		session.flush();
+		logger.info("routeDetails updated successfully, routeDetails Details="+routeDetails);
+	
 	}
 
 	@Override
@@ -50,9 +63,20 @@ public class RouteDetailsDAOImpl implements RouteDetailsDAO{
 
 	@Override
 	public Route getRouteDetailsById(String routeDetailsId) {
-		// TODO Auto-generated method stub
-		return null;
+		try{
+			Session session = this.sessionFactory.getCurrentSession();
+			
+			Route route = (Route) session.load(Route.class, routeDetailsId);
+			logger.info("routeDetailsId loaded successfully, routeDetailsId details="+route);
+			return route;
+			}catch(Exception e){
+				logger.equals(e.getMessage());
+			}
+			return null;
 	}
+
+		
+
 
 	@Override
 	public void removeRouteDetails(String routeDetailsId) {

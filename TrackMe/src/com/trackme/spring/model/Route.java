@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -11,11 +12,14 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.Type;
 import org.springframework.util.StringUtils;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.trackme.constants.Constant;
 
 @Entity
@@ -26,17 +30,15 @@ public class Route
   @Column(name="routename")	
   private String routeName;
   
- /* @Column(name="locations")	
-  @ElementCollection(fetch = FetchType.EAGER,targetClass=String.class)
-  private List<String> locations;*/
-  @Column(name="locations")	
-  private String locations;
+  @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy="route",orphanRemoval = true)	
+  @JsonBackReference
+  private List<LocationsForRoute> locationsForRoute;
   
   @Column(name="createdby")	
   private String createdBy;
   
   //
-  //@Column(name="username")
+  //@Column(name="username") 
   @ManyToOne 
   @JoinColumn(name="userName")
   private UserMaster username;
@@ -54,13 +56,25 @@ public class Route
   private int locationCount;
   
   @Transient
+  private String[] locations;
+
+  
+  public String[] getLocations() {
+	return locations;
+}
+
+public void setLocations(String[] locations) {
+	this.locations = locations;
+}
+
+@Transient
   private String  createdDateShow;
   @Transient
   private String  modifiedDateShow;
 
   public int getLocationCount() {
-	String[] location=  this.locations.split(",");
-	return location.length;
+	//String[] location=  this.locations.split(",");
+	return locationsForRoute.size();
   }
 
 public String getRouteName() {
@@ -71,12 +85,20 @@ public void setRouteName(String routeName) {
 	this.routeName = routeName;
 }
 
-public String getLocations() {
-	return locations.toString();
+
+
+
+
+public List<LocationsForRoute> getLocationsForRoute() {
+	return locationsForRoute;
 }
 
-public void setLocations(String locations) {
-	this.locations = locations;
+public void setLocationsForRoute(List<LocationsForRoute> locationsForRoute) {
+	this.locationsForRoute = locationsForRoute;
+}
+
+public void setLocationCount(int locationCount) {
+	this.locationCount = locationCount;
 }
 
 public String getCreatedBy() {

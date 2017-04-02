@@ -57,6 +57,7 @@
                 <beans:value>com.trackme.spring.model.GeoFenceDetail</beans:value>
 			    <beans:value>com.trackme.spring.model.RoleMaster</beans:value>
 		    <beans:value>com.trackme.spring.model.LinkConf</beans:value>
+		    <beans:value>com.trackme.spring.model.LocationsForRoute</beans:value>
 		</beans:list>
 		</beans:property>
 		
@@ -66,7 +67,7 @@
 				</beans:prop>
 				<beans:prop key="hibernate.show_sql">true</beans:prop>
 			<beans:prop key="packagesToScan">com.trackme.spring.model</beans:prop>
-		
+		<beans:prop key="hibernate.enable_lazy_load_no_trans">true</beans:prop>
 			</beans:props>
 		</beans:property>
 	</beans:bean>

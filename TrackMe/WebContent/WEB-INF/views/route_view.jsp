@@ -1,3 +1,4 @@
+
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
@@ -35,7 +36,7 @@
                 </div>
                 <div class="col-sm-6">
                     <div class="text-right">
-                        <a href="route_master_entry.html" target="frame1" style="width:120px" class="btn btn-primary">Add Route</a>
+                        <a href="addRouteMastersView" target="frame1" style="width:120px" class="btn btn-primary">Add Route</a>
                     </div>
                 </div>
             </div>
@@ -114,18 +115,21 @@ var routeJSON = ${RouteJSON};
    	 $('#hdr_settings').addClass("dropdown active");
   		$('#hdr_settings_link').click();
   		$('#hdr_route').addClass("active");
+  		$('#successMessage').fadeOut(5000);
+		$('#errorMessage').fadeOut(5000);
+    	
     	
         $('#entrydata').DataTable({
         	dom: '<"top"lBf>rt<"bottom"p><"clear">',
         	data:routeJSON,
             columns:[
-                     {data: "routename",
+                     {data: "routeName",
                     	 "render": function ( data, type, full, meta ) {
-                    	      return '<a href=""><i class="fa fa-pencil-square-o iconedit"  aria-hidden="true"></i></a>';}
+                    	      return '<a href="editRouteMastersView?id='+data+'"><i class="fa fa-pencil-square-o iconedit"  aria-hidden="true"></i></a>';}
                     	 },
-                     {data: "routename",
+                     {data: "routeName",
                         	 "render": function ( data, type, full, meta ) {
-                       	      return '<a href=""><i class="fa fa-trash  icondelete" aria-hidden="true"></i></a>';}
+                       	      return '<a href="RemoveRouteMasterRecord?id='+data+'"><i class="fa fa-trash  icondelete" aria-hidden="true"></i></a>';}
                        	
                     		 
                      },
