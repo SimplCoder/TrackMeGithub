@@ -461,7 +461,7 @@
                                 }
                             }
                         ],
-                        ordering: false,
+                        ordering: true,
                         lengthMenu: [
                             [10, 25, 50, -1],
                             [10, 25, 50, "All"]
@@ -1579,7 +1579,7 @@
     .ibox-content {
         background-color: #ffffff;
         color: inherit;
-        padding: 14px 1px 1px 1px;
+        padding: 3px 1px 1px 1px;
         border-color: #e7eaec;
         border-image: none;
         border-style: solid solid none;
