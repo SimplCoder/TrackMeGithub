@@ -247,7 +247,7 @@
        
        var playBool=false;
         var marker;
-        var speed = 100; // km/h
+        var speed = 1000; // km/h
         var delay = 100; 
         
         var MY_MAPTYPE_ID = 'custom_style';  
@@ -434,6 +434,7 @@
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.html5.min.js"></script>
 <script type="text/javascript" src="html/js/icheck.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.colVis.min.js"></script>
+<script type="text/javascript" src="http://www.datejs.com/build/date.js"></script>
 
 
 <script type="text/javascript">   
@@ -570,9 +571,9 @@
                             }
                     	 },
                      {data: "datetime1","render":function(data, type, full, meta){
-                          var tempDate = new Date(data);
-                            return  tempDate.getDate() +'/'+ (tempDate.getMonth() + 1) + '/' + tempDate.getFullYear() + " " + tempDate.getHours() + ":" + tempDate.getMinutes() + ":" + tempDate.getSeconds();
-
+                          //var tempDate = new Date(data);
+                           // return  tempDate.getDate() +'/'+ (tempDate.getMonth() + 1) + '/' + tempDate.getFullYear() + " " + tempDate.getHours() + ":" + tempDate.getMinutes() + ":" + tempDate.getSeconds();
+							return new Date(data).toString("yyyy-MM-dd hh:mm tt");
                      }},
                      {data: "description"},
                      {data: "speed"},
