@@ -1590,6 +1590,16 @@
 {
     overflow:auto;
 }
+
+.leftMenu {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    color: #1b110b;
+    text-align: center;
+    border-style: thin;
+    background-color: #D9E4E6;
+    border-color: #F2EFEF;
+}
 </style>
 <script>
 $('.dataTable').wrap('<div class="dataTables_scroll" />');
