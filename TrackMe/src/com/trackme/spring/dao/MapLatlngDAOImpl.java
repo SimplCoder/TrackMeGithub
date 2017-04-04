@@ -43,11 +43,17 @@ public class MapLatlngDAOImpl implements MapLatlngDAO {
 		strBuf.append(" from gsmmaster gsm2 join statusdesc sd1 on  gsm2.status  = sd1.code ");
 		strBuf.append(" where sd1.description='Idling Start' and gsm2.unitno=gsm.unitNo ");
 		strBuf.append(" ))) as Integer ) "); 
-		strBuf.append(" else 0 end as idleTime from vehiclemaster vm join gsmmaster gsm on vm.unitno= gsm.unitNo and LOWER(vm.status)=LOWER('ACTIVE') ");
+		strBuf.append(" else 0 end as idleTime ");
+		strBuf.append(" , vm.ownercompanyname as ownerName ");
+		strBuf.append(" ,(select to_char(vs.servicedate , 'YYYY-MM-DD') from vehicleservice vs where vs.vehicleno=vm.vehicleno and vs.servicedate>= current_timestamp order by vs.servicedate asc fetch first 1 row only ) as nextService ");
+		strBuf.append(" ,gsm.unitno as deviceNo ");
+		strBuf.append(" ,dm.device_imei as imeiNo ");
+		strBuf.append(" from vehiclemaster vm join gsmmaster gsm on vm.unitno= gsm.unitNo and LOWER(vm.status)=LOWER('ACTIVE') ");
 		strBuf.append(" inner join (select gsm1.unitno , max(gsm1.datetimedate+gsm1.datetime) as lattime ");
 		strBuf.append(" from  gsmmaster gsm1 group by gsm1.unitno ) latest on ");
 		strBuf.append(" gsm.unitno = latest.unitno and (gsm.datetimedate+gsm.datetime)=latest.lattime ");
 		strBuf.append(" join statusdesc sd on  gsm.status  = sd.code ");
+		strBuf.append(" left join devicemaster dm on cast(gsm.unitno as text) = dm.device_no ");
 		String query = strBuf.toString();
 		logger.info("getAllVehicleLocation Query== " + query);
 		Query sqlQuery = session.createSQLQuery(query);

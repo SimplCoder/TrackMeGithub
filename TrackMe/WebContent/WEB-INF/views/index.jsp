@@ -369,7 +369,7 @@
                                 }
                                 map = new google.maps.Map(map_canvas, map_options)
                                 setMarkers(map, new google.maps.LatLng(value.latitude,
-                                    value.longitude), id, value.location, value.datetime1, value.description);
+                                    value.longitude), id, value.location, value.datetime1, value.description,value.ownername,value.nextservice,value.deviceno,value.imeino);
                             }
                         });
                     }
@@ -512,7 +512,7 @@
 
 
                         setMarkers(map, new google.maps.LatLng(value.latitude,
-                            value.longitude), value.vehicleno, value.location, value.datetime1, value.description);
+                            value.longitude), value.vehicleno, value.location, value.datetime1, value.description,value.ownername,value.nextservice,value.deviceno,value.imeino);
 
                         bounds.extend(new google.maps.LatLng(value.latitude,
                             value.longitude));
@@ -544,7 +544,7 @@
 
 
 
-        function setMarkers(map, position, vehicleNo, location, datetime, description) {
+        function setMarkers(map, position, vehicleNo, location, datetime, description, ownerName, nextService, deviceNo, imeiNo) {
 
             var hoverDiv = '<div style="display:none" class="markerTooltip" id="markerhover' + vehicleNo + '"><p>' + vehicleNo + '</p><p>' + location + '</p><p>' + datetime + '</p></div>';
             // The final coordinate closes the poly by connecting to the first coordinate.
@@ -574,7 +574,21 @@
                 labelContent: '<div>' + vehicleNo + '' + hoverDiv + '</div>',
                 labelClass: "labels"
             });
-
+            
+             var infowindow = new google.maps.InfoWindow({
+                 content: "<div><span>Vehical No. : "+vehicleNo+"</span></br>"+
+                                "<span>Owner Name : "+ownerName+"</span></br>"+
+                                "<span>Next Service : "+nextService+"</span></br>"+
+                                "<span>Device No. : "+deviceNo+"</span></br>"+
+                                "<span>IMEI No. : "+imeiNo+"</span></br>"+
+                            "</div>",
+                  pixelOffset: new google.maps.Size(25,30)
+             });
+            
+             marker.addListener('click', function() {
+                 infowindow.open(map, marker);
+             });
+            
         }
 
 
