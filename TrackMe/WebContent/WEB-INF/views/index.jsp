@@ -109,12 +109,12 @@
                                                     <thead>
                                                         <tr class="leftMenu">
 
-                                                            <th width="8%" align="center" valign="middle">Vehicle No</th>
-                                                            <th width="25%" align="center" valign="middle">Status</th>
-                                                            <th width="5%" align="center" valign="middle">Speed</th>
+                                                            <th width="13%" align="center" valign="middle">Vehicle No</th>
+                                                            <th width="14%" align="center" valign="middle">Status</th>
+                                                            <th width="4%" align="center" valign="middle">Speed</th>
                                                             <th width="45%" align="center" valign="middle">Location</th>
-                                                            <th width="7%" align="center" valign="middle">Date/Time</th>
-                                                            <th width="7%" align="center" valign="middle">Idle Time (dd:hh:mm)</th>
+                                                            <th width="16%" align="center" valign="middle">Date/Time</th>
+                                                            <th width="6%" align="center" title="(dd:hh:mm)" valign="middle">IdleTime</th>
 
                                                         </tr>
                                                     </thead>
@@ -422,9 +422,7 @@
 
                     table = $('#entrydata').DataTable({
                         dom: '<"top"flB>rt<"bottom"p><"clear">',
-                        scrollY: '53vh',
-                        scrollCollapse: true,
-                        //data:jsonArr,
+                       //data:jsonArr,
                         ajax: {
                             "url": "getAllVehicleLatestLoc",
                            "data": function(d){d.formData=JSON.stringify(getFormData());},
@@ -885,7 +883,7 @@
             },
             {
                 value: igniOff,
-                color: "#ed5564",
+                color: "#ff0000",
                 labelFontSize: '2',
                 labelColor: 'blue'
 
@@ -909,7 +907,7 @@
             },
             {
                 value: igniOn,
-                color: "#1cb295",
+                color: "#00cc00",
                 highlight: "#1cb295",
                 label: ""
             }
@@ -927,13 +925,13 @@
 
             {
                 value: idleNo,
-                color: "#00aeff",
+                color: "#ffffcc",
                 highlight: "#d9d9d9",
                 label: ""
             },
             {
                 value: movingNo,
-                color: "#ff9000",
+                color: "#00cc00",
                 highlight: "#ff9000",
                 label: ""
             }
@@ -984,7 +982,7 @@
             },
             {
                 value: notResponding,
-                color: "#ed5564",
+                color: "#ff0000",
                 highlight: "#00aeff",
                 label: ""
             }
@@ -1036,7 +1034,7 @@
         margin: 0;
         padding: 0;
         height: 100%;
-        width: 50%;
+        width: 40%;
         height: 80%;
         position: absolute;
         float: left;
@@ -1050,7 +1048,7 @@
         height: 100%;
         background-color: white;
         position: absolute;
-        width: 50%;
+        width: 60%;
         float: left;
     }
 
@@ -1075,12 +1073,12 @@
             $(".map-layout-togglea2").addClass("active");
         } else {
             $(".vsplitbar").show();
-            document.getElementById("same-height2").style.width = "50%"
+            document.getElementById("same-height2").style.width = "40%"
             document.getElementById("same-height2").style.height = "100%"
             var sidetable = document.getElementById('same-height');
             sidetable.style.width = null;
             sidetable.style.top = null;
-            sidetable.style.width = '50%';
+            sidetable.style.width = '60%';
             sidetable.style.marginTop = null;
             $(".map-layout-togglea2").removeClass("active");
             $(".map-layout-togglea1").addClass("active");
@@ -1552,14 +1550,14 @@
     
     .vsplitbar {
         width: 10px;
-        height: 450px !important;
+        height: 500px !important;
         border-left: 1px solid #eeeeee;
         border-right: 1px solid #666666;
         background-color: #c0c0c0;
         border-color: #c0c0c0;
         background-image: url('html/images/scroller.png');
         box-sizing: border-box;
-        left: 50%
+        left: 60%
     }
     
     .vsplitbar:hover {
@@ -1588,4 +1586,11 @@
         border-width: 1px 0;
     }
 
+.dataTables_scroll
+{
+    overflow:auto;
+}
 </style>
+<script>
+$('.dataTable').wrap('<div class="dataTables_scroll" />');
+</script>
