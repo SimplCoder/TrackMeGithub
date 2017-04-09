@@ -1202,7 +1202,7 @@
     .auto-reloader-bar select {
         color: #012b73;
         padding: 0;
-        height: 20px;
+        height: 20px !important;
     }
     
     .form-control,
@@ -1213,12 +1213,26 @@
         border-radius: 1px;
         color: inherit;
         /* display: block; */
-        padding: 6px 12px;
+        padding: 6px 2px;
         transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
         width: 100%;
         font-size: 12px;
     }
     
+    
+    .input-sm {
+    height: 25px;
+    padding: 1px 10px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 3px;
+}
+
+select.input-sm {
+    height: 25px;
+}
+
+
     .top-navigation .wrapper.wrapper-content {
         padding: 2px 0 0;
     }
@@ -1613,6 +1627,12 @@
     border-style: thin;
     background-color: #D9E4E6;
     border-color: #F2EFEF;
+}
+
+
+.rowx {
+    margin-right: -15px;
+    margin-left: -15px;
 }
 </style>
 <script>

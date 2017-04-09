@@ -1,9 +1,11 @@
 package com.trackme.spring;
 
-import java.text.DateFormat;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,165 +15,139 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.trackme.constants.Constant;
+import com.trackme.spring.model.VehicleService;
 import com.trackme.spring.model.UserMaster;
+import com.trackme.spring.model.VehicleGroup;
 import com.trackme.spring.model.VehicleMaster;
-import com.trackme.spring.service.MapLatlngService;
+import com.trackme.spring.service.VehicleServiceService;
+import com.trackme.spring.service.DeviceMasterService;
+import com.trackme.spring.service.DriverMasterService;
+import com.trackme.spring.service.LocationService;
 import com.trackme.spring.service.VehicleGroupService;
 import com.trackme.spring.service.VehicleMasterService;
 
-@Controller
-public class VehicleServiceController extends BaseController {
-	
-	private VehicleMasterService vehicleMasterService;
-	
-	public VehicleGroupService VehicleGroupService;
-	
-	@Autowired
-	private MapLatlngService mapLatlngService;
-	
-	
-	public VehicleGroupService getVehicleGroupService() {
-		return VehicleGroupService;
-	}
-	@Autowired(required=true)
-	@Qualifier(value="vehicleGroupService")
-	public void setVehicleGroupService(VehicleGroupService vehicleGroupService) {
-		VehicleGroupService = vehicleGroupService;
-	}
 
+@Controller
+public class VehicleServiceController extends BaseController{
+
+private VehicleServiceService vehicleServiceService;
+
+
+@Autowired
+private LocationService locationService;
+
+@Autowired(required=true)
+@Qualifier(value="driverMasterService")
+private DriverMasterService driverMasterService;
+
+@Autowired(required=true)
+@Qualifier(value="vehicleMasterService")
+private VehicleMasterService  vehicleMasterService;
+	
 	@Autowired(required=true)
-	@Qualifier(value="vehicleMasterService")
-	public void setVehicleMasterService(VehicleMasterService ps){
-		this.vehicleMasterService = ps;
+	@Qualifier(value="vehicleServiceService")
+	public void setVehicleServiceService(VehicleServiceService ds){
+		this.vehicleServiceService = ds;
 	}
 	
-	@RequestMapping(value = "/VehicleMasters", method = RequestMethod.GET)
-	public String listVehicleMasters(Model model , HttpServletRequest request, HttpServletResponse response) {
-		model.addAttribute("VehicleMaster", new VehicleMaster());
 	
-	    List<VehicleMaster> vehicleMasters=	this.vehicleMasterService.listVehicleMasters();
-		
+	
+	@RequestMapping(value = "/VehicleServices", method = RequestMethod.GET)
+	public String listVehicleServices(Model model, HttpServletRequest request, HttpServletResponse response) {	
+		model.addAttribute("VehicleService", new VehicleService());
+	    List<VehicleService> vehicleService=this.vehicleServiceService.listVehicleServices();		
 		ObjectMapper objectMapper = new ObjectMapper();
-		String vehicleMastersJSON=null; 
+		String vehicleServiceJSON=null;
 		try {
-			vehicleMastersJSON = objectMapper.writeValueAsString(vehicleMasters);
+			vehicleServiceJSON = objectMapper.writeValueAsString(vehicleService);
 		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		model.addAttribute("vehicleMastersJSON", vehicleMastersJSON);
-		return "Vehicle_master_view";
+		model.addAttribute("vehicleServiceJSON", vehicleServiceJSON);
+		return "VehicleService_view";
 	}
-	 
+	
+	@RequestMapping(value = "/addNoVehicleServices", method = RequestMethod.GET)
+	public String altersView(Model model, HttpServletRequest request, HttpServletResponse response) {	
+		model.addAttribute("VehicleService", new VehicleService());
+		
+		model.addAttribute("vehicleMasters", vehicleMasterService.listVehicleMasters());
+		model.addAttribute("driverMasters", driverMasterService.getDriverMasterList());
+		model.addAttribute("locationMasters", locationService.listLocations());
+		return "VehicleService_entry";
+	}
+	
+	@RequestMapping(value = "/EditVehicleServicesView", method = RequestMethod.GET)
+	public String editVehicleServiceMasters(Model model,@RequestParam("id") String id, HttpServletRequest request, HttpServletResponse response) {	
+		VehicleService vehicleService=this.vehicleServiceService.getVehicleServiceById(id);
+		vehicleService.setEditFlag(true);
+		
+		model.addAttribute("vehicleMasters", vehicleMasterService.listVehicleMasters());
+		model.addAttribute("driverMasters", driverMasterService.getDriverMasterList());
+		model.addAttribute("locationMasters", locationService.listLocations());			
+		model.addAttribute("VehicleService", vehicleService);
+		return "VehicleService_entry";
+	}
+	
 	//For add and update VehicleMaster both
-	@RequestMapping(value= "/VehicleMasterSave", method = RequestMethod.POST)
-	public String addVehicleMaster(@ModelAttribute("VehicleMaster") VehicleMaster p, Model model, HttpServletRequest request, HttpServletResponse response){
-		if(vehicleMasterService.getVehicleMasterById(p.getVehicleNo()) ==null){
-			//new VehicleMaster, add it
+	@RequestMapping(value= "/AddOrUpdateVehicleServicesRecord", method = RequestMethod.POST)
+	public String addVehicleService(@ModelAttribute("VehicleService") VehicleService vehicleService, Model model, HttpServletRequest request, HttpServletResponse response){		
+		//Add Driver
+		
+		
+		
+			VehicleService vehicleServiceExist=this.vehicleServiceService.getVehicleServiceById(String.valueOf(vehicleService.getServiceId()));
+		
+					
+			if(vehicleServiceExist==null){
 			UserMaster currentUser=(UserMaster) request.getSession().getAttribute(Constant.CURRENT_USER);
-			p.setCreatedBy(currentUser.getUserName());
-			p.setCreatedDate(new Date());
-			p.setStatus(Constant.STATUS_ACTIVE);
-			this.vehicleMasterService.addVehicleMaster(p);
-			addSuccessMessage("Vehicle details added successfully.");
-			
-		}else{
-			//existing VehicleMaster, call update
-			if(p.isEditFlag()){
+			vehicleService.setCreatedBy(currentUser.getUserName());
+			vehicleService.setCreatedDate(new Date());
+		
+		vehicleServiceService.addVehicleService(vehicleService);
+		addSuccessMessage("VehicleService details added successfully.");
+		
+		} else{
+			if(vehicleService.isEditFlag()){
 				UserMaster currentUser=(UserMaster) request.getSession().getAttribute(Constant.CURRENT_USER);
-				p.setModifiedBy(currentUser.getUserName());
-				p.setModifiedDate(new Date());
-				this.vehicleMasterService.updateVehicleMaster(p);
-				addSuccessMessage("Vehicle details updated successfully.");
+				vehicleService.setModifiedBy(currentUser.getUserName());
+				vehicleService.setModifiedDate(new Date());
+			
+				vehicleServiceService.updateVehicleService(vehicleService);	
+			addSuccessMessage("VehicleService details updated successfully.");
 			}else{
-				addErrorMessage("Vehicle Number already exists. Please enter unique value.");
+				addErrorMessage("VehicleService already exists. Please enter unique vehicleService.");
 				addSuccessOrErrorMessageToModel(model);
-				model.addAttribute("VehicleMaster", p);
-				   return "Vehicle_master_addNew";
+				model.addAttribute("VehicleService", vehicleService);
+				   return "VehicleService_entry";
 			}
 		}
 		addSuccessOrErrorMessageToModel(model);
-		return listVehicleMasters(model,request,response);
+		return listVehicleServices(model,request,response);
 		
 	}
 	
-	@RequestMapping("/VehicleMasterRemove")
-    public String removeVehicleMaster(@RequestParam("id") String id, Model model, HttpServletRequest request, HttpServletResponse response){
+	@RequestMapping("/RemoveVehicleServicesRecord")
+    public String removeVehicleService(@RequestParam("id") String deviceNo, Model model, HttpServletRequest request, HttpServletResponse response){
 		
-        this.vehicleMasterService.removeVehicleMaster(id);
-        addSuccessMessage("Vehicle details removed successfully.");
-        addSuccessOrErrorMessageToModel(model);
-		
-        return listVehicleMasters(model,request,response);
+		vehicleServiceService.removeVehicleService(deviceNo);
+	     addSuccessMessage("VehicleService details removed successfully.");
+	        addSuccessOrErrorMessageToModel(model);
+			
+	        return listVehicleServices(model,request,response);
+	    
     }
-  
-    @RequestMapping("/VehicleMasterEdit")
-    public String editVehicleMaster(@RequestParam("id") String id, Model model, HttpServletRequest request, HttpServletResponse response){
-    	if(id.equals("new")){
-    		model.addAttribute("VehicleMaster", new VehicleMaster());
-    	}else{
-    		VehicleMaster vehicleMaster=vehicleMasterService.getVehicleMasterById(id);
-    		vehicleMaster.setEditFlag(true);
-        model.addAttribute("VehicleMaster",vehicleMaster );
-        }
-    	model.addAttribute("vehicleGroup",VehicleGroupService.listVehicleGroup());
-        model.addAttribute("listVehicleMasters", this.vehicleMasterService.listVehicleMasters());
-        return "Vehicle_master_addNew";
-    }
-    
-    
-    @RequestMapping("/VehicleView")
-    public String showVehicleView(Locale locale,Model model, HttpServletRequest request, HttpServletResponse response){
-    	List mapLatlngList = mapLatlngService.getAllVehicleLocation();
+ 
 
-    	Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG,
-				DateFormat.LONG, locale);
-		String formattedDate = dateFormat.format(date);
-		
-		ObjectMapper objectMapper = new ObjectMapper();
-		String allVehicleLocationJson = null;
-		try {
-			allVehicleLocationJson = objectMapper
-					.writeValueAsString(mapLatlngList);
-		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		// System.out.println("JSON=== "+allVehicleLocationJson);
-		model.addAttribute("allVehicleLocation", allVehicleLocationJson);
-		model.addAttribute("serverTime", formattedDate);
-		
-    	
-    	
-    	return "vehicle_view";
-    }
 	
-	@RequestMapping(value = "/VehicleInfo", method = RequestMethod.GET)
-	public String showVehicleInfo(Model model , HttpServletRequest request, HttpServletResponse response) {
-		model.addAttribute("VehicleMaster", new VehicleMaster());
-	
-	    List<VehicleMaster> vehicleMasters=	this.vehicleMasterService.listVehicleMasters();
-		
-		ObjectMapper objectMapper = new ObjectMapper();
-		String vehicleMastersJSON=null; 
-		try {
-			vehicleMastersJSON = objectMapper.writeValueAsString(vehicleMasters);
-		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		model.addAttribute("vehicleMastersJSON", vehicleMastersJSON);
-		return "Vehicle_info_view";
-	}
 }

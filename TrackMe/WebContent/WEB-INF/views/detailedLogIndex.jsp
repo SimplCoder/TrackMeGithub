@@ -19,7 +19,7 @@
 </head>
 <body class="top-navigation">
 <jsp:directive.include file="header.jsp" />
-  <div id="page-wrapper2" class="gray-bg" style="top:128px !important">
+  <div id="page-wrapper2" class="gray-bg" style="top:112px !important">
       <form:form class="form-inline" action="Vehicle_DetailedLogs" commandName ="LogIndexSearch" >
       
           <div id="data_1" class="form-group">
@@ -44,62 +44,7 @@
   
   
   
-  <!--  Rohan Code Start 1 -->
-    <!--  <div class="rowx wrapper border-bottom white-bg page-heading">
-      <div class="col-sm-12">
-        <div class="graphs">
-          <div class="graph-in">
-            <div class="graph-img">
-              <canvas id="doughnutChart" height="100"></canvas>
-            </div>
-            <div class="graph-txt">Ign Off</div>
-          </div>
-          <div class="graph-in">
-            <div class="graph-img">
-              <canvas id="doughnutChart2" height="100"></canvas>
-            </div>
-            <div class="graph-txt">Ign On</div>
-          </div>
-          <div class="graph-in">
-            <div class="graph-img">
-              <canvas id="doughnutChart3" height="100"></canvas>
-            </div>
-            <div class="graph-txt">Moving</div>
-          </div>
-          <div class="graph-in">
-            <div class="graph-img">
-              <canvas id="doughnutChart4" height="100"></canvas>
-            </div>
-            <div class="graph-txt">Slow/ldl</div>
-          </div>
-          <div class="graph-in">
-            <div class="graph-img">
-              <canvas id="doughnutChart5" height="100"></canvas>
-            </div>
-            <div class="graph-txt">Over Speed</div>
-          </div>
-          <div class="graph-in">
-            <div class="graph-img">
-              <canvas id="doughnutChart6" height="100"></canvas>
-            </div>
-            <div class="graph-txt">Harsh Break</div>
-          </div>
-          <div class="graph-in">
-            <div class="graph-img">
-              <canvas id="doughnutChart7" height="100"></canvas>
-            </div>
-            <div class="graph-txt">Alert</div>
-          </div>
-          <div class="graph-in">
-            <div class="graph-img">
-              <canvas id="doughnutChart8" height="100"></canvas>
-            </div>
-            <div class="graph-txt">Unit Count : 4</div>
-          </div>
-        </div>
-      </div>
-    </div> -->
-     <!--  Rohan Code End 1 -->
+
     <div class="row">
       <div class="col-lg-12">
         <div class="wrapper wrapper-content fadeInUp pad-bot-0">
@@ -1146,32 +1091,7 @@ var currentTallest = 0,
 	            });
 			
 		 
-		 $( document ).ready(function() {
-			    
 
-
-			    $(".buttons-html5").removeClass("dt-button");
-			    $(".buttons-html5").html("");
-			    $(".buttons-pdf").addClass("fa-file-pdf-o");
-			    $(".buttons-excel").addClass("fa-file-excel-o");
-			        $(".fa-file-pdf-o").addClass(".buttons-pdf");
-			            $(".fa-file-excel-o").addClass(".buttons-excel");
-			        
-			    
-			$(".buttons-excel::before").css("font-size","23px !important");
-			$(".buttons-excel::before").css("padding-left","17px !important");
-
-			$(".buttons-pdf::before").css("font-size","23px !important");
-			$(".buttons-pdf::before").css("padding-left","10px !important");
-
-			$(".table-responsive").css("position","relative");
-
-			$(".dt-buttons").css("position","absolute");
-			$(".dt-buttons").css("left","42%");
-			$(".dt-buttons").css("top","1px");
-			$(".input-sm").css("height","25px");
-
-			});
 	   </script>
 </body>
 
@@ -1428,6 +1348,23 @@ font-size:12pt;
   border-image: none;
   border-style: solid solid none;
   border-width: 1px 0;
+}
+
+
+ .input-sm {
+    height: 25px;
+    padding: 1px 10px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 3px;
+}
+
+select.input-sm {
+    height: 25px;
+}
+
+.top-navigation .wrapper.wrapper-content {
+    padding: 2px 0 0;
 }
 </style>
 <!-- Mirrored from kalkisoft.com/adhata/html/ by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 30 Dec 2016 18:15:42 GMT -->
