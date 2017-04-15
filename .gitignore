@@ -45,3 +45,13 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+*.class
+*.rar
+*.class
+*.class
+TrackMe/build/classes/com/trackme/spring/dao/VehicleMasterDAO.class
+*.class
+TrackMe/build/classes/com/trackme/spring/dao/VehicleMasterDAO.class
+*.class
+TrackMe/.settings/org.eclipse.wst.common.project.facet.core.xml
+*.class

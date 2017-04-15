@@ -58,6 +58,7 @@
 			    <beans:value>com.trackme.spring.model.RoleMaster</beans:value>
 		    <beans:value>com.trackme.spring.model.LinkConf</beans:value>
 		    <beans:value>com.trackme.spring.model.LocationsForRoute</beans:value>
+		        <beans:value>com.trackme.spring.model.VehicleService</beans:value>
 		</beans:list>
 		</beans:property>
 		

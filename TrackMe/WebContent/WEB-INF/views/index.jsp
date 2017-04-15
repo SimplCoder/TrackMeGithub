@@ -18,6 +18,8 @@
     <link href="html/css/buttons.dataTables.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/select/1.2.1/css/select.dataTables.min.css" rel="stylesheet">
 	<link href="html/css/jquery-ui.min.css" rel="stylesheet">
+	
+	
     
    <!-- <link href="html/css/jquery.mobile-1.4.5.css" rel="stylesheet"> -->
      
@@ -109,10 +111,10 @@
                                                     <thead>
                                                         <tr class="leftMenu">
 
-                                                            <th width="13%" align="center" valign="middle">Vehicle No</th>
+                                                            <th width="16%" align="center" valign="middle">Vehicle No</th>
                                                             <th width="14%" align="center" valign="middle">Status</th>
                                                             <th width="4%" align="center" valign="middle">Speed</th>
-                                                            <th width="45%" align="center" valign="middle">Location</th>
+                                                            <th width="42%" align="center" valign="middle">Location</th>
                                                             <th width="16%" align="center" valign="middle">Date/Time</th>
                                                             <th width="6%" align="center" title="(dd:hh:mm)" valign="middle">IdleTime</th>
 
@@ -268,7 +270,6 @@
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.colVis.min.js"></script>
 <!--    <script type="text/javascript" src="html/js/jquery.mobile-1.4.5.js"></script>  -->
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
     <script>
         $(document).on('pagebeforecreate', function( e ) {
             $( "input, textarea, select, div, button", e.target ).attr( "data-role", "none" );
@@ -432,14 +433,17 @@
                                 //alert(JSON.stringify(allVehicleAjaxArr));
                                 return json.result;
                             }
-                        },
+                        }
+                        ,
                         columns: [
 
                             {
                                 data: "vehicleno",
                                 "render": function(data, type, full, meta) {
-                                    updateMarker(allVehicleAjaxArr, data);
-                                    return '<a href="Vehicle_DetailedLogs?id=' + data + '" rel="external">' + data + '</a>';
+                                    debugger;
+                                	updateMarker(allVehicleAjaxArr, data);
+                                 
+                                    return '<div><img  style="width:15px;height:15px;" onClick="showVehicleDetails(\''+full.vehicleno+'\',\''+full.ownername+'\',\''+full.deviceno+'\',\''+full.nextService+'\',\''+full.imeino+'\')" src="html/images/plus.png">&nbsp; &nbsp<a href="Vehicle_DetailedLogs?id=' + data + '" rel="external">' + data + '</a></div>';
                                 }
                             },
                             {
@@ -483,6 +487,7 @@
                         select: {
                             style: 'single'
                         }
+                 
                     });
                 }
 
@@ -576,11 +581,8 @@
             });
             
              var infowindow = new google.maps.InfoWindow({
-                 content: "<div><span>Vehical No. : "+vehicleNo+"</span></br>"+
-                                "<span>Owner Name : "+ownerName+"</span></br>"+
-                                "<span>Next Service : "+nextService+"</span></br>"+
-                                "<span>Device No. : "+deviceNo+"</span></br>"+
-                                "<span>IMEI No. : "+imeiNo+"</span></br>"+
+                 content: "<div  style=\"word-wrap: break-word;width:180px\"><span>Location : "+location+"</span></br>"+
+                               
                             "</div>",
                   pixelOffset: new google.maps.Size(25,30)
              });
@@ -1638,3 +1640,22 @@ select.input-sm {
 <script>
 $('.dataTable').wrap('<div class="dataTables_scroll" />');
 </script>
+<script>
+function showVehicleDetails(vehicleNo,ownerName,nextService,deviceNo,imeiNo){
+	var textVehicle="<div><span>Vehical No. : "+vehicleNo+"</span></br>"+
+    "<span>Owner Name : "+ownerName+"</span></br>"+
+    "<span>Next Service : "+nextService+"</span></br>"+
+    "<span>Device No. : "+deviceNo+"</span></br>"+
+    "<span>IMEI No. : "+imeiNo+"</span></br>"+
+"</div>";
+	$( "#dialogtest" ).html(textVehicle);
+	$( "#dialogtest" ).dialog();
+    
+  
+    
+  }
+  </script>
+
+<div id="dialogtest" title="Vehicle Info">
+  <p>This is the default dialog which is useful for displaying information. The dialog window can be moved, resized and closed with the 'x' icon.</p>
+</div>
