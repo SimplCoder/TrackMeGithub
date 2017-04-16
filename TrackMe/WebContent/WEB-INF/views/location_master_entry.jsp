@@ -114,14 +114,29 @@ input#addlocation {
 						<form:form action="AddOrUpdateLocationRecord"
 							commandName="location">
 
-
+<form:input type="hidden"  path="status" value="Active"/>
+								 
 
 							<div class="col-sm-6">
 								<div class="form-group">
 									<label>Name of Location</label>
+									
+									<c:if test="${location.editFlag==true }">
+							
+                                    <form:input required="true" type="text"  path="locationName" disabled="true" id="primaryKey" class="form-control" />
+                                    	<form:hidden path="editFlag" value="${location.editFlag}"/>
+											<form:hidden path="createdBy" value="${location.createdBy}"/>
+								<form:hidden path="createdDateShow" value="${location.createdDateShow}"/>
+						
+							</c:if>	
+									
+<c:if test="${location.editFlag==false }">
+							 
 									<form:input type="text" required="true" path="locationName"
 										id="primaryKey" class="form-control" />
-
+     
+							 <form:hidden path="editFlag" value="${location.editFlag}"/>
+							</c:if>
 								</div>
 								<div class="form-group">
 									<label>Description</label>
@@ -165,8 +180,16 @@ input#addlocation {
 								</div>
 								<p>Note : Please click and drag the marker for
 									Latitude/Longitude</p>
-								<input name="action" type="submit" style="align: center"
-									class="btn btn-primary" id="button" value="Add Location" /> <input
+									
+									 <c:if test="${location.editFlag==true }">
+							
+                                <input name="action" type="submit" onclick=" return validate()" class="btn  btn-primary" id="Submit1" value="Update Device" />
+                            </c:if>
+                            <c:if test="${location.editFlag==false }">
+							     <input name="action" type="submit" onclick=" return validate()" class="btn  btn-primary" id="Submit1" value="Save Device" />
+                           </c:if>
+									
+									 <input
 									type="button" class="btn btn-danger" id="button3" value="Close"
 									onclick="location.href = 'location_master_view1.html'" />
 

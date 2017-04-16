@@ -114,7 +114,7 @@ var routeJSON = ${RouteJSON};
 
    	 $('#hdr_settings').addClass("dropdown active");
   		$('#hdr_settings_link').click();
-  		$('#hdr_route').addClass("active");
+  		$('#hdr_vehicleRoute').addClass("active");
   		$('#successMessage').fadeOut(5000);
 		$('#errorMessage').fadeOut(5000);
     	

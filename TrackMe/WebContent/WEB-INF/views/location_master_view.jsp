@@ -25,12 +25,12 @@
         <div id="page-wrapper2" class="gray-bg">
            <div id="messagePrepender" class="rowx wrapper border-bottom white-bg page-heading">
              <div class="col-sm-6">
-                    <h2>Device Details</h2>
+                    <h2>Location Details</h2>
                 </div>
                 <div class="col-sm-6">
                     <div class="text-right">
                     <form>
-                        <a href="addDeviceMastersView" class="btn btn-primary">Add Device</a>
+                        <a href="addDeviceMastersView" class="btn btn-primary">Add Location</a>
                     </form>
                     </div>
                 </div>
@@ -53,14 +53,10 @@
 																   <th ></th>
 																   
    
-                                                                <th>Device No</th>
-                                                                <th>Device IMEI</th>
-                                                                <th>Device Module</th>
-                                                                <th>Sim Number</th>
-                                                                <th>Sim Provider</th>
+                                                                <th>Location</th>
+                                                                <th>Address</th>
+                                                                <th>Radius</th>
                                                                 
-                                                                
-                                                               
                                                                 <th>Created By</th>
                                                                 <th>Created Date</th>
                                                                 <th>Modify By</th>
@@ -108,33 +104,31 @@
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.colVis.min.js"></script>
 
 <script>
-  var driverMasterJSON = ${deviceMasterJSON};
+  var locationJSON = ${locationJSON};
       $(document).ready(function () {
-    	  $('#hdr_configuration').addClass("dropdown active");
-  		$('#hdr_configuration_link').click();
-  		$('#hdr_DeviceMasters').addClass("active");
+    	  $('#hdr_settings').addClass("dropdown active");
+  		$('#hdr_settings_link').click();
+  		$('#hdr_vehicleLocation').addClass("active");
   		$('#successMessage').fadeOut(5000);
 		$('#errorMessage').fadeOut(5000);
     	  
           $('#entrydata').DataTable({
         	  dom: '<"top"lBf>rt<"bottom"p><"clear">',
-          	data:driverMasterJSON,
+          	data:locationJSON,
               columns:[
-                       {data: "deviceNo",
+                       {data: "locationName",
                     	 "render": function ( data, type, full, meta ) {
-                    	      return '<a href="EditDeviceMastersView?id='+data+'"><i class="fa fa-pencil-square-o iconedit"  aria-hidden="true"></i></a>';}
+                    	      return '<a href="EditLocationView?name='+data+'"><i class="fa fa-pencil-square-o iconedit"  aria-hidden="true"></i></a>';}
                     	 },
-                     {data: "deviceNo",
+                     {data: "locationName",
                         	 "render": function ( data, type, full, meta ) {
-                       	      return '<a href="RemoveDeviceMastersRecord?id='+data+'"><i class="fa fa-trash  icondelete" aria-hidden="true"></i></a>';}           	
+                       	      return '<a href="RemoveLocationRecord?name='+data+'"><i class="fa fa-trash  icondelete" aria-hidden="true"></i></a>';}           	
                     		 
-                     },
-                       {data: "deviceNo"},
-                       {data: "deviceIMEI"},
-                       {data: "deviceModule"},
-                       {data: "simNumber"},
-                       {data: "simProvider"},
-                   
+                     },{data: "locationName"},
+                     
+                       {data: "address"},
+                       {data: "radiusLocation"},
+                    
                        {data: "createdBy"},
                        {data: "createdDateShow"},
                        {data: "modifiedBy"},  

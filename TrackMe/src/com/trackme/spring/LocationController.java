@@ -57,7 +57,7 @@ public class LocationController extends BaseController{
 		}
 		
 		model.addAttribute("locationJSON", locationJSON);
-		return "location_master_entry";
+		return "location_master_view";
 	}
 	
 	
