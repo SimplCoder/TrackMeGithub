@@ -37,7 +37,7 @@
                 </div>
                 <div class="col-sm-6">
                     <div class="text-right">
-                        <a href="route_scheduling_entry.html" class="btn btn-primary">Add Schedule</a>
+                        <a href="addRouteSchedulesView" class="btn btn-primary">Add Schedule</a>
                     </div>
                 </div>
             </div>

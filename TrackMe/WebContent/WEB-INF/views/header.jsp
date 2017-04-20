@@ -94,9 +94,9 @@
 					  </c:if>
 					   <c:if test="${cg:checkForModule(currentUser,'School')}">
 					  
-					  <li class="dropdown"> <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" >School<span class="caret"></span></a>
+					  <li id="hdr_student" class="dropdown"> <a aria-expanded="false" id="hdr_student_link" role="button" href="#" class="dropdown-toggle" >School<span class="caret"></span></a>
 						<ul role="menu" class="dropdown-menu">
-						 <c:if test="${cg:checkForLink(currentUser,'Student Entry')}">  <li><a href="html/student_master_view.html"> <i class="fa fa-child"></i>Student Entry</a></li></c:if>
+						 <c:if test="${cg:checkForLink(currentUser,'Student Entry')}">  <li id="hdr_students"><a href="Students"> <i class="fa fa-child"></i>Student Entry</a></li></c:if>
 						</ul>
 					  </li>
 					  </c:if>
