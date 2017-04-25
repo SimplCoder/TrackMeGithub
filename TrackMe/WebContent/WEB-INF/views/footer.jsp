@@ -1,23 +1,23 @@
- <div class="foot-fixed">
+ <div class="foot-fixed" style="height: 40px;">
     <div class="auto-reloader-bar">
       <div class="row">
         <div class="col-xs-6">
           <form role="form" class="form-inline" style="visibility:hidden;">
             <div class="form-group">
              
-                <label>
-                  <input id="refreshCheck" type="checkbox" class="refreshC" value=1 checked>
+                <label style="font-size: 15px;">
+                  <input id="refreshCheck" type="checkbox" class="refreshC" style="zoom:1.75" value=1 checked>
               Refresh Every </label>
               
             </div>
             <div class="form-group">
                  
-            <input type=number value="5" maxlength=3 id="refreshValue" style="color:black;height:20px; width:60px" class="refreshC input-sm form-control input-s-sm inline">
-              <select id="refreshUnit" class="refreshC input-sm form-control input-s-sm inline">
-                <option value="0">Second(s)</option>
-                <option value="1" selected>Minutes</option>
+            <input type="number" min="0" max="99" id="refreshValue" style="color:black;height:20px; width:60px" class="refreshC input-sm form-control input-s-sm inline">
+              <select id="refreshUnit" class="refreshC input-sm form-control input-s-sm inline" style="color:black;height:20px; width:60px">
+                <option value="0">Sec.</option>
+                <option value="1" selected>Min.</option>
               </select>
-              <span>&nbsp;&nbsp;<i class="fa fa-refresh" aria-hidden="true" style="font-size: 18px;cursor:pointer;cursor:hand"></i></span> </div>
+              <span>&nbsp;&nbsp;<i class="fa fa-refresh" aria-hidden="true" style="font-size: 15px;cursor:pointer;cursor:hand"></i></span> </div>
           </form>
         </div>
         <div class="col-xs-6 text-right">
@@ -26,4 +26,29 @@
       </div>
     </div>
   </div>
-  
+  <script>
+  $("#refreshValue").bind('keydown', function(e){
+     var targetValue = $(this).val();
+     if (e.which ===8 || e.which === 13 || e.which === 37 || e.which === 39 || e.which === 46) { return; }
+
+     if (e.which > 47 &&  e.which < 58  && targetValue.length < 2) {
+        var c = String.fromCharCode(e.which);
+        var val = parseInt(c);
+        var textVal = parseInt(targetValue || "0");
+        var result = textVal + val;
+
+        if (result < 0 || result > 99) {
+           e.preventDefault();
+        }
+
+        if (targetValue === "0") {
+          $(this).val(val);
+          e.preventDefault();
+        }
+     }
+     else {
+         e.preventDefault();
+     }
+  });
+</script>
+  </script>
