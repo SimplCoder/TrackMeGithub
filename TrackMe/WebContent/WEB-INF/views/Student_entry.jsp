@@ -122,7 +122,7 @@
 
 
 							<div class="form-group col-sm-6">
-								<label>Device No:</label>
+								<label>Route:</label>
 								<form:select path="routeName" id="routeName" class="form-control">
 
 									<form:options items="${routes}" itemValue="routeName"
@@ -132,16 +132,7 @@
 							</div>
 
 
-							<div class="form-group col-sm-6">
-								<label>Device No:</label>
-								<form:select path="routeName" id="routeName" class="form-control">
-
-									<form:options items="${routes}" itemValue="routeName"
-										itemLabel="routeName"></form:options>
-								</form:select>
-
-							</div>
-							
+						
 							
 							
 														<div class="form-group col-sm-6">

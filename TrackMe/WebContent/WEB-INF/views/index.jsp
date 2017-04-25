@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vehicle Service View</title>
+    <title>Home</title>
     <link href="html/css/css.css" rel="stylesheet" type="text/css" />
     <link href="html/css/bootstrap.min.css" rel="stylesheet">
 
@@ -440,10 +440,15 @@
                             {
                                 data: "vehicleno",
                                 "render": function(data, type, full, meta) {
-                                    debugger;
-                                	updateMarker(allVehicleAjaxArr, data);
                                  
-                                    return '<div><img  style="width:15px;height:15px;" onClick="showVehicleDetails(\''+full.vehicleno+'\',\''+full.ownername+'\',\''+full.deviceno+'\',\''+full.nextService+'\',\''+full.imeino+'\')" src="html/images/plus.png">&nbsp; &nbsp<a href="Vehicle_DetailedLogs?id=' + data + '" rel="external">' + data + '</a></div>';
+                                	updateMarker(allVehicleAjaxArr, data);
+                                	var bgColor = '#1e8427';
+                                    
+                                	 if (full.description == 'Ignition Off' || full.description == 'Health Check') {
+                                         bgColor = '#d60002';
+                                         
+                                     } 
+                                    return '<div style="background-color:'+bgColor+'"><img  style="width:15px;height:15px;" onClick="showVehicleDetails(\''+full.vehicleno+'\',\''+full.ownername+'\',\''+full.deviceno+'\',\''+full.nextService+'\',\''+full.imeino+'\')" src="html/images/plus.png">&nbsp; &nbsp<a style="color:black" href="Vehicle_DetailedLogs?id=' + data + '" rel="external">  <b>' + data + '</b></a></div>';
                                 }
                             },
                             {

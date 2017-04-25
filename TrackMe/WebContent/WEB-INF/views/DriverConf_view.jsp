@@ -1,13 +1,12 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vehicle Service View</title>
+    <title>DriverConf View</title>
     <link href="html/css/css.css" rel="stylesheet" type="text/css" />
     <link href="html/css/bootstrap.min.css" rel="stylesheet">
 
@@ -20,72 +19,76 @@
     <link href="html/css/buttons.dataTables.min.css" rel="stylesheet">
 </head>
 <body class="top-navigation" >
-     <jsp:directive.include file="header.jsp" />
-      <div id="wrapper">
-        <div id="page-wrapper2" class="gray-bg">
-           <div id="messagePrepender" class="rowx wrapper border-bottom white-bg page-heading">
-             <div class="col-sm-6">
-                    <h2>Location Details</h2>
-                </div>
+<jsp:directive.include file="header.jsp" />
+    <div id="wrapper">
+       <div id="page-wrapper2" class="gray-bg">
+            <div class="rowx wrapper border-bottom white-bg page-heading">
                 <div class="col-sm-6">
+                    <h2>Driver Schedule View</h2>
+                </div>
+               <div class="col-sm-6">
                     <div class="text-right">
-                    <form>
-                        <a href="addLocationView" class="btn btn-primary">Add Location</a>
-                    </form>
+                        <a href="addNoDriverConfs" target="frame1" style="width:160px" class="btn btn-primary">Add New Schedule</a>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-12">
-                
                     <div class="">
                         <div class="row">
-                       
                             <div class="col-lg-12">
                                 <div class="ibox float-e-margins">
+                                
+                                
                                     <div class="ibox-content">
-                                        <div class="table-responsive">
 
-                                                    <table width="100%" id="entrydata" class="entrydata table table-striped table-bordered new-tbl">
-                                                        <thead>
-                                                            <tr class="leftMenu">
-                                                                <th ></th>
-																   <th ></th>
-																   
-   
-                                                                <th>Location</th>
-                                                                <th>Address</th>
-                                                                <th>Radius</th>
-                                                                
-                                                                <th>Created By</th>
-                                                                <th>Created Date</th>
-                                                                <th>Modify By</th>
-                                                                <th>Modify Date</th>
-                                                            </tr>
-															
-                                                        </thead>
-                                                     
-                                                    </table>
 
-                                                </div>
 
-                              
+											<div id="editDriverConf">
 
+
+                                            <div class="table-responsive">
+								
+                                                <table width="100%" border="1" align="center" cellpadding="0" cellspacing="0" class="entrydata table table-striped table-bordered new-tbl" id="entrydata">
+                                                    <thead>
+                                                        <tr class="leftMenu">
+                                                            <th></th>
+															    <th></th>
+                                                            <th>Driver Name</th>
+                                       					   
+                                                           <th>Driver Contact</th>
+                                       					      <th>Vehicle No</th>
+                                       					   
+                                                           <th>Start Date</th>
+                                       					    <th>End Date</th>
+                                       					   
+                                                           <th>Start Time</th>
+                                       					  <th>End Time</th>
+                                       					  <th>Shift Name</th>
+                                       					  <th>Trip Id</th>
+                                                            <th>Created By</th>
+                                                            <th>Created Date</th>
+                                                            <th>Modified By</th>
+                                                            <th>Modified Date</th>
+                                                            
+                                                        </tr>
+														
+                                                    </thead>
+                                                </table>
+                                            </div>
                                         </div>
+
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-
             </div>
-          
-             <jsp:directive.include file="footer.jsp" />
         </div>
-    
-</body>
+<jsp:directive.include file="footer.jsp" />
+    </div>
+    </body>
 <script type="text/javascript" src="html/js/jquery-1.12.4.js"></script>
 <script type="text/javascript" src="html/js/tether.min.js"></script>
 <script type="text/javascript" src="html/js/bootstrap.js"></script>
@@ -102,38 +105,42 @@
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.html5.min.js"></script>
 <script type="text/javascript" src="html/js/icheck.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.colVis.min.js"></script>
-
-<script>
-  var locationJSON = ${locationJSON};
+  <script>
+  var driverConfJSON = ${driverConfJSON};
       $(document).ready(function () {
     	  $('#hdr_settings').addClass("dropdown active");
   		$('#hdr_settings_link').click();
-  		$('#hdr_vehicleLocation').addClass("active");
+  		$('#hdr_driverConfs').addClass("active");
   		$('#successMessage').fadeOut(5000);
 		$('#errorMessage').fadeOut(5000);
     	  
           $('#entrydata').DataTable({
         	  dom: '<"top"lBf>rt<"bottom"p><"clear">',
-          	data:locationJSON,
+          	data:driverConfJSON,
               columns:[
-                       {data: "locationName",
+                       {data: "id",
                     	 "render": function ( data, type, full, meta ) {
-                    	      return '<a href="EditLocationView?name='+data+'"><i class="fa fa-pencil-square-o iconedit"  aria-hidden="true"></i></a>';}
+                    	      return '<a href="EditDriverConfsView?id='+data+'"><i class="fa fa-pencil-square-o iconedit"  aria-hidden="true"></i></a>';}
                     	 },
-                     {data: "locationName",
+                     {data: "id",
                         	 "render": function ( data, type, full, meta ) {
-                       	      return '<a href="RemoveLocationRecord?name='+data+'"><i class="fa fa-trash  icondelete" aria-hidden="true"></i></a>';}           	
+                       	      return '<a href="RemoveDriverConfsRecord?id='+data+'"><i class="fa fa-trash  icondelete" aria-hidden="true"></i></a>';}           	
                     		 
-                     },{data: "locationName"},
-                     
-                       {data: "address"},
-                       {data: "radiusLocation"},
-                    
+                     },
+                       {data: "driverId.driverName"},
+                       {data: "driverId.contact1"},
+                       {data: "vehicleNo"},
+                       {data: "startDate"},
+                       {data: "endDate"},
+                       {data: "startTime"},
+                       {data: "endTime"},
+                       {data: "shiftName"},
+                       {data: "tripId"},
                        {data: "createdBy"},
-                       {data: "createdDateShow"},
-                       {data: "modifiedBy"},  
-                       {data: "modifiedDateShow"}
-                                          
+                       {data: "createdOnShow"},
+                       {data: "modifiedBy"},
+                        {data: "modifiedOnShow"},
+                                             
                    ],
           	
   			ordering:false,
@@ -167,10 +174,6 @@
       });
 
    
-      function validate(){
-			$('#primaryKey').prop('disabled', false);
-			return true;
-		}
   </script>
 
 <style>
@@ -204,4 +207,3 @@ button.dt-button, div.dt-button, a.dt-button {
 }
 
 </style>
-</html>

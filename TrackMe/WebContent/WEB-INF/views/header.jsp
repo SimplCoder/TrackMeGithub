@@ -63,7 +63,7 @@
 					  <c:if test="${cg:checkForModule(currentUser,'Settings')}">
 					  <li id="hdr_settings" class="dropdown"> <a aria-expanded="false" id="hdr_settings_link" role="button" href="#" class="dropdown-toggle" >Settings<span class="caret"></span></a>
 						<ul role="menu" class="dropdown-menu">
-						    <c:if test="${cg:checkForLink(currentUser,'Driver Scheduling')}"><li><a href="driver_scheduling_view.html"><i class="fa fa-sitemap"></i>Driver Scheduling</a></li></c:if>
+						    <c:if test="${cg:checkForLink(currentUser,'Driver Scheduling')}"><li id="hdr_driverConfs"><a href="DriverConfs"><i class="fa fa-sitemap"></i>Driver Scheduling</a></li></c:if>
                                         <c:if test="${cg:checkForLink(currentUser,'Vehicle Service')}"><li id="hdr_vehicleService"><a href="VehicleServices"><i class="fa fa-car"></i>Vehicle Service</a></li></c:if>
                                        <c:if test="${cg:checkForLink(currentUser,'Geofences')}"> <li id="hdr_goeFence"><a href="listGeoFenceDetails.html"><i class="fa fa-tencent-weibo"></i>Geofences</a></li></c:if>
                                        <c:if test="${cg:checkForLink(currentUser,'Fuel')}"> <li id="hdr_vehicleFuel"><a href="ViewFuelDetails"><i class="fa fa-tint"></i>Fuel</a></li></c:if>
