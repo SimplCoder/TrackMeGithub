@@ -12,7 +12,7 @@
             </div>
             <div class="form-group">
                  
-            <input type="number" min="0" max="99" id="refreshValue" style="color:black;height:20px; width:60px" class="refreshC input-sm form-control input-s-sm inline">
+            <input type="number" value="5" min="0" max="99" id="refreshValue" style="color:black;height:20px; width:60px" class="refreshC input-sm form-control input-s-sm inline">
               <select id="refreshUnit" class="refreshC input-sm form-control input-s-sm inline" style="color:black;height:20px; width:60px">
                 <option value="0">Sec.</option>
                 <option value="1" selected>Min.</option>

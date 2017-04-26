@@ -448,7 +448,7 @@
                                          bgColor = '#d60002';
                                          
                                      } 
-                                    return '<div style="background-color:'+bgColor+'"><img  style="width:15px;height:15px;" onClick="showVehicleDetails(\''+full.vehicleno+'\',\''+full.ownername+'\',\''+full.deviceno+'\',\''+full.nextService+'\',\''+full.imeino+'\')" src="html/images/plus.png">&nbsp; &nbsp<a style="color:black" href="Vehicle_DetailedLogs?id=' + data + '" rel="external">  <b>' + data + '</b></a></div>';
+                                    return '<div style="background-color:'+bgColor+'"><img  style="width:15px;height:15px;" onClick="showVehicleDetails(\''+full.vehicleno+'\',\''+full.ownername+'\',\''+full.deviceno+'\',\''+full.nextservice+'\',\''+full.imeino+'\',\''+full.drivername+'\',\''+full.driverphone+'\',\''+full.gsmnumber+'\',\''+full.odometer+'\',\''+full.ownerphone+'\',\''+full.vehicletype+'\')" src="html/images/plus.png">&nbsp; &nbsp<a style="color:black" href="Vehicle_DetailedLogs?id=' + data + '" rel="external">  <b>' + data + '</b></a></div>';
                                 }
                             },
                             {
@@ -1646,11 +1646,28 @@ select.input-sm {
 $('.dataTable').wrap('<div class="dataTables_scroll" />');
 </script>
 <script>
-function showVehicleDetails(vehicleNo,ownerName,nextService,deviceNo,imeiNo){
+function showVehicleDetails(vehicleNo,ownerName,deviceNo,nextService,imeiNo,drivername,driverphone,gsmnumber,odometer,ownerphone,vehicletype){
+	vehicleNo=vehicleNo=="null"?"":vehicleNo;
+	vehicletype=vehicletype=="null"?"":vehicletype;
+	ownerName=ownerName=="null"?"":ownerName;
+	ownerphone=ownerphone=="null"?"":ownerphone;
+	drivername=drivername=="null"?"":drivername;
+	driverphone=driverphone=="null"?"":driverphone;
+	nextService=nextService=="null"?"":nextService;
+	odometer=odometer=="null"?"":odometer;
+	deviceNo=deviceNo=="null"?"":deviceNo;
+	gsmnumber=gsmnumber=="null"?"":gsmnumber;
+	imeiNo=imeiNo=="null"?"":imeiNo;
 	var textVehicle="<div><span>Vehical No. : "+vehicleNo+"</span></br>"+
+	"<span>Vehicle Type : "+vehicletype+"</span></br>"+
     "<span>Owner Name : "+ownerName+"</span></br>"+
+    "<span>Owner Phone : "+ownerphone+"</span></br>"+
+    "<span>Driver Name : "+drivername+"</span></br>"+
+    "<span>Driver Phone : "+driverphone+"</span></br>"+
     "<span>Next Service : "+nextService+"</span></br>"+
+    "<span>Odometer : "+odometer+"</span></br>"+
     "<span>Device No. : "+deviceNo+"</span></br>"+
+    "<span>GSM No. : "+gsmnumber+"</span></br>"+
     "<span>IMEI No. : "+imeiNo+"</span></br>"+
 "</div>";
 	$( "#dialogtest" ).html(textVehicle);
