@@ -10,4 +10,6 @@ public interface RouteScheduleService {
 	public List<RouteSchedule> listRouteScheduleDetails();
 	public RouteSchedule getRouteScheduleDetailsById(String routeScheduleId);
 	public void removeRouteScheduleDetails(String routeScheduleId);
+	
+	public void deleteVehicleSchedule(String id);
 }

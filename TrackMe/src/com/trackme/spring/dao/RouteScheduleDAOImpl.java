@@ -7,9 +7,12 @@ import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.trackme.constants.Constant;
+import com.trackme.spring.model.DeviceMaster;
+import com.trackme.spring.model.Route;
 import com.trackme.spring.model.RouteSchedule;
 
 @Repository("RouteScheduleDAO")
@@ -20,19 +23,30 @@ public class RouteScheduleDAOImpl implements RouteScheduleDAO{
 	@Autowired
 	private SessionFactory sessionFactory;
 	
+	@Autowired
+	private JdbcTemplate jdbcTemplate;  
+
+	
 	public void setSessionFactory(SessionFactory sf){
 		this.sessionFactory = sf;
 	}
 	
 	@Override
 	public void addRouteScheduleDetails(RouteSchedule routeSchedule) {
-		// TODO Auto-generated method stub
+		Session session = this.sessionFactory.getCurrentSession();
 		
+		
+		session.saveOrUpdate(routeSchedule);
+			logger.info("routeSchedule saved successfully, routeSchedule Details="+routeSchedule);
+
 	}
 
 	@Override
 	public void updateRouteScheduleDetails(RouteSchedule routeSchedule) {
-		// TODO Auto-generated method stub
+		Session session = this.sessionFactory.getCurrentSession();
+		session.update(routeSchedule);
+		session.flush();
+		logger.info("routeSchedule updated successfully, routeSchedule Details="+routeSchedule);
 		
 	}
 
@@ -50,14 +64,34 @@ public class RouteScheduleDAOImpl implements RouteScheduleDAO{
 
 	@Override
 	public RouteSchedule getRouteScheduleDetailsById(String routeScheduleId) {
-		// TODO Auto-generated method stub
-		return null;
+		try{
+			Session session = this.sessionFactory.getCurrentSession();
+			
+			RouteSchedule route = (RouteSchedule) session.load(RouteSchedule.class, routeScheduleId);
+			logger.info("routeDetailsId loaded successfully, routeDetailsId details="+route);
+			return route;
+			}catch(Exception e){
+				logger.equals(e.getMessage());
+			}
+			return null;
 	}
 
 	@Override
 	public void removeRouteScheduleDetails(String routeScheduleId) {
-		// TODO Auto-generated method stub
+		Session session = this.sessionFactory.getCurrentSession();
+		RouteSchedule p = (RouteSchedule) session.load(RouteSchedule.class, routeScheduleId);
+		if(null != p){
+			session.delete(p);
+		}
+		logger.info("RouteSchedule deleted successfully, RouteSchedule details="+p);
 		
+	}
+
+	
+	@Override
+	public void deleteVehicleSchedule(String id) {
+		String query = "delete from routevehicle where scheduleName= '"+id+"' ";
+		jdbcTemplate.execute(query);
 	}
 
 	

@@ -80,7 +80,12 @@ public class RouteDetailsDAOImpl implements RouteDetailsDAO{
 
 	@Override
 	public void removeRouteDetails(String routeDetailsId) {
-		// TODO Auto-generated method stub
+		Session session = this.sessionFactory.getCurrentSession();
+		Route p = (Route) session.load(DeviceMaster.class, routeDetailsId);
+		if(null != p){
+			session.delete(p);
+		}
+		logger.info("Route deleted successfully, Route details="+p);
 		
 	}
 

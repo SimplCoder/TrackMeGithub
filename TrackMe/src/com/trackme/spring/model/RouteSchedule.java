@@ -1,16 +1,27 @@
 package com.trackme.spring.model;
 
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.springframework.util.StringUtils;
 
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Collections;
 import com.trackme.constants.Constant;
 
 @Entity
@@ -36,8 +47,6 @@ public class RouteSchedule
   @Column(name="routename")
   private String routeName;
   
-  @Column(name="vehicleno")
-  private String vehicleNo;
   
   @Column(name="monday")
   private boolean monday;
@@ -78,7 +87,48 @@ public class RouteSchedule
   @Column(name="createdby")
   private String createdby;
   
+  
+  @ElementCollection
+  @CollectionTable(
+        name="routevehicle",
+        joinColumns=@JoinColumn(name="schedulename")
+  )
+  @Column(name="vehicleno")
+  private List<String> vehicles;
+  
   @Transient
+  private String[] vehicleShow;
+  
+  
+  
+  public String getVehicleShow() {
+	  
+	  if (vehicleShow!=null && vehicleShow.length > 0) {
+		    StringBuilder nameBuilder = new StringBuilder();
+
+		    for (String n : vehicleShow) {
+		        nameBuilder.append("'").append(n.replace("'", "\\'")).append("',");
+		        // can also do the following
+		        // nameBuilder.append("'").append(n.replace("'", "''")).append("',");
+		    }
+
+		    nameBuilder.deleteCharAt(nameBuilder.length() - 1);
+
+		    return nameBuilder.toString();
+		} else {
+		    return "";
+		}
+
+
+}
+
+public void setVehicleShow(String[] vehicleShow) {
+	this.vehicleShow = vehicleShow;
+	this.vehicles=new ArrayList<String>(Arrays.asList(vehicleShow));
+	
+}
+
+@Transient
   private String  createdDateShow;
   @Transient
   private String  modifiedDateShow;
@@ -88,13 +138,7 @@ public class RouteSchedule
   private String  endDateShow;
   
   
-  @Transient
-  private String  vehicleNoShow;
-  
-  public String getVehicleNoShow() {
-	return 	 this.vehicleNo.replaceAll("\"", "").replaceAll("\\{", "").replaceAll("\\}", "");
-}
-
+ 
 
   
   public String getCreatedDateShow() {
@@ -333,15 +377,17 @@ public class RouteSchedule
     this.routeName = routeName;
   }
   
-  public String getVehicleNo()
-  {
-    return this.vehicleNo;
-  }
-  
-  public void setVehicleNo(String vehicleNo)
-  {
-    this.vehicleNo = vehicleNo;
-  }
+ 
+
+public List<String> getVehicles() {
+	return vehicles;
+}
+
+
+
+public void setVehicles(List<String> vehicles) {
+	this.vehicles = vehicles;
+}
 
 
 

@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.trackme.constants.Constant;
 import com.trackme.spring.dao.RouteScheduleDAO;
+import com.trackme.spring.model.Route;
 import com.trackme.spring.model.RouteSchedule;
 
 @Service("routeScheduleService")
@@ -18,15 +20,13 @@ public class RouteScheduleServiceImpl implements RouteScheduleService{
 	@Override
 	@Transactional
 	public void addRouteScheduleDetails(RouteSchedule routeSchedule) {
-		// TODO Auto-generated method stub
-		
+		routeScheduleDAO.addRouteScheduleDetails(routeSchedule);
 	}
 
 	@Override
 	@Transactional
 	public void updateRouteScheduleDetails(RouteSchedule routeSchedule) {
-		// TODO Auto-generated method stub
-		
+		routeScheduleDAO.updateRouteScheduleDetails(routeSchedule);
 	}
 
 	@Override
@@ -39,15 +39,20 @@ public class RouteScheduleServiceImpl implements RouteScheduleService{
 	@Override
 	@Transactional
 	public RouteSchedule getRouteScheduleDetailsById(String routeScheduleId) {
-		// TODO Auto-generated method stub
-		return null;
+		return routeScheduleDAO.getRouteScheduleDetailsById(routeScheduleId);
 	}
 
 	@Override
 	@Transactional
 	public void removeRouteScheduleDetails(String routeScheduleId) {
-		// TODO Auto-generated method stub
-		
+	RouteSchedule routeSchedule = routeScheduleDAO.getRouteScheduleDetailsById(routeScheduleId);
+			routeSchedule.setStatus(Constant.STATUS_INACTIVE);
+	routeScheduleDAO.updateRouteScheduleDetails(routeSchedule);
 	}
 
+	@Override
+	public void deleteVehicleSchedule(String id) {
+		routeScheduleDAO.deleteVehicleSchedule(id);
+	}
+	
 }

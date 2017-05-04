@@ -56,19 +56,17 @@
                                                     <table class="table table-striped table-bordered new-tbl" id="entrydata">
                                                         <thead>
                                                             <tr class="leftMenu">
-                                                                <th>Edit</th>
+                                                                <th></th>
+                                                                <th></th>
                                                                 <th>Schedule Name</th>
                                                                 <th>Route Name</th>
-                                                                <th>Vehicle No</th>
-                                                                <th>Start Date</th>
-                                                                <th>Start Time</th>
+                                                                 <th>Start Date</th>
                                                                 <th>End Date</th>
-                                                                <th>EndTime</th>
-                                                                <th>Created By</th>
+                                                                                        <th>Created By</th>
                                                                 <th>Created Date</th>
                                                                 <th>Modify By</th>
                                                                 <th>Modify Date</th>
-                                                                <th>Delete</th>
+                                                                
                                                             </tr>
                                                         </thead>
                                                     </table>
@@ -119,28 +117,29 @@ var routeScheduleJSON = ${RouteScheduleJSON};
         	dom: '<"top"lBf>rt<"bottom"p><"clear">',
         	data:routeScheduleJSON,
             columns:[
+                    
+                     
                      {data: "scheduleName",
                     	 "render": function ( data, type, full, meta ) {
-                    	      return '<a href=""><i class="fa fa-pencil-square-o iconedit"  aria-hidden="true"></i></a>';}
+                    	      return '<a href="editRouteSchedulesView?id='+data+'"><i class="fa fa-pencil-square-o iconedit"  aria-hidden="true"></i></a>';}
                     	 },
+                     {data: "scheduleName",
+                        	 "render": function ( data, type, full, meta ) {
+                       	      return '<a href="RemoveRouteScheduleRecord?id='+data+'"><i class="fa fa-trash  icondelete" aria-hidden="true"></i></a>';}
+                       	
+                    		 
+                     },
                      
                      {data: "scheduleName"},
                      {data: "routeName"},
-                     {data: "vehicleNoShow"},
                      {data: "startDateShow"},
                      {data: "endDateShow"},
-                     {data: "endDate"},
-                     {data: "endTime"},
                      {data: "createdby"},
                      {data: "createdDateShow"},
                      {data: "modifiedby"},
                      {data: "modifiedDateShow"},
                      
-                     {data: "scheduleName",
-                    	 "render": function ( data, type, full, meta ) {
-                    	      return '<a href=""><i class="fa fa-trash  icondelete" aria-hidden="true"></i></a>';}
-                    	 },
-                     
+                    
                  ],
         	
 			ordering:false,
