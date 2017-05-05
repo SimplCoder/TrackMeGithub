@@ -131,7 +131,7 @@
                                         <div class="ibox-title">
                                             <div class="map-btns">
                                                 <ul class="subnav-right az-move-right">
-                                                    <!--  <li class="map-reset"><a href="#">&nbsp;</a></li> -->
+                                                    <li class="map-reset"><a href="#">&nbsp;</a></li> 
                                                     <li class="map-actions"><a href="#myPopup" id="vehicleSearchFilterId" data-rel="popup" class="">&nbsp;</a>
 
 
@@ -163,7 +163,7 @@
                                                     </li>
                                                     <!--  <li class="map-vehicles"><a href="#" class="">&nbsp;</a> </li>-->
                                                     <!-- <li class="map-landmarks"><a href="#">&nbsp;</a></li>-->
-                                                    <!-- <li class="map-geofences"><a href="#">&nbsp;</a> </li>-->
+                                                    <li class="map-geofences"><a href="#">&nbsp;</a> </li>
                                                     <li class="map-layout-toggle1">
                                                         <a class="map-layout-togglea1 active" href="javascript:void(0)" onclick="reSize('side')"></a>
                                                     </li>
