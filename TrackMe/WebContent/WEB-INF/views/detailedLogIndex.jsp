@@ -85,16 +85,16 @@
                        
                        
                           
-                          <li class="map-reset"><a href="#" >&nbsp;</a></li>
-                          <li class="map-actions"><a href="#" class="">&nbsp;</a> </li>
-                          <li class="map-vehicles"><a href="#" class="">&nbsp;</a> </li>
-                          <li class="map-landmarks"><a href="#" >&nbsp;</a></li>
-                          <li class="map-geofences"><a href="#">&nbsp;</a> </li>
+                          <!--  <li class="map-reset"><a href="#" >&nbsp;</a></li>-->
+                          <!--  <li class="map-actions"><a href="#" class="">&nbsp;</a> </li>-->
+                          <!--  <li class="map-vehicles"><a href="#" class="">&nbsp;</a> </li>-->
+                          <!--  <li class="map-landmarks"><a href="#" >&nbsp;</a></li>-->
+                          <!--  <li class="map-geofences"><a href="#">&nbsp;</a> </li>-->
                         <li class="map-layout-toggle1"><a class="map-layout-togglea1 active" href="javascript:void(0)" onclick ="reSize('side')"></a> </li>
                           <li class="map-layout-toggle2"><a href="javascript:void(0)" class="map-layout-togglea2" onclick ="reSize('wide')"></a></li>
-                           <li class="map-icon-medium"><a class="active" href="#" >&nbsp;</a></li>
-                          <li class="map-icon-large"><a href="#" class="">&nbsp;</a></li>
-                          <li class="map-fullscreen"><a href="#">&nbsp;</a></li>
+                           <!--  <li class="map-icon-medium"><a class="active" href="#" >&nbsp;</a></li>-->
+                          <!--  <li class="map-icon-large"><a href="#" class="">&nbsp;</a></li>-->
+                          <!--  <li class="map-fullscreen"><a href="#">&nbsp;</a></li>-->
                         </ul>
                       </div>
                     </div>
