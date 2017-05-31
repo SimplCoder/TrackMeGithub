@@ -18,8 +18,18 @@
 		<beans:constructor-arg name="decisionVoters"
 			ref="roleVoter" />
 	</beans:bean>
-	<http pattern="/api/**" security="none" />
+	
+	
+
 <http pattern="/html/**" security="none" />
+	
+	
+	
+	
+	
+
+    
+	
 	<http  authentication-manager-ref="jdbc-auth"
 		access-decision-manager-ref="accessDecisionManager">	
 	
@@ -33,7 +43,7 @@
 			logout-url="/j_spring_security_logout" />
 		<access-denied-handler error-page="/denied"/>
 		<session-management invalid-session-url="/login">
-			<concurrency-control max-sessions="100"
+			<concurrency-control max-sessions="1000"
 				expired-url="/login" />
 		</session-management>
 	</http>
@@ -43,6 +53,10 @@
 		<authentication-provider user-service-ref="userDetailsService">
 		</authentication-provider>
 	</authentication-manager>
+
+ <beans:bean  id="restAuthenticationEntryPoint" class="com.trackme.spring.security.dao.RestAuthenticationEntryPoint" ></beans:bean>
+		
+	
 
 	<beans:bean id="userDetailsService"
 		class="com.trackme.spring.security.dao.AppUserDetailsServiceDAO" />
@@ -75,4 +89,4 @@
   <beans:bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">  
   <beans:property name="dataSource" ref="dataSource"></beans:property>  
   </beans:bean> 
-</beans:beans>
+ </beans:beans>
