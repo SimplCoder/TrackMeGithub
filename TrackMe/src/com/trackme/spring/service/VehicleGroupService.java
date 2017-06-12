@@ -11,6 +11,5 @@ public interface VehicleGroupService {
 	public List<VehicleGroup> listVehicleGroup();
 	public VehicleGroup getVehicleGroupById(String VehicleGroupId);
 	public void removeVehicleGroup(String VehicleGroupId);
-	public void reomoveExistingVehiclesFromGroup(String VehicleGroupId);
 	
 }

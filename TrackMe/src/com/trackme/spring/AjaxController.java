@@ -151,5 +151,12 @@ public class AjaxController {
 		return result;
 	}
 	
-	
+	@RequestMapping(value = "/api/saveLocation", method = RequestMethod.POST)
+	public @ResponseBody String getGreeting(@RequestBody GPSTracking gpsTracking) {
+		String result=gpsTracking.getDatetime();
+		vehicleMasterService.saveGPSTracking(gpsTracking);
+			return "hii";
+		}
+
+
 }

@@ -22,15 +22,11 @@ import com.trackme.spring.model.UserMaster;
 import com.trackme.spring.model.VehicleGroup;
 import com.trackme.spring.model.VehicleMaster;
 import com.trackme.spring.service.VehicleGroupService;
-import com.trackme.spring.service.VehicleMasterService;
 
 @Controller
 public class VehicleGroupController extends BaseController{
 	
 	private VehicleGroupService vehicleGroupService;
-	
-	@Autowired
-	private VehicleMasterService vehicleMasterService;
 	
 	@Autowired(required=true)
 	@Qualifier(value="vehicleGroupService")
@@ -40,6 +36,7 @@ public class VehicleGroupController extends BaseController{
 	
 	@RequestMapping(value = "/VehicleGroupView", method = RequestMethod.GET)
 	public String vehicleGroupView(Model model) {	
+		model.addAttribute("VehicleGroup", new VehicleGroup());
 		 List<VehicleGroup> vehicleGroupList=	this.vehicleGroupService.listVehicleGroup();
 			
 			ObjectMapper objectMapper = new ObjectMapper();
@@ -52,7 +49,7 @@ public class VehicleGroupController extends BaseController{
 			}
 			
 			model.addAttribute("vehicleGroupJSON", vehicleGroupJSON);
-		return "VehicleGroup_view";
+		return "group_master_view";
 	}
 	
 	
@@ -60,23 +57,18 @@ public class VehicleGroupController extends BaseController{
 		@RequestMapping(value= "/AddOrUpdateVehicleGroup", method = RequestMethod.POST)
 		public String addVehicleGroup(@ModelAttribute("VehicleGroup") VehicleGroup vehicleGroup,Model model, HttpServletRequest request, HttpServletResponse response){		
 			//Add Driver
-			UserMaster currentUser=(UserMaster) request.getSession().getAttribute(Constant.CURRENT_USER);
-			
-			model.addAttribute("vehicles", vehicleMasterService.listVehicleMasters());
 			VehicleGroup vehicleGroupExist=this.vehicleGroupService.getVehicleGroupById(vehicleGroup.getId());
 			if(vehicleGroupExist==null){
-				vehicleGroup.setCreatedBy(currentUser.getUserName());
-					vehicleGroup.setCreatedDate(new Date());
+				UserMaster currentUser=(UserMaster) request.getSession().getAttribute(Constant.CURRENT_USER);
+				vehicleGroupExist.setCreatedBy(currentUser.getUserName());
+				vehicleGroupExist.setCreatedDate(new Date());
 				
 				vehicleGroupService.addVehicleGroup(vehicleGroup);
 				addSuccessMessage("Vehicle group details added successfully.");
 				
 			} else{
 				if(vehicleGroup.isEditFlag()){
-					vehicleGroup.setModifiedBy(currentUser.getUserName());
-					vehicleGroup.setModifiedDate(new Date());
-				   
-				vehicleGroupService.reomoveExistingVehiclesFromGroup(vehicleGroup.getId());	
+					
 				vehicleGroupService.updateVehicleGroup(vehicleGroup);
 				addSuccessMessage("Vehicle group details updated successfully.");
 				}else{
@@ -92,41 +84,10 @@ public class VehicleGroupController extends BaseController{
 						
 		}
 		
-		
-		@RequestMapping(value= "/NewVehicleGroup", method = RequestMethod.GET)
-		public String newVehicleGroup(Model model, HttpServletRequest request, HttpServletResponse response){		
-			//Add Driver
-			model.addAttribute("vehicles", vehicleMasterService.listVehicleMasters());
-			VehicleGroup vehicleGroup=new VehicleGroup();
-			vehicleGroup.setEditFlag(false);
-			
-			model.addAttribute("VehicleGroup", vehicleGroup);
-						
-			 return "VehicleGroup_entry";
-						
-		}
-		
-		@RequestMapping(value= "/editVehicleGroup", method = RequestMethod.GET)
-		public String editVehicleGroup(Model model,@RequestParam("id") String id, HttpServletRequest request, HttpServletResponse response){		
-			//Add Driver
-			model.addAttribute("vehicles", vehicleMasterService.listVehicleMasters());
-			VehicleGroup vehicleGroupExist=this.vehicleGroupService.getVehicleGroupById(id);
-			vehicleGroupExist.setEditFlag(true);
-			
-			model.addAttribute("VehicleGroup", vehicleGroupExist);
-						
-			 return "VehicleGroup_entry";
-						
-		}
-		
-		
 		@RequestMapping("/RemoveVehicleGroupRecord")
-	    public String removeDriverMaster( Model model,@RequestParam("id") String vehicleGroupId){
+	    public String removeDriverMaster(@RequestParam("id") String vehicleGroupId){
 			
 			vehicleGroupService.removeVehicleGroup(vehicleGroupId);
-			  addSuccessMessage("Vehicle group removed successfully.");
-		        addSuccessOrErrorMessageToModel(model);
-			
-	        return vehicleGroupView(model) ;
+	        return "redirect:/VehicleGroupView";
 	    }
 }
