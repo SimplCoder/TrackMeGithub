@@ -56,3 +56,5 @@ TrackMe/build/classes/com/trackme/spring/dao/VehicleMasterDAO.class
 TrackMe/.settings/org.eclipse.wst.common.project.facet.core.xml
 *.class
 *.class
+*.class
+*.class

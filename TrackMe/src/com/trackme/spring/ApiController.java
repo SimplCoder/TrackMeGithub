@@ -41,9 +41,9 @@ import com.trackme.spring.service.MapLatlngService;
 import com.trackme.spring.service.VehicleMasterService;
 
 @RestController
-public class AjaxController {
+public class ApiController {
 
-	private static final Logger logger = LoggerFactory.getLogger(AjaxController.class);
+	private static final Logger logger = LoggerFactory.getLogger(ApiController.class);
 	
 	@Autowired
 	@Qualifier(value="gsmMasterService")
@@ -62,7 +62,7 @@ public class AjaxController {
 	// @RequestBody - Convert the json data into object (SearchCriteria) mapped by field name.
 	// @JsonView(Views.Public.class) - Optional, limited the json data display to client.
 	@JsonView(Views.Public.class)
-	@RequestMapping(value = "/searchStatusCounts")
+	@RequestMapping(value = "/api/searchStatusCounts")
 	public AjaxResponseBody getSearchResultViaAjax(@RequestBody SearchCriteria search) {
 		List<StatusCount> statusCounts= new ArrayList<>();
 
@@ -96,7 +96,7 @@ public class AjaxController {
 	}
 	
 	@JsonView(Views.Public.class)
-	@RequestMapping(value = "/getAllVehicleLatestLoc")
+	@RequestMapping(value = "/api/getAllVehicleLatestLoc")
 	public AjaxResponseBody getAllVehicleLatestLocAjax(@ModelAttribute VehicleSearchForm vehicleSearchForm, HttpServletRequest request){
 		AjaxResponseBody result= new AjaxResponseBody();
 		try {
@@ -150,7 +150,13 @@ public class AjaxController {
 		} 
 		return result;
 	}
-
+	
+	@RequestMapping(value = "/api/saveLocation", method = RequestMethod.POST)
+	public @ResponseBody String getGreeting(@RequestBody GPSTracking gpsTracking) {
+		String result=gpsTracking.getDatetime();
+		vehicleMasterService.saveGPSTracking(gpsTracking);
+			return "hii";
+		}
 
 
 }
