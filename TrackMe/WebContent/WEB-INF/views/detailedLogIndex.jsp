@@ -477,7 +477,7 @@
             
    /* (function update() {
     $.ajax({
-       url : 'getAllVehicleLatestLoc',
+       url : 'api/getAllVehicleLatestLoc',
          dataType: 'json',
             success : function(data) {
                 var resultStr=JSON.stringify(data);
@@ -501,7 +501,7 @@
 	        scrollCollapse: true,
             data:jsonArr,
            /* ajax : {
-        "url" : "getAllVehicleLatestLoc",
+        "url" : "api/getAllVehicleLatestLoc",
         "dataSrc" : function (json) {
            // alert(json.result);
             allVehicleAjaxArr=json.result;

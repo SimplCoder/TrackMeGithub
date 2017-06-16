@@ -58,8 +58,6 @@
 														 	 <th width="4%" align="center" valign="middle"></th>
                                                     <th width="15%" align="center" valign="middle">Vehicle No/ Name</th>
                                                     <th width="7%" align="center" valign="middle">Device No</th>
-                                                    <th width="7%" align="center" valign="middle">Vehicle Group</th>
-                                                
                                                     
                                                     <th width="11%" align="center" valign="middle">Phone</th>
                                                     <th width="10%" align="center" valign="middle">Email</th>
@@ -138,7 +136,7 @@ var vehicleJson = ${vehicleMastersJSON};
                      },
                      {data: "vehicleNo"},
                      {data: "unitNo"},
-                     {data: "groupName"},
+                    
                      {data: "ownerContact1"},
                      {data: "ownerEmail"},
                      {data: "ownerAddress1"},

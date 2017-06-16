@@ -8,6 +8,7 @@ import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.trackme.constants.Constant;
@@ -21,6 +22,10 @@ public class VehicleGroupDAOImpl implements VehicleGroupDAO {
 
 	@Autowired
 	private SessionFactory sessionFactory;
+	
+	@Autowired
+	private JdbcTemplate jdbcTemplate;  
+	
 	
 	public void setSessionFactory(SessionFactory sf){
 		this.sessionFactory = sf;
@@ -38,7 +43,7 @@ public class VehicleGroupDAOImpl implements VehicleGroupDAO {
 	public void updateVehicleGroup(VehicleGroup vehicleGroup) {
 		Session session = this.sessionFactory.getCurrentSession();
 		session.update(vehicleGroup);
-		logger.info("DriverMaster updated successfully");
+		logger.info("vehicleGroup updated successfully");
 		
 	}
 
@@ -72,6 +77,12 @@ public class VehicleGroupDAOImpl implements VehicleGroupDAO {
 		}
 		logger.info("DriverMaster deleted successfully");
 		
+	}
+
+	@Override
+	public void reomoveExistingVehiclesFromGroup(String VehicleGroupId) {
+		String query = "delete from groupvehicles where groupid='"+VehicleGroupId+"'";
+		jdbcTemplate.execute(query);
 	}
 
 }
