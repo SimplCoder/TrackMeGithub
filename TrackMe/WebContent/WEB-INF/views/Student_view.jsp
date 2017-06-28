@@ -26,10 +26,21 @@
                 <div class="col-sm-6">
                     <h2>Student View</h2>
                 </div>
-               <div class="col-sm-6">
+                  <div class="col-sm-6 ">
+               
+                <div class="col-sm-3">
+               
                     <div class="text-right">
-                        <a href="addNoStudents" target="frame1" style="width:160px" class="btn btn-primary">Add New Student</a>
+                        <button  id ="uploadstudent" style="width:130px" class="btn btn-primary ">Upload Students</button>
                     </div>
+                    </div>
+                    <div class="col-sm-3">
+              
+               
+                    <div class="text-right">
+                        <a href="addNoStudents" target="frame1" style="width:140px" class="btn btn-primary">Add New Student</a>
+                    </div>
+                </div>
                 </div>
             </div>
             <div class="row">
@@ -103,6 +114,11 @@
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.html5.min.js"></script>
 <script type="text/javascript" src="html/js/icheck.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.colVis.min.js"></script>
+ 
+ 
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+   
+ 
   <script>
   var studentJSON = ${studentJSON};
       $(document).ready(function () {
@@ -203,3 +219,51 @@ button.dt-button, div.dt-button, a.dt-button {
 }
 
 </style>
+
+
+<style>
+#dialogtest{
+    background-color: white;}
+</style>
+<script>
+$("#uploadstudent").click(function () {
+$( "#dialogtest" ).dialog(); });
+    
+  
+    
+  
+  </script>
+
+
+<div id="dialogtest" title="Student Bulk">
+
+	<div class="row">
+<form action="uploadStudentsRecord"  id="studentbulk" enctype="multipart/form-data" method="post">
+
+
+ 
+ <div class="form-group col-sm-12 text-center">
+                                    
+                               
+                               <a href="downloadStudentsTemplate">Dowload Excel Format</a>
+                                </div>
+
+
+ <div class="form-group col-sm-12 text-center">
+                                  <input class="form-control" type="file" accept="csv" name="studentfile">
+                                  
+                               </div>
+							
+                           
+                                       <div class="form-group col-sm-12 text-center">
+                                   	
+                                <input name="action" type="submit" class="btn btn-primary" id="button" value="Upload">
+                                
+                            </div>
+                            
+                            
+                            
+                        </form>
+</div>
+
+</div>

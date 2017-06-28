@@ -21,12 +21,11 @@ import com.trackme.constants.Constant;
 public class Student
 {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="id")
 	  private Integer id;
 
 	
-@Column(name="studentno")
+@Column(name="studentid")
   private String studentNo;
 
 @Column(name="studentname")
@@ -41,25 +40,25 @@ public class Student
 @Column(name="fathername")
   private String fatherName;
 
-@Column(name="fathermobile")
+@Column(name="fathermobileno")
   private String fatherMobile;
 
 
 @Column(name="mothername")
 private String motherName;
 
-@Column(name="mothermobile")
+@Column(name="mothermobileno")
 private String motherMobile;
 
 @Column(name="gaurdianname")
 private String gaurdianName;
 
-@Column(name="gaurdianmobile")
+@Column(name="gaurdianmobileno")
 private String gaurdianMobile;
 
 
 
-@Column(name="routescheduleid")
+@Column(name="schedulename")
 private String routeScheduleId;
 
 @Column(name="pickuplocation")

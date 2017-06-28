@@ -64,4 +64,11 @@ public class StudentServiceImpl implements StudentService {
 		
 	}
 
+	@Override
+	@Transactional
+	public String uploadStudentRecord(String filepath) {
+		// TODO Auto-generated method stub
+		return studentDAO.uploadStudentRecord(filepath);
+	}
+
 }

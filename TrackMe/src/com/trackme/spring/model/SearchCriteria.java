@@ -1,7 +1,7 @@
 package com.trackme.spring.model;
 
-public class SearchCriteria {
 
+public class SearchCriteria {
 	String username;
 	String email;
 

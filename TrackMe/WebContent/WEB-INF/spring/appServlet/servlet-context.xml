@@ -14,7 +14,6 @@
 	<mvc:annotation-driven />
 <mvc:cors>
 <mvc:mapping path="/api/**" />
-<mvc:mapping path="/oauth/**" />
 </mvc:cors>
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
 		up static resources in the ${webappRoot}/resources directory -->

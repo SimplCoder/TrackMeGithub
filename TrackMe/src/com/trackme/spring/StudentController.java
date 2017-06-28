@@ -3,6 +3,10 @@ package com.trackme.spring;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -151,6 +155,78 @@ private RouteScheduleService  routeScheduleService   ;
 	    
     }
  
+	
+	@RequestMapping(value="/uploadStudentsRecord" , method = RequestMethod.POST)
+    public String uploadStudent(@RequestParam("studentfile") MultipartFile file , Model model, HttpServletRequest request, HttpServletResponse response){
+		   	
+	       	
+		        String fileName="";
+				String filePath ="";
+				if (!file.isEmpty()) {
+					try {
+						byte[] bytes = file.getBytes();
+		        fileName= file.getOriginalFilename();
+						// Creating the directory to store file
+						String rootPath = Constant.STUDENT_UPLOAD_PATH+File.separator+Constant.PROJECT_NAME;
+						File dir = new File(rootPath);
+						if (!dir.exists())
+							dir.mkdirs();
 
+						// Create the file on server
+						File serverFile = new File(dir.getAbsolutePath()
+								+ File.separator +fileName);
+						BufferedOutputStream stream = new BufferedOutputStream(
+								new FileOutputStream(serverFile));
+						stream.write(bytes);
+						stream.close();
+
+						filePath = dir+File.separator+fileName;
+						
+						String s =studentService.uploadStudentRecord(filePath);
+						if(s!=null)
+						  addSuccessMessage("Records inserted successfully.");
+						else
+							addErrorMessage("No record inserted. File formar should be as per given template.");
+						
+								} catch (Exception e) {					
+									  addErrorMessage("No record inserted. File formar should be as per given template.");
+												}
+					
+			}else{
+			  addErrorMessage("File not upload. Kindly select csv file");
+				}
+				  addSuccessOrErrorMessageToModel(model);		
+	        return listStudents(model,request,response); 
+	}
+
+
+	@RequestMapping("/downloadStudentsTemplate")  
+	public void downloadPDFResource( HttpServletRequest request, 
+            HttpServletResponse response
+         ) 
+{
+		String dataDirectory = System.getenv("code_base")+File.separator+Constant.PROJECT_NAME+File.separator+Constant.STUDENT_BULK_TEMPLATE_Path;
+		String  fileName = "studentBulk.csv";
+//Authorized user will download the file
+//String dataDirectory = request.getServletContext().getRealPath("/WEB-INF/downloads/pdf/");
+Path file = Paths.get(dataDirectory, fileName);
+if (Files.exists(file)) 
+{
+response.setContentType("application/csv");
+response.addHeader("Content-Disposition", "attachment; filename="+fileName);
+try
+{
+Files.copy(file, response.getOutputStream());
+response.getOutputStream().flush();
+} 
+catch (IOException ex) {
+ex.printStackTrace();
+}
+}
+}
+	
+	
+	
+	
 	
 }

@@ -11,4 +11,5 @@ public interface StudentDAO {
 	public List<Student> listStudent();
 	public Student getStudentById(String id);
 	public void removeStudent(String id);
+	public String uploadStudentRecord(String filepath);
 }

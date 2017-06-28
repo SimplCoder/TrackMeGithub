@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.trackme.constants.Constant;
@@ -24,6 +25,10 @@ public class StudentDAOImpl implements StudentDAO {
 
 	@Autowired
 	private SessionFactory sessionFactory;
+	
+	@Autowired
+	private JdbcTemplate jdbcTemplate;  
+
 	
 	public void setSessionFactory(SessionFactory sf){
 		this.sessionFactory = sf;
@@ -83,6 +88,29 @@ public class StudentDAOImpl implements StudentDAO {
 		}
 		logger.info("Student deleted successfully, Student details="+p);
 		
+	}
+
+
+	@Override
+	public String uploadStudentRecord(String filepath) {
+		Integer total=null;
+		try{
+		StringBuilder queryStr=new StringBuilder();
+		queryStr.append("copy student("+
+"StudentId ,StudentName ,STD ,Division ,FatherName "+
+",FatherMobileNo ,MotherName ,MotherMobileNo ,GaurdianName "+
+ ",GaurdianMobileNo ,PickupLocation ,DropLocation ,ScheduleName,status,createddate,"+
+ "createdby,modifieddate,modifiedby "+
+") FROM '"+filepath+"' WITH CSV HEADER; ");
+		//Session session = this.sessionFactory.getCurrentSession();
+		//org.hibernate.Query query =session.createQuery(queryStr.toString());
+	//total=query.executeUpdate();
+		
+	total = jdbcTemplate.update(queryStr.toString()) ;
+		return total.toString();
+		}catch(Exception e){
+			return null;
+		}
 	}
 
 }

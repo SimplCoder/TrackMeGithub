@@ -16,7 +16,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-@Component
+
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class SimpleCorsFilter extends OncePerRequestFilter  {
     static final String ORIGIN = "Origin";

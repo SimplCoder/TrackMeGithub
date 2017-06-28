@@ -15,7 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.MediaType;
+import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,12 +29,14 @@ import org.slf4j.Logger;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.trackme.constants.Constant;
 import com.trackme.spring.jsonview.Views;
 import com.trackme.spring.model.AjaxResponseBody;
 import com.trackme.spring.model.GPSTracking;
+import com.trackme.spring.model.LogIndexSearch;
 import com.trackme.spring.model.SearchCriteria;
 import com.trackme.spring.model.StatusCount;
 import com.trackme.spring.model.VehicleSearchForm;
@@ -61,9 +65,9 @@ public class ApiController {
 	// @ResponseBody, not necessary, since class is annotated with @RestController
 	// @RequestBody - Convert the json data into object (SearchCriteria) mapped by field name.
 	// @JsonView(Views.Public.class) - Optional, limited the json data display to client.
-	@JsonView(Views.Public.class)
-	@RequestMapping(value = "/api/searchStatusCounts")
-	public AjaxResponseBody getSearchResultViaAjax(@RequestBody SearchCriteria search) {
+	
+	@RequestMapping(value = "/api/searchStatusCounts", method = RequestMethod.GET)
+	public AjaxResponseBody getSearchResultViaAjax() {
 		List<StatusCount> statusCounts= new ArrayList<>();
 
 		AjaxResponseBody result = new AjaxResponseBody();
@@ -157,6 +161,60 @@ public class ApiController {
 		vehicleMasterService.saveGPSTracking(gpsTracking);
 			return "hii";
 		}
+	@RequestMapping(value = "/api/logout", method = RequestMethod.POST)
+	public @ResponseBody String logout() {
+			return "logout";
+		}
+	
+	
+	@JsonView(Views.Public.class)
+	@RequestMapping(value = "/api/Vehicle_DetailedLogs")
+	public AjaxResponseBody getDetailedLogsOfVehicle(@ModelAttribute("LogIndexSearch") LogIndexSearch logIndexSearch,HttpServletRequest request) throws JsonParseException, JsonMappingException, IOException {
+		logIndexSearch = new ObjectMapper().readValue(request.getParameter("formData").trim(), LogIndexSearch.class);
+		
+		
+		AjaxResponseBody result= new AjaxResponseBody();
+		String fromDate=logIndexSearch.getFromDate();
+		String toDate=logIndexSearch.getToDate();
+		String formVehicleNo=logIndexSearch.getVehicleNo();
+		String vehicleNo=request.getParameter("id");
+		if(formVehicleNo==null||"".equals(formVehicleNo)){
+		logIndexSearch.setVehicleNo(vehicleNo);
+		}else{
+			vehicleNo=formVehicleNo;
+		}
+		
+		String sqlFromDate=null;
+		String sqlToDate=null;
+		if((fromDate==null||"".equals(fromDate))&&(toDate==null||"".equals(toDate))){
+			fromDate =mapLatlngService.getLastIngnitionOf(vehicleNo);
+		}
+		
+		
+		if (vehicleNo != null && !vehicleNo.isEmpty()) {
+			List vehicleLatlngList = mapLatlngService
+					.getLatlngDetailsByVehicleNo(vehicleNo, fromDate, toDate);
+			ObjectMapper objMapper = new ObjectMapper();
+			String vehicleLatlngListJSON = null;
+			try {
+				vehicleLatlngListJSON = objMapper
+						.writeValueAsString(vehicleLatlngList);
+			} catch (JsonProcessingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+			result.setCode("200");
+			result.setMsg("success");
+			result.setResult(vehicleLatlngList);
+		
+		} else {
+			result.setMsg( "Vehicle no. is Empty.");
+		}
+		return result;
+	}
+	
 
 
 }
