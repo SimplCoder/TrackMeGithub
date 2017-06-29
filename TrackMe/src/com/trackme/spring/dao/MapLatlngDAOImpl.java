@@ -30,7 +30,7 @@ public class MapLatlngDAOImpl implements MapLatlngDAO {
 	public List getAllVehicleLocation() {
 		Session session = this.sessionFactory.getCurrentSession();
 		StringBuffer strBuf = new StringBuffer();
-		strBuf.append(" select vm.vehicleno,  sd.description, gsm.speed, gsm.location, gsm.latitude, gsm.longitude, ");
+		strBuf.append(" select vm.vehicleno,  sd.description, gsm.speed,round(CAST(cast(coalesce(gsm.distance,'0')  as float8 )/1000 as numeric),2) as distance, gsm.location, gsm.latitude, gsm.longitude, ");
 		strBuf.append(" to_char(gsm.datetimedate , 'YYYY-MM-DD') ||' '|| to_char(gsm.datetime, 'HH:MI PM') ");
 		strBuf.append(" as datetime1 , ");
 		strBuf.append(" case when (sd.description='Health Check' or sd.description='Ignition Off' or sd.description='Ignoff Restarting') then ");
@@ -60,10 +60,7 @@ public class MapLatlngDAOImpl implements MapLatlngDAO {
 		strBuf.append(" (gsm.datetimedate) >= to_date((dc1.startdate),'YYYY-MM-DD') and to_date((to_char(gsm.datetime, 'HH:MI PM')),'HH:MI PM') >= to_date((dc1.starttime),'HH:MI PM') and ");
 		strBuf.append(" (gsm.datetimedate) <= to_date((dc1.enddate),'YYYY-MM-DD') and to_date((to_char(gsm.datetime, 'HH:MI PM')),'HH:MI PM') >= to_date((dc1.endtime),'HH:MI PM') ");
 		strBuf.append(" fetch first 1 row only) as driverPhone  ");
-		strBuf.append(" from vehiclemaster vm join gsmmaster gsm on vm.unitno= gsm.unitNo and LOWER(vm.status)=LOWER('ACTIVE') ");
-		strBuf.append(" inner join (select gsm1.unitno , max(gsm1.datetimedate+gsm1.datetime) as lattime ");
-		strBuf.append(" from  gsmmaster gsm1 group by gsm1.unitno ) latest on ");
-		strBuf.append(" gsm.unitno = latest.unitno and (gsm.datetimedate+gsm.datetime)=latest.lattime ");
+		strBuf.append(" from vehiclemaster vm join gsmstatus gsm on vm.unitno= gsm.unitNo and LOWER(vm.status)=LOWER('ACTIVE') ");
 		strBuf.append(" join statusdesc sd on  gsm.status  = sd.code ");
 		strBuf.append(" left join devicemaster dm on cast(gsm.unitno as text) = dm.device_no ");
 		strBuf.append(" left join fueldetail fd on vm.vehicleno = fd.vehicleno ");

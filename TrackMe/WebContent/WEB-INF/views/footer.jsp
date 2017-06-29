@@ -1,18 +1,18 @@
- <div class="foot-fixed" style="height: 40px;">
+ <div class="foot-fixed" style="height: 30px;">
     <div class="auto-reloader-bar">
       <div class="row">
         <div class="col-xs-6">
           <form role="form" class="form-inline" style="visibility:hidden;">
             <div class="form-group">
              
-                <label style="font-size: 15px;">
+                <label style="font-size: 12px;">
                   <input id="refreshCheck" type="checkbox" class="refreshC" style="zoom:1.75" value=1 checked>
               Refresh Every </label>
               
             </div>
             <div class="form-group">
                  
-            <input type="number" value="5" min="0" max="99" id="refreshValue" style="color:black;height:20px; width:60px" class="refreshC input-sm form-control input-s-sm inline">
+            <input type="number" value="1" min="0" max="99" id="refreshValue" style="color:black;height:20px; width:60px" class="refreshC input-sm form-control input-s-sm inline">
               <select id="refreshUnit" class="refreshC input-sm form-control input-s-sm inline" style="color:black;height:20px; width:60px">
                 <option value="0">Sec.</option>
                 <option value="1" selected>Min.</option>

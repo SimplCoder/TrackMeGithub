@@ -139,11 +139,11 @@
 
 
 <beans:bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-    <beans:property name="host" value="smtp.gmail.com" />
-    <beans:property name="port" value="465" />
+    <beans:property name="host" value="smtpout.asia.secureserver.net" />
+    <beans:property name="port" value="25" />
     <beans:property name="protocol" value="smtps" />
-    <beans:property name="username" value="adhatanotification@gmail.com" />
-    <beans:property name="password" value="adhata@123" />
+    <beans:property name="username" value="info@adhata.in" />
+    <beans:property name="password" value="Adhata%239" />
     <beans:property name="javaMailProperties">
     <beans:props>
         <beans:prop key="mail.smtps.auth">true</beans:prop>

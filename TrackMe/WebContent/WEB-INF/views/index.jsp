@@ -115,8 +115,9 @@
                                                             <th width="14%" align="center" valign="middle">Status</th>
                                                             <th width="4%" align="center" valign="middle">Speed</th>
                                                             <th width="42%" align="center" valign="middle">Location</th>
-                                                            <th width="16%" align="center" valign="middle">Date/Time</th>
-                                                            <th width="6%" align="center" title="(dd:hh:mm)" valign="middle">IdleTime</th>
+                                                            <th width="15%" align="center" valign="middle">Date/Time</th>
+                                                            <th width="4%" align="center" valign="middle">Dist. KM</th>                     
+                                                            <th width="4%" align="center" title="(dd:hh:mm)" valign="middle">Idle Time</th>
 
                                                         </tr>
                                                     </thead>
@@ -442,17 +443,23 @@
                                 "render": function(data, type, full, meta) {
                                  
                                 	updateMarker(allVehicleAjaxArr, data);
+                                	
+                                    return '<div ><img  style="width:15px;height:15px;" onClick="showVehicleDetails(\''+full.vehicleno+'\',\''+full.ownername+'\',\''+full.deviceno+'\',\''+full.nextservice+'\',\''+full.imeino+'\',\''+full.drivername+'\',\''+full.driverphone+'\',\''+full.gsmnumber+'\',\''+full.odometer+'\',\''+full.ownerphone+'\',\''+full.vehicletype+'\')" src="html/images/plus.png">&nbsp; &nbsp<a style="color:black" href="Vehicle_DetailedLogs?id=' + data + '" rel="external">  <b>' + data + '</b></a></div>';
+                                }
+                            },
+                            {
+                                data: "description",
+                                "render": function(data, type, full, meta) {
+                                    
+                                //	updateMarker(allVehicleAjaxArr, data);
                                 	var bgColor = '#1e8427';
                                     
                                 	 if (full.description == 'Ignition Off' || full.description == 'Health Check') {
                                          bgColor = '#d60002';
                                          
                                      } 
-                                    return '<div style="background-color:'+bgColor+'"><img  style="width:15px;height:15px;" onClick="showVehicleDetails(\''+full.vehicleno+'\',\''+full.ownername+'\',\''+full.deviceno+'\',\''+full.nextservice+'\',\''+full.imeino+'\',\''+full.drivername+'\',\''+full.driverphone+'\',\''+full.gsmnumber+'\',\''+full.odometer+'\',\''+full.ownerphone+'\',\''+full.vehicletype+'\')" src="html/images/plus.png">&nbsp; &nbsp<a style="color:black" href="Vehicle_DetailedLogs?id=' + data + '" rel="external">  <b>' + data + '</b></a></div>';
+                                    return '<div style="background-color:'+bgColor+'"><span  style="color:#fff;">' + data + '<span></div>';
                                 }
-                            },
-                            {
-                                data: "description"
                             },
                             {
                                 data: "speed"
@@ -462,7 +469,12 @@
                             },
                             {
                                 data: "datetime1"
-                            },
+                            }
+                            ,
+                            {
+                                data: "distance"
+                            }
+                            ,
                             {
                                 data: "idletime",
                                 "render": function(data, type, full, meta) {

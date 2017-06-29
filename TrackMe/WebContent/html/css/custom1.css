@@ -84,7 +84,7 @@ a:focus{ outline:none;}
 }
 
 
-.map-btns{ overflow: hidden; padding:7px 0;}
+.map-btns{ overflow: hidden; padding:2px 0;}
 
 #same-height .ibox-title {
     padding: 5px 15px;
@@ -123,10 +123,11 @@ ul.subnav-left li, ul.subnav-right > li, div.bc-menu > div {
 }
 ul.subnav-right > li > a {
     background-color: #555 !important;
-    background-image: url("../images/map-sprite-icons.png");
+    background-image: url(../images/map-sprite-icons.png);
     background-repeat: no-repeat;
-    height: 34px;
-    width: 51px; display:inline-block;
+    height: 25px;
+    width: 38px;
+    display: inline-block;
 }
 
 ul.subnav-left li a:hover, ul.subnav-right > li > a:hover {
@@ -151,11 +152,11 @@ li.map-vehIds, li.map-vehtags {
     margin-right: 3px;
 }
 li.map-actions > a, li.map-vehicles > a {
-    height: 34px !important;
-    width: 61px !important;
+    height: 25px !important;
+    width: 45px !important;
 }
 li.map-actions > a {
-    background-position: -206px 0;
+    background-position: -155px 0;
 }
 li.map-actions > a.active {
     background-position: -140px 0;
@@ -172,14 +173,15 @@ li.map-landmarks > a {
 li.map-landmarks > a.active {
     background-position: -440px 0;
 }
+
 li.map-geofences > a {
-    background-position: -384px 0;
+    background-position: -288px 0;
 }
 li.map-geofences > a.active {
     background-position: -328px 0;
 }
 li.map-reset > a {
-    background-position: -652px 0;
+    background-position: -489px 0;
 }
 li.map-icon-medium > a, li.map-icon-large > a {
     height: 34px !important;
@@ -207,20 +209,22 @@ li.map-fullscreen > a {
     background-position: -272px 0;
 }
 li.map-layout-toggle1 > a, li.map-layout-toggle2 > a {
-    height: 34px !important;
-    width: 43px !important;
+    height: 25px !important;
+    width: 28px !important;
 }
 li.map-layout-toggle1 > a {
-    background-position: -957px 0;
+    background-position: -717px 0;
 }
 li.map-layout-toggle1 > a.active {
-    background-position: -908px 0;
+    background-position: -680px 0;
 }
+
 li.map-layout-toggle2 > a {
-    background-position: -859px 0;
+    background-position: -642px 0;
 }
+
 li.map-layout-toggle2 > a.active {
-    background-position: -810px 0;
+    background-position: -606px 0;
 }
 
 .top-title{ font-size:20px; color:#214b7d; padding:15px 0; font-weight:600;}
@@ -260,8 +264,8 @@ li.map-layout-toggle2 > a.active {
 .auto-reloader-bar {
     background: #012b73;
     color: #fff;
-    margin: 0 -15px 0;
-    padding: 5px 30px;
+    margin: -2px -15px 0;
+    padding: 0px 20px 1px;
 }
 
 
@@ -286,7 +290,7 @@ li.map-layout-toggle2 > a.active {
 .navbar-fixed-top .col-sm-6.text-center{ padding:0;}
 ul.nav.navbar-nav{ padding:0; margin:0;}
 ul.nav.navbar-top-links.navbar-right {margin: 0; padding: 0;}
-#page-wrapper2{padding:0 15px; bottom:55px; top:115px; position:fixed; width:100%; overflow:auto;}
+#page-wrapper2{padding:0 15px; bottom:0px; top:115px; position:fixed; width:100%; overflow:auto;}
 .pad-bot-0{ padding-bottom:0; margin-bottom:0;}
 
 .foot-fixed {

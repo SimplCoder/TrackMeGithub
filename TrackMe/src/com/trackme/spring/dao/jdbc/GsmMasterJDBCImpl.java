@@ -29,7 +29,7 @@ public class GsmMasterJDBCImpl implements GsmMasterJDBC {
 		int total=0;
 		try{
 		StringBuilder queryStr=new StringBuilder();
-		queryStr.append("select count(*)  from vehiclemaster vm join gsmstatus gsm on vm.unitno= gsm.unitNo ");
+		queryStr.append("select count(*)  from vehiclemaster vm join gsmstatus gsm on ( vm.unitno= gsm.unitNo and LOWER(vm.status)=LOWER('ACTIVE')) ");
 		queryStr.append(" where gsm.status in("+status);
 		queryStr.append(")");
 		 total = jdbcTemplate.queryForInt(queryStr.toString());
