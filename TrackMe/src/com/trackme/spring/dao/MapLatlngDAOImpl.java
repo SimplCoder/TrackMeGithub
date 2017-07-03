@@ -61,7 +61,7 @@ public class MapLatlngDAOImpl implements MapLatlngDAO {
 		strBuf.append(" (gsm.datetimedate) <= to_date((dc1.enddate),'YYYY-MM-DD') and to_date((to_char(gsm.datetime, 'HH:MI PM')),'HH:MI PM') >= to_date((dc1.endtime),'HH:MI PM') ");
 		strBuf.append(" fetch first 1 row only) as driverPhone  ");
 		strBuf.append(" from vehiclemaster vm join gsmstatus gsm on vm.unitno= gsm.unitNo and LOWER(vm.status)=LOWER('ACTIVE') ");
-		strBuf.append(" join statusdesc sd on  gsm.status  = sd.code ");
+		strBuf.append(" left join statusdesc sd on  gsm.status  = sd.code ");
 		strBuf.append(" left join devicemaster dm on cast(gsm.unitno as text) = dm.device_no ");
 		strBuf.append(" left join fueldetail fd on vm.vehicleno = fd.vehicleno ");
 		strBuf.append(" left join unitmaster um on gsm.unitno = um.unitno ");

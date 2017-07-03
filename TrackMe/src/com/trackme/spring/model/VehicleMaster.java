@@ -1,5 +1,6 @@
 package com.trackme.spring.model;
 
+import java.math.BigInteger;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -25,7 +26,7 @@ public class VehicleMaster
   private String vehicleNo;
 
 @Column(name="unitNo")
-  private int unitNo;
+  private BigInteger unitNo;
 
 @Column(name="gpsNo")
   private String gpsNo;
@@ -164,12 +165,12 @@ private String serviceDateShow;
     this.vehicleNo = vehicleNo;
   }
   
-  public int getUnitNo()
+  public BigInteger getUnitNo()
   {
     return this.unitNo;
   }
   
-  public void setUnitNo(int unitNo)
+  public void setUnitNo(BigInteger unitNo)
   {
     this.unitNo = unitNo;
   }
