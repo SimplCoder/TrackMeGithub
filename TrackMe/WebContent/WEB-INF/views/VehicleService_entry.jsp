@@ -26,7 +26,7 @@
        <div id="page-wrapper2" class="gray-bg">
             <div class="rowx wrapper border-bottom white-bg page-heading">
                 <div class="col-sm-12">
-                    <h2>Vehicle IO Entry </h2>
+                    <h2>Vehicle Service Entry </h2>
                 </div>
             </div>
             <div class="wrapper wrapper-content  animated fadeInRight">
