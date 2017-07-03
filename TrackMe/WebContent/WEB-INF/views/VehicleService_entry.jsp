@@ -70,7 +70,7 @@
 						
 						<div class="form-group col-sm-6">
                                 <label>Select Driver</label>
-                               <form:select  path="drivermaster.id" id="driver" class="form-control">
+                               <form:select  path="driverMaster.id" id="driver" class="form-control">
    
     <form:options items="${DriverMasters}" itemValue="id" itemLabel="driverName"></form:options>
     </form:select>    </div>
@@ -109,7 +109,7 @@
 						
 						<div class="form-group col-sm-6">
 						<label>Amount:</label>
-							<form:input numberonly path="amount" class="form-control"/>
+							<form:input  path="amount" class="form-control"/>
 						</div>
 						
 						 <div class="bootstrap-timepicker col-sm-6">
@@ -128,18 +128,18 @@
 						
 						<div class="form-group col-sm-6">
 						<label>Current Odo:</label>
-							<form:input numberonly path="currentOdo" class="form-control"/>
+							<form:input  path="currentOdo" class="form-control"/>
 						</div>
 						
 						<div class="form-group col-sm-6">
                                 <label>Select Location</label>
-                               <form:select  path="deviceNo" id="deviceNo" class="form-control">
+                               <form:select  path="serviceLocation" id="deviceNo" class="form-control">
    
-    <form:options items="${locationMasters}" itemValue="serviceLocation" itemLabel="locationname"></form:options>
+    <form:options items="${locationMasters}" itemValue="locationName" itemLabel="locationName"></form:options>
     </form:select>    </div>
 							<div class="form-group col-sm-6">
 						<label>Next Odo:</label>
-							<form:input numberonly path="nextOdo" class="form-control"/>
+							<form:input  path="nextOdo" class="form-control"/>
 						</div>
 						 <div class="form-group col-sm-12">
                                 <label>Service Description</label>
