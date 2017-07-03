@@ -132,7 +132,6 @@
                                         <div class="ibox-title">
                                             <div class="map-btns">
                                                 <ul class="subnav-right az-move-right">
-                                                    <li class="map-reset"><a href="#">&nbsp;</a></li> 
                                                     <li class="map-actions"><a href="#myPopup" id="vehicleSearchFilterId" data-rel="popup" class="">&nbsp;</a>
 
 

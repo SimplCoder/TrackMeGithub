@@ -66,9 +66,13 @@ public class StudentServiceImpl implements StudentService {
 
 	@Override
 	@Transactional
-	public String uploadStudentRecord(String filepath) {
+	public String uploadStudentRecord(String filepath,String schedule) {
 		// TODO Auto-generated method stub
-		return studentDAO.uploadStudentRecord(filepath);
+		if(schedule !=null && !"".equals(schedule))
+			return studentDAO.uploadStudentRecordWithSchedule(filepath, schedule);
+		else
+			return studentDAO.uploadStudentRecord(filepath);
+		
 	}
 
 }

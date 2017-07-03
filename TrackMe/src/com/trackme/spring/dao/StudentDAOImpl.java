@@ -94,7 +94,7 @@ public class StudentDAOImpl implements StudentDAO {
 	@Override
 	public String uploadStudentRecord(String filepath) {
 		Integer total=null;
-		try{
+		try{			
 		StringBuilder queryStr=new StringBuilder();
 		queryStr.append("copy student("+
 "StudentId ,StudentName ,STD ,Division ,FatherName "+
@@ -107,10 +107,53 @@ public class StudentDAOImpl implements StudentDAO {
 	//total=query.executeUpdate();
 		
 	total = jdbcTemplate.update(queryStr.toString()) ;
+	
 		return total.toString();
 		}catch(Exception e){
 			return null;
 		}
 	}
+	
+	
+	@Override
+	public String uploadStudentRecordWithSchedule(String filepath , String schedule) {
+		Integer total=null;
+		try{
+			
+			StringBuilder queryStr2=new StringBuilder();
+			queryStr2.append("delete from studentexcel ");
+
+			jdbcTemplate.update(queryStr2.toString()) ;
+		
+			StringBuilder queryStr1=new StringBuilder();
+			queryStr1.append("copy studentexcel("+
+				"StudentId ,StudentName ,STD ,Division ,FatherName "+
+				",FatherMobileNo ,MotherName ,MotherMobileNo ,GaurdianName "+
+				",GaurdianMobileNo ,PickupLocation ,DropLocation ,ScheduleName,status,createddate,"+
+				"createdby,modifieddate,modifiedby "+
+				") FROM '"+filepath+"' WITH CSV HEADER; ");
+		
+			total = jdbcTemplate.update(queryStr1.toString()) ;
+			StringBuilder query =new StringBuilder();
+			query.append("insert into student(StudentId ,StudentName ,STD ,Division ,FatherName  "+
+					",FatherMobileNo ,MotherName ,MotherMobileNo ,GaurdianName  "+
+					" ,GaurdianMobileNo ,PickupLocation ,DropLocation ,ScheduleName,status,createddate, "+
+					" createdby,modifieddate,modifiedby )  "+
+					"select  StudentId ,StudentName ,STD ,Division ,FatherName  "+
+					",FatherMobileNo ,MotherName ,MotherMobileNo ,GaurdianName  "+
+					" ,GaurdianMobileNo ,PickupLocation ,DropLocation ,'"+schedule+"' as ScheduleName,status,createddate, "+
+					" createdby,modifieddate,modifiedby  from  studentexcel ");
+
+			total =jdbcTemplate.update(query.toString()) ;
+			
+			StringBuilder queryStr3=new StringBuilder();
+			queryStr2.append("delete from studentexcel ");
+			jdbcTemplate.update(queryStr3.toString()) ;
+			return total.toString();
+		}catch(Exception e){
+			return null;
+		}
+	}
+
 
 }

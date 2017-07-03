@@ -54,6 +54,11 @@ private RouteService routeService;
 @Qualifier(value="locationService")
 private LocationService  locationService;
 
+@Autowired
+private VehicleGroupService vehicleGroupService;
+
+
+
 
 @Autowired(required=true)
 @Qualifier(value="routeScheduleService")
@@ -70,6 +75,7 @@ private RouteScheduleService  routeScheduleService   ;
 	@RequestMapping(value = "/Students", method = RequestMethod.GET)
 	public String listStudents(Model model, HttpServletRequest request, HttpServletResponse response) {	
 		model.addAttribute("Student", new Student());
+		model.addAttribute("routeScheduleList", routeScheduleService.listRouteScheduleDetails());
 	    List<Student> student=this.studentService.listStudents();		
 		ObjectMapper objectMapper = new ObjectMapper();
 		String studentJSON=null;
@@ -157,7 +163,8 @@ private RouteScheduleService  routeScheduleService   ;
  
 	
 	@RequestMapping(value="/uploadStudentsRecord" , method = RequestMethod.POST)
-    public String uploadStudent(@RequestParam("studentfile") MultipartFile file , Model model, HttpServletRequest request, HttpServletResponse response){
+    public String uploadStudent(@RequestParam("routeSchedule") String  routeSchedule,
+    		  @RequestParam("studentfile") MultipartFile file , Model model, HttpServletRequest request, HttpServletResponse response){
 		   	
 	       	
 		        String fileName="";
@@ -182,14 +189,14 @@ private RouteScheduleService  routeScheduleService   ;
 
 						filePath = dir+File.separator+fileName;
 						
-						String s =studentService.uploadStudentRecord(filePath);
+						String s =studentService.uploadStudentRecord(filePath,routeSchedule);
 						if(s!=null)
 						  addSuccessMessage("Records inserted successfully.");
 						else
 							addErrorMessage("No record inserted. File formar should be as per given template.");
 						
 								} catch (Exception e) {					
-									  addErrorMessage("No record inserted. File formar should be as per given template.");
+									  addErrorMessage("No record inserted. File format should be as per given template.");
 												}
 					
 			}else{

@@ -249,7 +249,16 @@ $( "#dialogtest" ).dialog(); });
                                 </div>
 
 
+
  <div class="form-group col-sm-12 text-center">
+                                  Select Route Schedule: 
+                                  <select name="routeSchedule" > 
+                                  <option value="">select</option>
+                                <c:forEach items="${routeScheduleList}" var="routeSchedule">
+                                  <option title = "Vehicle : ${routeSchedule.vehicleShow} and Route : ${routeSchedule.routeName} "   value="${routeSchedule.scheduleName}">${routeSchedule.scheduleName}</option>
+                                
+                                </c:forEach> 
+                                </select> 
                                   <input class="form-control" type="file" accept="csv" name="studentfile">
                                   
                                </div>
