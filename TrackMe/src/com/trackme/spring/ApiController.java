@@ -5,27 +5,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 
-import jdk.nashorn.internal.parser.JSONParser;
-
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.HttpRequest;
-import org.springframework.http.MediaType;
-import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.oauth2.common.OAuth2AccessToken;
+import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.slf4j.Logger;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.core.JsonParseException;
@@ -37,7 +32,6 @@ import com.trackme.spring.jsonview.Views;
 import com.trackme.spring.model.AjaxResponseBody;
 import com.trackme.spring.model.GPSTracking;
 import com.trackme.spring.model.LogIndexSearch;
-import com.trackme.spring.model.SearchCriteria;
 import com.trackme.spring.model.StatusCount;
 import com.trackme.spring.model.VehicleSearchForm;
 import com.trackme.spring.service.GsmMasterService;
@@ -161,10 +155,11 @@ public class ApiController {
 		vehicleMasterService.saveGPSTracking(gpsTracking);
 			return "hii";
 		}
-	@RequestMapping(value = "/api/logout", method = RequestMethod.POST)
-	public @ResponseBody String logout() {
-			return "logout";
-		}
+	
+	//@RequestMapping(value = "/api/logout", method = RequestMethod.POST)
+	//public @ResponseBody String logout() {
+	//		return "logout";
+	//	}
 	
 	
 	@JsonView(Views.Public.class)
@@ -215,6 +210,27 @@ public class ApiController {
 		return result;
 	}
 	
+	@Autowired
+    private TokenStore tokenStore;
 
+    @RequestMapping(value = "/api/logout", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+	public void logout(HttpServletRequest request) {
+		logger.debug("Api Logout Start.");
+		try {
+			String authHeader = request.getHeader("Authorization");
+			if (authHeader != null) {
+				String tokenValue = authHeader.replace("Bearer", "").trim();
+				OAuth2AccessToken accessToken = tokenStore
+						.readAccessToken(tokenValue);
+				tokenStore.removeAccessToken(accessToken);
+			}
+		} catch (Exception e) {
+			logger.error("Error Ocurred in Api Logout method: "
+					+ e.getMessage());
+		}
+
+		logger.debug("Api Logout End.");
+	}
 
 }
