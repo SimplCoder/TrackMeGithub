@@ -57,7 +57,7 @@ public class UserMasterDAOImpl implements UserMasterDAO {
 		logger.info("UserMaster loaded successfully, UserMaster details="+p);
 		return p;
 		}catch(Exception e){
-			logger.equals(e.getMessage());
+			logger.error(e.getMessage());
 		}
 		return null;
 	}

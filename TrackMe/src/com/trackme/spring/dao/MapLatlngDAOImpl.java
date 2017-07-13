@@ -53,12 +53,10 @@ public class MapLatlngDAOImpl implements MapLatlngDAO {
 		strBuf.append(" ,fd.currentodo as odometer ");
 		strBuf.append(" ,um.gsmno as gsmNumber ");
 		strBuf.append(" ,(select dm1.drivername from drivermaster dm1 left join driverconf dc1 on dm1.id=driverid where dc1.vehicleno = vm.vehicleno and "); 
-		strBuf.append(" (gsm.datetimedate) >= to_date((dc1.startdate),'YYYY-MM-DD') and to_date((to_char(gsm.datetime, 'HH:MI PM')),'HH:MI PM') >= to_date((dc1.starttime),'HH:MI PM') and ");
-		strBuf.append(" (gsm.datetimedate) <= to_date((dc1.enddate),'YYYY-MM-DD') and to_date((to_char(gsm.datetime, 'HH:MI PM')),'HH:MI PM') >= to_date((dc1.endtime),'HH:MI PM') ");
+		strBuf.append(" to_timestamp((to_char(gsm.datetimedate+gsm.datetime, 'MM/DD/YYYY HH:MI PM')),'MM/DD/YYYY HH:MI PM') between to_timestamp(dc1.startdate||' '||dc1.starttime,'MM/DD/YYYY HH:MI PM') and to_timestamp(dc1.enddate||' '|| dc1.endtime,'MM/DD/YYYY HH:MI PM') ");
 		strBuf.append(" fetch first 1 row only) as driverName ");
 		strBuf.append(" ,(select dm1.contact1 from drivermaster dm1 left join driverconf dc1 on dm1.id=driverid where dc1.vehicleno = vm.vehicleno and "); 
-		strBuf.append(" (gsm.datetimedate) >= to_date((dc1.startdate),'YYYY-MM-DD') and to_date((to_char(gsm.datetime, 'HH:MI PM')),'HH:MI PM') >= to_date((dc1.starttime),'HH:MI PM') and ");
-		strBuf.append(" (gsm.datetimedate) <= to_date((dc1.enddate),'YYYY-MM-DD') and to_date((to_char(gsm.datetime, 'HH:MI PM')),'HH:MI PM') >= to_date((dc1.endtime),'HH:MI PM') ");
+		strBuf.append(" to_timestamp((to_char(gsm.datetimedate+gsm.datetime, 'MM/DD/YYYY HH:MI PM')),'MM/DD/YYYY HH:MI PM') between to_timestamp(dc1.startdate||' '||dc1.starttime,'MM/DD/YYYY HH:MI PM') and to_timestamp(dc1.enddate||' '|| dc1.endtime,'MM/DD/YYYY HH:MI PM') ");
 		strBuf.append(" fetch first 1 row only) as driverPhone  ");
 		strBuf.append(" from vehiclemaster vm join gsmstatus gsm on vm.unitno= gsm.unitNo and LOWER(vm.status)=LOWER('ACTIVE') ");
 		strBuf.append(" left join statusdesc sd on  gsm.status  = sd.code ");
