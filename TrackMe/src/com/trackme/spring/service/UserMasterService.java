@@ -11,5 +11,6 @@ public interface UserMasterService {
 	public List<UserMaster> listUserMasters();
 	public UserMaster getUserMasterById(String userName);
 	public void removeUserMaster(String userName);
-	
+
+	public String updateNoticationId(String userName, String notificationId);
 }

@@ -13,6 +13,6 @@ public interface GeoFencingService {
 	public List<GeoFenceDetail> getGeoFenceList();
 	public GeoFenceDetail getGeoFenceById(int geoFenceId);
 	public void removeGeoFence(int geoFenceId);
-	
+	public void createPushNotification();
 	
 }

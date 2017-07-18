@@ -163,7 +163,7 @@ private RouteScheduleService  routeScheduleService   ;
  
 	
 	@RequestMapping(value="/uploadStudentsRecord" , method = RequestMethod.POST)
-    public String uploadStudent(@RequestParam("routeSchedule") String  routeSchedule,
+    public String uploadStudent(@RequestParam("routeSchedule") String  routeSchedule,@RequestParam("dropRouteScheduleId") String  dropRouteScheduleId,
     		  @RequestParam("studentfile") MultipartFile file , Model model, HttpServletRequest request, HttpServletResponse response){
 		   	
 	       	
@@ -189,7 +189,7 @@ private RouteScheduleService  routeScheduleService   ;
 
 						filePath = dir+File.separator+fileName;
 						
-						String s =studentService.uploadStudentRecord(filePath,routeSchedule);
+						String s =studentService.uploadStudentRecord(filePath,routeSchedule,dropRouteScheduleId);
 						if(s!=null)
 						  addSuccessMessage("Records inserted successfully.");
 						else

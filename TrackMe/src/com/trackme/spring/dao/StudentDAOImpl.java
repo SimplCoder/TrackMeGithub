@@ -99,7 +99,7 @@ public class StudentDAOImpl implements StudentDAO {
 		queryStr.append("copy student("+
 "StudentId ,StudentName ,STD ,Division ,FatherName "+
 ",FatherMobileNo ,MotherName ,MotherMobileNo ,GaurdianName "+
- ",GaurdianMobileNo ,PickupLocation ,DropLocation ,ScheduleName,status,createddate,"+
+ ",GaurdianMobileNo ,PickupLocation ,DropLocation ,ScheduleName,dropschedulename ,status,createddate,"+
  "createdby,modifieddate,modifiedby "+
 ") FROM '"+filepath+"' WITH CSV HEADER; ");
 		//Session session = this.sessionFactory.getCurrentSession();
@@ -116,7 +116,7 @@ public class StudentDAOImpl implements StudentDAO {
 	
 	
 	@Override
-	public String uploadStudentRecordWithSchedule(String filepath , String schedule) {
+	public String uploadStudentRecordWithSchedule(String filepath , String schedule,String dropRouteScheduleId) {
 		Integer total=null;
 		try{
 			
@@ -129,7 +129,7 @@ public class StudentDAOImpl implements StudentDAO {
 			queryStr1.append("copy studentexcel("+
 				"StudentId ,StudentName ,STD ,Division ,FatherName "+
 				",FatherMobileNo ,MotherName ,MotherMobileNo ,GaurdianName "+
-				",GaurdianMobileNo ,PickupLocation ,DropLocation ,ScheduleName,status,createddate,"+
+				",GaurdianMobileNo ,PickupLocation ,DropLocation ,ScheduleName,dropschedulename ,status,createddate,"+
 				"createdby,modifieddate,modifiedby "+
 				") FROM '"+filepath+"' WITH CSV HEADER; ");
 		
@@ -137,11 +137,11 @@ public class StudentDAOImpl implements StudentDAO {
 			StringBuilder query =new StringBuilder();
 			query.append("insert into student(StudentId ,StudentName ,STD ,Division ,FatherName  "+
 					",FatherMobileNo ,MotherName ,MotherMobileNo ,GaurdianName  "+
-					" ,GaurdianMobileNo ,PickupLocation ,DropLocation ,ScheduleName,status,createddate, "+
+					" ,GaurdianMobileNo ,PickupLocation ,DropLocation ,ScheduleName,dropschedulename ,status,createddate, "+
 					" createdby,modifieddate,modifiedby )  "+
 					"select  StudentId ,StudentName ,STD ,Division ,FatherName  "+
 					",FatherMobileNo ,MotherName ,MotherMobileNo ,GaurdianName  "+
-					" ,GaurdianMobileNo ,PickupLocation ,DropLocation ,'"+schedule+"' as ScheduleName,status,createddate, "+
+					" ,GaurdianMobileNo ,PickupLocation ,DropLocation ,'"+schedule+"' as ScheduleName, '"+dropRouteScheduleId+"' as dropschedulename ,status,createddate, "+
 					" createdby,modifieddate,modifiedby  from  studentexcel ");
 
 			total =jdbcTemplate.update(query.toString()) ;

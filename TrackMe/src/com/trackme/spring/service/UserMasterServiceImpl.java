@@ -83,5 +83,18 @@ public static boolean checkForLink(UserMaster userMaster,String link){
 		return true;
 	}
 
+@Override
+@Transactional
+public String updateNoticationId(String userName, String notificationId) {
+	// TODO Auto-generated method stub
+	UserMaster um = getUserMasterById(userName);
+	if(um!=null){
+		um.setNotificationId(notificationId);
+		updateUserMaster(um);
+		return "updated";
+	}
+	return "failed";
+}
+
 
 }

@@ -1,6 +1,7 @@
 package com.trackme.spring;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -33,9 +34,11 @@ import com.trackme.spring.model.AjaxResponseBody;
 import com.trackme.spring.model.GPSTracking;
 import com.trackme.spring.model.LogIndexSearch;
 import com.trackme.spring.model.StatusCount;
+import com.trackme.spring.model.UserMaster;
 import com.trackme.spring.model.VehicleSearchForm;
 import com.trackme.spring.service.GsmMasterService;
 import com.trackme.spring.service.MapLatlngService;
+import com.trackme.spring.service.UserMasterService;
 import com.trackme.spring.service.VehicleMasterService;
 
 @RestController
@@ -51,6 +54,9 @@ public class ApiController {
 	@Autowired(required=true)
 	@Qualifier(value="vehicleMasterService")
 	private VehicleMasterService vehicleMasterService;
+	
+	@Autowired
+	private UserMasterService userMasterService;
 	
 	@Autowired
 	private MapLatlngService mapLatlngService;
@@ -233,4 +239,15 @@ public class ApiController {
 		logger.debug("Api Logout End.");
 	}
 
+	@RequestMapping(value = "/api/updateAppNotificationId")
+	public String updateNotificationId( HttpServletRequest request){
+		String notificationId= request.getParameter("notificationId");
+		Principal principal=request.getUserPrincipal();
+		String userName=principal.getName();
+		UserMaster user= userMasterService.getUserMasterById(userName);
+		if(user!=null){
+		return userMasterService.updateNoticationId(user.getUserName(), notificationId);	
+		}
+		return "updated";
+	}
 }

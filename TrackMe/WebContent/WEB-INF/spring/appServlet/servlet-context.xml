@@ -123,19 +123,47 @@
 </beans:bean>
 
 
+
+
+ <!-- For times when you need more complex processing, passing data to the scheduled job -->
+<beans:bean name="complexJobDetailNot"    class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+    <beans:property name="jobClass" value="com.trackme.spring.quartz.ScheduledNotificationJob" />
+    
+     <beans:property name="jobDataMap">
+        <beans:map>
+            <beans:entry key="scheduledJobService" value-ref="scheduledJobService" />
+        </beans:map>
+    </beans:property>
+    
+    <beans:property name="durability" value="true" />
+</beans:bean>
+
+<beans:bean id="cronTriggerNot"  class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+    <beans:property name="jobDetail" ref="complexJobDetailNot" />
+    <beans:property name="cronExpression" value="0 0/10 * 1/1 * ? *" />
+</beans:bean>
+
+
 <beans:bean  class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
     <beans:property name="jobDetails">
         <beans:list>
             <beans:ref bean="complexJobDetail" />
+            <beans:ref bean="complexJobDetailNot" />
         </beans:list>
     </beans:property>
  
     <beans:property name="triggers">
         <beans:list>
             <beans:ref bean="cronTrigger" />
+            <beans:ref bean="cronTriggerNot" />
         </beans:list>
     </beans:property>
 </beans:bean>
+
+
+
+
+
 
 
 <beans:bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">

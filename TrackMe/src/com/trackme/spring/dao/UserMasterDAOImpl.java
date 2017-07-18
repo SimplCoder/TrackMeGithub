@@ -72,4 +72,5 @@ public class UserMasterDAOImpl implements UserMasterDAO {
 		logger.info("UserMaster deleted successfully, UserMaster details="+p);
 	}
 
+	
 }

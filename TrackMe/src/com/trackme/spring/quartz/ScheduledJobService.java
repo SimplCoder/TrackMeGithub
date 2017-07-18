@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.trackme.spring.model.VehicleMaster;
+import com.trackme.spring.service.GeoFencingService;
 import com.trackme.spring.service.MailService;
 import com.trackme.spring.service.VehicleMasterService;
 
@@ -24,6 +25,9 @@ public class ScheduledJobService {
 
 	@Autowired
 	private MailService mailService;
+
+	@Autowired
+	private GeoFencingService geoFencingService;
 
 	Properties prop = new Properties();
 
@@ -122,5 +126,11 @@ public class ScheduledJobService {
 
 			}
 		}
+	}
+	
+	public void pushNotificationForApp()
+	{
+		geoFencingService.createPushNotification();	
+		
 	}
 }

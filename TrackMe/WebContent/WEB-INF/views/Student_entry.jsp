@@ -110,8 +110,20 @@
 							
 
 							<div class="form-group col-sm-6">
-								<label>Route Schedule:</label>
+								<label>Pick-Up Schedule:</label>
 								<form:select path="routeScheduleId" id="routeScheduleId"
+									class="form-control">
+
+									<form:options items="${routeSchedules}" itemValue="scheduleName"
+										itemLabel="scheduleName"></form:options>
+								</form:select>
+
+							</div>
+							
+							
+							<div class="form-group col-sm-6">
+								<label>Drop Schedule:</label>
+								<form:select path="dropRouteScheduleId" id="dropRouteScheduleId"
 									class="form-control">
 
 									<form:options items="${routeSchedules}" itemValue="scheduleName"
@@ -121,15 +133,6 @@
 							</div>
 
 
-							<div class="form-group col-sm-6">
-								<label>Route:</label>
-								<form:select path="routeName" id="routeName" class="form-control">
-
-									<form:options items="${routes}" itemValue="routeName"
-										itemLabel="routeName"></form:options>
-								</form:select>
-
-							</div>
 
 
 						

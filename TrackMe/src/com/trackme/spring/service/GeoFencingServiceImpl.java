@@ -1,19 +1,29 @@
 package com.trackme.spring.service;
 
+import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
 
+import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.trackme.spring.dao.GeoFencingDAO;
 import com.trackme.spring.model.GeoFenceDetail;
+import com.trackme.spring.model.UserMaster;
 
 @Service("geoFencingService")
 public class GeoFencingServiceImpl implements GeoFencingService {
 	
 	@Autowired
 	private GeoFencingDAO geoFencingDAO;
+
+	@Autowired
+	FirebaseService firebaseService;
+	
+	@Autowired
+	UserMasterService userMasterService;
 	
 	public GeoFencingDAO getGeoFencingDAO() {
 		return geoFencingDAO;
@@ -52,6 +62,28 @@ public class GeoFencingServiceImpl implements GeoFencingService {
 	@Transactional
 	public void removeGeoFence(int geoFenceId) {
 		geoFencingDAO.removeGeoFence(geoFenceId);
+	}
+
+	@Override
+	public void createPushNotification() {
+			UserMaster userMaster=null;
+			String body= "VTS notifation for app";
+			String title= "VTS notifation";
+			List<UserMaster> userMasters =userMasterService.listUserMasters();
+			if(userMasters!=null)
+			{
+				Iterator<UserMaster> iter= userMasters.iterator();
+				while(iter.hasNext())
+					{
+					 userMaster= iter.next();
+					 if(userMaster!=null && userMaster.getNotificationId()!=null){
+						 firebaseService.pushNotification(userMaster.getNotificationId(),body,title,"" );	 
+					 }
+					}
+			}
+			
+			
+	
 	}
 
 }

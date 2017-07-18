@@ -45,6 +45,9 @@ VehicleGroup vehicleGroup;
 @JoinColumn(name="roleid")
 RoleMaster roleMaster;
 
+@Column(name="notificationid")
+String notificationId;
+
 
 @Column(name="createdby")
   private String createdBy;
@@ -240,6 +243,16 @@ public VehicleGroup getVehicleGroup() {
 public void setVehicleGroup(VehicleGroup vehicleGroup) {
 	this.vehicleGroup = vehicleGroup;
 }
+
+public String getNotificationId() {
+	return notificationId;
+}
+
+public void setNotificationId(String notificationId) {
+	this.notificationId = notificationId;
+}
+
+
 
 
 

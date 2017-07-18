@@ -68,7 +68,8 @@
                                                             <th>Student Id</th>
                                        					   
                                                            <th>Student Name</th>
-                                       					      <th>Route Schedule</th>
+                                       					      <th>Pickup Schedule</th>
+                                       					      <th>Drop Schedule</th>
                                        					   
                                                            <th>Route</th>
                                        					    <th>Pickup Location</th>
@@ -144,6 +145,7 @@
                        {data: "studentNo"},
                        {data: "studentName"},
                        {data: "routeScheduleId"},
+                       {data: "dropRouteScheduleId"},
                        {data: "routeName"},
                        {data: "pickUpLocation"},
                        {data: "dropLocation"},
@@ -251,19 +253,35 @@ $( "#dialogtest" ).dialog(); });
 
 
  <div class="form-group col-sm-12 text-center">
-                                  Select Route Schedule: 
+                                  Select Pick-up Schedule: 
                                   <select name="routeSchedule" > 
                                   <option value="">select</option>
                                 <c:forEach items="${routeScheduleList}" var="routeSchedule">
                                   <option title = "Vehicle : ${routeSchedule.vehicleShow} and Route : ${routeSchedule.routeName} "   value="${routeSchedule.scheduleName}">${routeSchedule.scheduleName}</option>
                                 
                                 </c:forEach> 
-                                </select> 
-                                  <input class="form-control" type="file" accept="csv" name="studentfile">
-                                  
+                           </select>
                                </div>
 							
-                           
+							
+							
+							 <div class="form-group col-sm-12 text-center">
+                                  Select Drop Schedule: 
+                                  <select name="dropRouteScheduleId" > 
+                                  <option value="">select</option>
+                                <c:forEach items="${routeScheduleList}" var="routeSchedule1">
+                                  <option title = "Vehicle : ${routeSchedule1.vehicleShow} and Route : ${routeSchedule1.routeName} "   value="${routeSchedule1.scheduleName}">${routeSchedule1.scheduleName}</option>
+                                
+                                </c:forEach> 
+                             
+                                  </select> 
+                                  <input class="form-control" type="file" accept="csv" name="studentfile">
+                                      
+                               </div>
+							
+							
+							
+						
                                        <div class="form-group col-sm-12 text-center">
                                    	
                                 <input name="action" type="submit" class="btn btn-primary" id="button" value="Upload">
@@ -271,7 +289,7 @@ $( "#dialogtest" ).dialog(); });
                             </div>
                             
                             
-                            
+                           
                         </form>
 </div>
 

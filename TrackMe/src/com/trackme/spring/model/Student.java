@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,7 +22,9 @@ import com.trackme.constants.Constant;
 public class Student
 {
 	@Id
-	@Column(name="id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+	@Column(name="id" ,unique=true, nullable = false)
 	  private Integer id;
 
 	
@@ -71,6 +74,10 @@ private String dropLocation;
 private String routeName;
 
 
+@Column(name="dropschedulename")
+private String dropRouteScheduleId;
+
+
 
 @Column(name="createdby")
 private String createdBy;
@@ -83,6 +90,9 @@ private String modifiedBy;
 
 @Column(name="modifieddate")
 private Date modifiedDate;
+
+
+
 
 public Integer getId() {
 	return id;
@@ -308,6 +318,14 @@ public String getStatus() {
 
 public void setStatus(String status) {
 	this.status = status;
+}
+
+public String getDropRouteScheduleId() {
+	return dropRouteScheduleId;
+}
+
+public void setDropRouteScheduleId(String dropRouteScheduleId) {
+	this.dropRouteScheduleId = dropRouteScheduleId;
 }
 
 
