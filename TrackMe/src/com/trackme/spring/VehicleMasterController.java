@@ -24,6 +24,7 @@ import com.trackme.constants.Constant;
 import com.trackme.spring.model.UserMaster;
 import com.trackme.spring.model.VehicleMaster;
 import com.trackme.spring.service.MapLatlngService;
+import com.trackme.spring.service.UserMasterService;
 import com.trackme.spring.service.VehicleGroupService;
 import com.trackme.spring.service.VehicleMasterService;
 
@@ -36,6 +37,9 @@ public class VehicleMasterController extends BaseController {
 	
 	@Autowired
 	private MapLatlngService mapLatlngService;
+	
+	@Autowired
+	private UserMasterService userMasterService;
 	
 	
 	public VehicleGroupService getVehicleGroupService() {
@@ -131,7 +135,7 @@ public class VehicleMasterController extends BaseController {
     
     @RequestMapping("/VehicleView")
     public String showVehicleView(Locale locale,Model model, HttpServletRequest request, HttpServletResponse response){
-    	List mapLatlngList = mapLatlngService.getAllVehicleLocation();
+    	List mapLatlngList = mapLatlngService.getAllVehicleLocation(userMasterService.getCurrentUserUsingPrinciple(request));
 
     	Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG,

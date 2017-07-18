@@ -14,6 +14,7 @@ public class Constant {
 	public static final String STUDENT_BULK_TEMPLATE_Path="student\\excel";
 
 	public static final String STUDENT_UPLOAD_PATH = "c:\\temp";
+	public static final String ROLE_PARENT = "parent";
 	
 	public static boolean isObjectNotNullOrNotEmpty(Object obj){
 		return obj!=null&&!obj.equals("")?true:false;

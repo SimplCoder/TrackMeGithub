@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.trackme.spring.dao.MapLatlngDAO;
+import com.trackme.spring.model.UserMaster;
 
 @Service("mapLatlngService")
 public class MapLatlngServiceImpl implements MapLatlngService {
@@ -16,8 +17,8 @@ public class MapLatlngServiceImpl implements MapLatlngService {
 	
 	@Override
 	@Transactional
-	public List getAllVehicleLocation() {
-		return mapLatlngDAO.getAllVehicleLocation();
+	public List getAllVehicleLocation(UserMaster userMaster) {
+		return mapLatlngDAO.getAllVehicleLocation(userMaster);
 	}
 	
 	@Override

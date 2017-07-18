@@ -1,43 +1,31 @@
 package com.trackme.spring;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 
-import jdk.nashorn.internal.parser.JSONParser;
-
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.HttpRequest;
-import org.springframework.http.MediaType;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.slf4j.Logger;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.trackme.constants.Constant;
 import com.trackme.spring.jsonview.Views;
 import com.trackme.spring.model.AjaxResponseBody;
-import com.trackme.spring.model.GPSTracking;
 import com.trackme.spring.model.SearchCriteria;
 import com.trackme.spring.model.StatusCount;
 import com.trackme.spring.model.VehicleSearchForm;
 import com.trackme.spring.service.GsmMasterService;
 import com.trackme.spring.service.MapLatlngService;
+import com.trackme.spring.service.UserMasterService;
 import com.trackme.spring.service.VehicleMasterService;
 
 @RestController
@@ -57,6 +45,8 @@ public class AjaxController {
 	@Autowired
 	private MapLatlngService mapLatlngService;
 	
+	@Autowired
+	private UserMasterService userMasterService;
 	
 	// @ResponseBody, not necessary, since class is annotated with @RestController
 	// @RequestBody - Convert the json data into object (SearchCriteria) mapped by field name.
@@ -101,7 +91,8 @@ public class AjaxController {
 		AjaxResponseBody result= new AjaxResponseBody();
 		try {
 			vehicleSearchForm = new ObjectMapper().readValue(request.getParameter("formData").trim(), VehicleSearchForm.class);
-			List allVehicleLocationList=mapLatlngService.getAllVehicleLocation();
+			userMasterService.getCurrentUserUsingPrinciple(request);
+			List allVehicleLocationList=mapLatlngService.getAllVehicleLocation(userMasterService.getCurrentUserUsingPrinciple(request));
 			if(Constant.isObjectNotNullOrNotEmpty(vehicleSearchForm.getArea())){
 				if(Constant.isObjectNotNullOrNotEmpty(vehicleSearchForm.getDistance())){
 					if(Constant.isObjectNotNullOrNotEmpty(vehicleSearchForm.getLat())){

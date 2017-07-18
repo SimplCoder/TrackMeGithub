@@ -60,7 +60,7 @@ public class HomeController {
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG,
 				DateFormat.LONG, locale);
 		String formattedDate = dateFormat.format(date);
-		List mapLatlngList = mapLatlngService.getAllVehicleLocation();
+		List mapLatlngList = mapLatlngService.getAllVehicleLocation(userMasterService.getCurrentUserUsingPrinciple(request));
 
 		ObjectMapper objectMapper = new ObjectMapper();
 		String allVehicleLocationJson = null;

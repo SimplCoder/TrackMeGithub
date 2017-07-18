@@ -13,6 +13,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.trackme.constants.Constant;
+import com.trackme.spring.model.UserMaster;
+
 @Repository("mapLatlngDAO")
 public class MapLatlngDAOImpl implements MapLatlngDAO {
 
@@ -27,7 +30,7 @@ public class MapLatlngDAOImpl implements MapLatlngDAO {
 	}
 
 	@Override
-	public List getAllVehicleLocation() {
+	public List getAllVehicleLocation(UserMaster userMaster) {
 		Session session = this.sessionFactory.getCurrentSession();
 		StringBuffer strBuf = new StringBuffer();
 		strBuf.append(" select vm.vehicleno,  sd.description, gsm.speed,round(CAST(cast(coalesce(gsm.distance,'0')  as float8 )/1000 as numeric),2) as distance, gsm.location, gsm.latitude, gsm.longitude, ");
@@ -62,7 +65,20 @@ public class MapLatlngDAOImpl implements MapLatlngDAO {
 		strBuf.append(" left join statusdesc sd on  gsm.status  = sd.code ");
 		strBuf.append(" left join devicemaster dm on cast(gsm.unitno as text) = dm.device_no ");
 		strBuf.append(" left join fueldetail fd on vm.vehicleno = fd.vehicleno ");
-		strBuf.append(" left join unitmaster um on gsm.unitno = um.unitno ");
+		strBuf.append(" left join unitmaster um on gsm.unitno = um.unitno where 1=1 ");
+		
+		if(userMaster != null && userMaster.getRoleMaster() != null && (userMaster.getRoleMaster().getRole() != null && !userMaster.getRoleMaster().getRole().isEmpty())){
+			if(userMaster.getRoleMaster().getRole().equalsIgnoreCase(Constant.ROLE_PARENT)){
+				strBuf.append(" and vm.vehicleno in ( ");
+				strBuf.append(" select vehicleno from routevehicle  where schedulename in (select result from ( ");
+				strBuf.append(" select schedulename as result from student  where (mothermobileno = '"+userMaster.getUserName().trim()+"' or fathermobileno = '"+userMaster.getUserName().trim()+"' or gaurdianmobileno = '"+userMaster.getUserName().trim()+"') ");  
+				strBuf.append(" union all ");
+				strBuf.append(" select dropschedulename as result from student  where (mothermobileno = '"+userMaster.getUserName().trim()+"' or fathermobileno = '"+userMaster.getUserName().trim()+"' or gaurdianmobileno = '"+userMaster.getUserName().trim()+"') "); 
+				strBuf.append(" ) as resultAll) ");
+				strBuf.append(" ) ");
+			}
+		}
+		 
 		String query = strBuf.toString();
 		logger.info("getAllVehicleLocation Query== " + query);
 		Query sqlQuery = session.createSQLQuery(query);

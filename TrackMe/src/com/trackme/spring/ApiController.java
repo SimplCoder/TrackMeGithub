@@ -105,7 +105,7 @@ public class ApiController {
 		AjaxResponseBody result= new AjaxResponseBody();
 		try {
 			vehicleSearchForm = new ObjectMapper().readValue(request.getParameter("formData").trim(), VehicleSearchForm.class);
-			List allVehicleLocationList=mapLatlngService.getAllVehicleLocation();
+			List allVehicleLocationList=mapLatlngService.getAllVehicleLocation(userMasterService.getCurrentUserUsingPrinciple(request));
 			if(Constant.isObjectNotNullOrNotEmpty(vehicleSearchForm.getArea())){
 				if(Constant.isObjectNotNullOrNotEmpty(vehicleSearchForm.getDistance())){
 					if(Constant.isObjectNotNullOrNotEmpty(vehicleSearchForm.getLat())){
