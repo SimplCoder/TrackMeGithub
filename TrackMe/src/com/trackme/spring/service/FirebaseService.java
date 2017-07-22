@@ -6,6 +6,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -56,7 +58,7 @@ public class FirebaseService {
 
 	  JSONObject notification = new JSONObject();
 	  notification.put("title", "Java");
-	  notification.put("body", "Notificação do Java");
+	  notification.put("body", "Notificaï¿½ï¿½o do Java");
 
 	  message.put("notification", notification);
 
@@ -95,7 +97,8 @@ public class FirebaseService {
       wr.close();
 
       int responseCode = conn.getResponseCode();
-      System.out.println("Response Code : " + responseCode);
+      SimpleDateFormat format=new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+      System.out.println("Time: "+format.format(new Date())+" $ Response Code : " + responseCode);
 
       BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
       String inputLine;
