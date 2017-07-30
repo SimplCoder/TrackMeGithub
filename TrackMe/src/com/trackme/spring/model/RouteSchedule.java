@@ -1,6 +1,7 @@
 package com.trackme.spring.model;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -17,10 +18,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 import org.springframework.util.StringUtils;
 
+import com.sun.istack.internal.NotNull;
 import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Collections;
 import com.trackme.constants.Constant;
 
@@ -35,14 +39,14 @@ public class RouteSchedule
   @Column(name="startdate")
   private Date startDate;
   
-  @Column(name="starttime")
+  @Transient
   private String startTime;
   
   @Column(name="enddate")
   private Date endDate;
-  
-  @Column(name="endtime")
-  private String endTime;
+
+  @Transient
+private String endTime;
   
   @Column(name="routename")
   private String routeName;
@@ -87,46 +91,22 @@ public class RouteSchedule
   @Column(name="createdby")
   private String createdby;
   
-  
-  @ElementCollection
-  @CollectionTable(
-        name="routevehicle",
-        joinColumns=@JoinColumn(name="schedulename")
-  )
+ 
   @Column(name="vehicleno")
-  private List<String> vehicles;
+  private String vehicleNo;
   
-  @Transient
-  private String[] vehicleShow;
+  @Column(name="starttime", columnDefinition= "TIMESTAMP WITH TIME ZONE")
+  @NotNull
+ @Temporal(TemporalType.TIMESTAMP)
+  private Date startTimeSave;
   
+  @Column(name="endtime", columnDefinition= "TIMESTAMP WITH TIME ZONE")
+  @NotNull
+ @Temporal(TemporalType.TIMESTAMP)
+  private Date endTimeSave;
   
-  
-  public String getVehicleShow() {
-	  
-	  if (vehicleShow!=null && vehicleShow.length > 0) {
-		    StringBuilder nameBuilder = new StringBuilder();
+ 
 
-		    for (String n : vehicleShow) {
-		        nameBuilder.append("'").append(n.replace("'", "\\'")).append("',");
-		        // can also do the following
-		        // nameBuilder.append("'").append(n.replace("'", "''")).append("',");
-		    }
-
-		    nameBuilder.deleteCharAt(nameBuilder.length() - 1);
-
-		    return nameBuilder.toString();
-		} else {
-		    return "";
-		}
-
-
-}
-
-public void setVehicleShow(String[] vehicleShow) {
-	this.vehicleShow = vehicleShow;
-	this.vehicles=new ArrayList<String>(Arrays.asList(vehicleShow));
-	
-}
 
 @Transient
   private String  createdDateShow;
@@ -316,16 +296,7 @@ public void setVehicleShow(String[] vehicleShow) {
   {
     this.createdby = createdby;
   }
-  
-  public void setStartTime(String startTime)
-  {
-    this.startTime = startTime;
-  }
-  
-  public void setEndTime(String endTime)
-  {
-    this.endTime = endTime;
-  }
+ 
   
   public String getScheduleName()
   {
@@ -347,11 +318,7 @@ public void setVehicleShow(String[] vehicleShow) {
     this.startDate = startDate;
   }
   
-  public String getStartTime()
-  {
-    return this.startTime;
-  }
-  
+ 
   public Date getEndDate()
   {
     return this.endDate;
@@ -362,11 +329,7 @@ public void setVehicleShow(String[] vehicleShow) {
     this.endDate = endDate;
   }
   
-  public String getEndTime()
-  {
-    return this.endTime;
-  }
-  
+ 
   public String getRouteName()
   {
     return this.routeName;
@@ -379,17 +342,15 @@ public void setVehicleShow(String[] vehicleShow) {
   
  
 
-public List<String> getVehicles() {
-	return vehicles;
+
+
+public String getVehicleNo() {
+	return vehicleNo;
 }
 
-
-
-public void setVehicles(List<String> vehicles) {
-	this.vehicles = vehicles;
+public void setVehicleNo(String vehicleNo) {
+	this.vehicleNo = vehicleNo;
 }
-
-
 
 public String getStartDateShow() {
 	
@@ -467,4 +428,68 @@ public String getStatus() {
 public void setStatus(String status) {
 	this.status = status;
 }
+
+public String getStartTime() {
+	SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a");
+	if(this.startTimeSave!=null)
+	this.startTime=  sdf.format(this.startTimeSave);
+	
+
+	return startTime;
+}
+
+public void setStartTime(String startTime) {
+	
+	SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a");
+	try {
+		this.startTimeSave=  sdf.parse(startTime);
+	} catch (ParseException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	this.startTime = startTime;
+}
+
+
+public Date getStartTimeSave() {
+	return startTimeSave;
+}
+
+public void setStartTimeSave(Date startTimeSave) {
+	this.startTimeSave = startTimeSave;
+}
+
+public Date getEndTimeSave() {
+	return endTimeSave;
+}
+
+public void setEndTimeSave(Date endTimeSave) {
+	this.endTimeSave = endTimeSave;
+}
+
+public String getEndTime() {
+	SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a");
+	
+	if(this.endTimeSave!=null)
+		this.endTime=  sdf.format(this.endTimeSave);
+		
+	
+	return endTime;
+}
+
+public void setEndTime(String endTime) {
+	
+	SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a");
+	try {
+		this.endTimeSave=  sdf.parse(endTime);
+	} catch (ParseException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	this.endTime = endTime;
+}
+
+
+
+
 }

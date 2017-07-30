@@ -133,4 +133,10 @@ public class ScheduledJobService {
 		geoFencingService.createPushNotification();	
 		
 	}
+	
+	public void pushNotificationStudentForApp()
+	{
+		geoFencingService.studentGeofencePushNotification();	
+		
+	}
 }

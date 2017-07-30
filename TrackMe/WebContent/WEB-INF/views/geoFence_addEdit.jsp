@@ -37,8 +37,6 @@
     <script type="text/javascript" src="html/js/icheck.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.colVis.min.js"></script>
 
-
-
 </head>
 
 <body class="top-navigation">
@@ -78,6 +76,58 @@
                                                 <label >Radius:</label>
                                                <span id="displayInfo" style="font-size:14px"></span><span style="font-size:12px" id="unit">&nbsp;K.M.</span>
                                             </div>
+                                            
+                                            
+                                             <div class="rowx wrapper white-bg">
+                                <div class="row">
+                                    <div class="form-group col-sm-4">
+                                        <label for="txtvehicle">Vehicle No </label>
+                                      
+                                    <select name="vehicle" id="vehicle" class="form-control">
+                                    <c:forEach var="vehicle" items="${vehicles}">
+                                     <option value="${vehicle.vehicleNo }">${vehicle.vehicleNo }</option>
+                                    </c:forEach>
+                                       
+                                    </select>
+                                      
+                                    </div>
+                                    <div class="form-group col-sm-4">
+                                    
+                                    
+                                        <input name="buttaddvehicle" type="button" onclick="addVehicle()" class="btn btn-primary" id="buttaddvehicle" value="Add Vehicle" />
+                                        <input type="hidden" name="rows" id="rows" />
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="rowx wrapper white-bg">
+                                <div class="table-responsive" style="width: 50%; border: 1px solid;">
+                                    <table width="50%" border="1" cellpadding="0" cellspacing="0" id="entrydata" class="table table-striped table-bordered new-tbl">
+                                        <tbody>
+                                            <tr>
+                                                <th width="20%" align="center" bgcolor="#CCC4C4">Sl no</th>
+                                                <th width="50%" align="center" bgcolor="#CCC4C4">Vehicle</th>
+                                                <th width="30%" align="center" bgcolor="#CCC4C4">Action</th>
+                                            </tr> 
+                                             
+                                             <c:if test="${isEdit=='1' }">
+										
+										<c:forEach var="vehicleVal" items="${GeoFenceDetail.vehicles}" varStatus="i">
+									
+	<tr class="leftMenu">
+	<td>${i.index+1}</td>
+	<td><input type="input" id="vehicles${i.index+1}" value="${vehicleVal}" name="vehicleShow" class="form-control" readonly=""></td>
+	<td><input type="button" class="btn btn-primary deleterow" value="Delete">
+	
+	</c:forEach>
+									</c:if>
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            
+                            
                                             <div class="form-group col-sm-12">
                                                 
                                                     <input type="submit" class="btn  btn-primary"  name="action" value="Save GeoFence" />
@@ -437,4 +487,92 @@
     <!-- Mainly scripts -->
 
     </body>
+    <script>
+    function addVehicle() {
+        var location = document.getElementById("vehicle");
+        var table = document.getElementById("entrydata");
+        var rowCount = document.getElementById('entrydata').rows.length;
+        row = table.insertRow(rowCount);
+        row.className = "leftMenu";
+        cell = row.insertCell(0);
+        cell.innerHTML = rowCount;
+        cell = row.insertCell(1);
+        var input = document.createElement('input');
+        input.type = "input";
+        input.value = location.value;
+        input.id = "vehicles" + rowCount;
+        input.name = "vehicleShow";
+        input.className = "form-control";
+
+        input.readOnly = true;
+        cell.appendChild(input);
+
+        cell = row.insertCell(2);
+        var btn = document.createElement('input');
+        btn.type = "button";
+        btn.className = "btn btn-primary";
+        btn.value = "Delete";
+        btn.onclick = (
+            function () {
+                this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode);
+                var rows = document.getElementById("rows");
+                rows.value = document.getElementById("rows").value - 1;
+            }
+        );
+        cell.appendChild(btn);
+
+        var rows = document.getElementById("rows");
+        rows.value = rowCount;
+    }
+    
+    $('.deleterow').click(function () {
+        this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode);
+        var rows = document.getElementById("rows");
+        rows.value = document.getElementById("rows").value - 1;
+	 });
+    
+    
+    $(document).ready(function () {
+	    
+    	var prev_locations = document.getElementsByName("locationsOfRoute");
+    	for(var i=0;i< prev_locations.length;i++){
+        var location = prev_locations[i];
+        var table = document.getElementById("entrydata");
+        var rowCount = document.getElementById('entrydata').rows.length;
+        row = table.insertRow(rowCount);
+        row.className = "leftMenu";
+        cell = row.insertCell(0);
+        cell.innerHTML = rowCount;
+        cell = row.insertCell(1);
+        var input = document.createElement('input');
+        input.type = "input";
+        input.value = location.value;
+        input.id = "route" + rowCount;
+        input.name = "locations";
+        input.className = "form-control";
+
+        input.readOnly = true;
+        cell.appendChild(input);
+
+        cell = row.insertCell(2);
+        var btn = document.createElement('input');
+        btn.type = "button";
+        btn.className = "btn btn-primary";
+        btn.value = "Delete";
+        btn.onclick = (
+            function () {
+                this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode);
+                var rows = document.getElementById("rows");
+                rows.value = document.getElementById("rows").value - 1;
+            }
+        );
+        cell.appendChild(btn);
+
+        var rows = document.getElementById("rows");
+        rows.value = rowCount;
+	}
+    });
+
+    
+    </script>
 </html>

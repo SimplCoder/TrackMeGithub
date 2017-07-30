@@ -24,7 +24,7 @@ public class ScheduledNotificationJob extends QuartzJobBean{
 	@Override
     protected void executeInternal(JobExecutionContext arg0)
             throws JobExecutionException {
-		scheduledJobService.pushNotificationForApp();
+		scheduledJobService.pushNotificationStudentForApp();
     	System.out.println("hiii i am working");
     }
  

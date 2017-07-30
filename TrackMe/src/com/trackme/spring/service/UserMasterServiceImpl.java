@@ -95,7 +95,7 @@ public class UserMasterServiceImpl implements UserMasterService {
 		if (um != null) {
 			um.setNotificationId(notificationId);
 			updateUserMaster(um);
-			return "updated";
+			return um.getRoleMaster().getRole();
 		}
 		return "failed";
 	}

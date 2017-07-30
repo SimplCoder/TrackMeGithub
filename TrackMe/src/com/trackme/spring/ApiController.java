@@ -80,7 +80,7 @@ public class ApiController {
 		statusCount.setMoving(Integer.toString(gsmMasterService.movingVehicleCount()));
 		statusCount.setIdle(Integer.toString(gsmMasterService.idleVehicleCount()));
 		statusCount.setAlert(Integer.toString(gsmMasterService.alertOnVehicleCount()));
-		statusCount.setNotResponding(Integer.toString(gsmMasterService.getNotRespondingVehicleCount()));
+		//statusCount.setNotResponding(Integer.toString(gsmMasterService.getNotRespondingVehicleCount()));
 		//List<StatusCount> statusCounts =statusCounts;
 		statusCounts.add(statusCount);
 			if (statusCounts.size() > 0) {

@@ -27,6 +27,7 @@ import com.trackme.spring.model.DriverMaster;
 import com.trackme.spring.model.GeoFenceDetail;
 import com.trackme.spring.model.UserMaster;
 import com.trackme.spring.service.GeoFencingService;
+import com.trackme.spring.service.VehicleMasterService;
 
 @Controller
 public class GeoFencingController extends BaseController {
@@ -37,6 +38,10 @@ public class GeoFencingController extends BaseController {
 	@Autowired
 	GeoFencingService geoFencingService;
 
+	@Autowired
+	private VehicleMasterService vehicleMasterService;
+
+	
 	public GeoFencingService getGeoFencingService() {
 		return geoFencingService;
 	}
@@ -49,12 +54,16 @@ public class GeoFencingController extends BaseController {
 	public String home(Locale locale, Model model, Principal principal,
 			HttpServletRequest request) {
 		request.setAttribute("GeoFenceDetail", new GeoFenceDetail());
+		model.addAttribute("vehicles",vehicleMasterService.listVehicleMasters());
+		
 		model.addAttribute("isEdit", 0);
 		return "geoFence_addEdit";
 	}
 
 	@RequestMapping(value = "/editGeoFenceDetails.html", method = RequestMethod.GET)
 	public String editGeoFence(Model model, @RequestParam("id") String id,@RequestParam("isEdit") String isEdit) {
+		model.addAttribute("vehicles",vehicleMasterService.listVehicleMasters());
+		
 		try {
 			int geoFenceId = 0;
 			if (id != null && !id.equals("")) {
@@ -102,15 +111,16 @@ public class GeoFencingController extends BaseController {
 			addSuccessMessage("GeoFence details added successfully.");
 
 		} else {
-
+            geoFencingService.deleteVehicleGeoFence(geoFenceDetail.getId().toString());
 			UserMaster currentUser = (UserMaster) request.getSession()
 					.getAttribute(Constant.CURRENT_USER);
 			geoFenceDetail.setModifiedBy(currentUser.getUserName());
 			geoFenceDetail.setModifiedDate(new Date());
 			geoFenceDetail.setUserName(currentUser.getUserName());
 			geoFenceDetail.setStatus(Constant.STATUS_ACTIVE);
+			
 			geoFencingService.updateGeoFence(geoFenceDetail);
-			addSuccessMessage("Device details updated successfully.");
+			addSuccessMessage("GeoFence details updated successfully.");
 		}
 		addSuccessOrErrorMessageToModel(model);
 		return listGeoFences(model, request, response);
@@ -144,6 +154,8 @@ public class GeoFencingController extends BaseController {
 			if (id != null && !id.equals("")) {
 				geoFenceId = Integer.parseInt(id);
 			}
+			  geoFencingService.deleteVehicleGeoFence(id);
+				
 			geoFencingService.removeGeoFence(geoFenceId);
 			addSuccessMessage("GeoFence detail removed successfully.");
 			addSuccessOrErrorMessageToModel(model);

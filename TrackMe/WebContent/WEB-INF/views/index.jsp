@@ -63,7 +63,14 @@
                         <div class="graph-img">
                             <canvas id="doughnutChart3" height="100"></canvas>
                         </div>
-                        <div class="graph-txt">Moving/Idl</div>
+                        <div class="graph-txt">Moving</div>
+                    </div>
+                    
+                    <div class="graph-in">
+                        <div class="graph-img">
+                            <canvas id="doughnutChart5" height="100"></canvas>
+                        </div>
+                        <div class="graph-txt">Idle</div>
                     </div>
                     <div class="graph-in">
                         <div class="graph-img">
@@ -72,12 +79,7 @@
                         <div class="graph-txt">Alert</div>
                     </div>
 
-                    <div class="graph-in">
-                        <div class="graph-img">
-                            <canvas id="doughnutChart5" height="100"></canvas>
-                        </div>
-                        <div class="graph-txt">Not Responding</div>
-                    </div>
+                    
 
                     <div class="graph-in" style="padding-top: 2%;">
 
@@ -453,7 +455,7 @@
                                 //	updateMarker(allVehicleAjaxArr, data);
                                 	var bgColor = '#1e8427';
                                     
-                                	 if (full.description == 'Ignition Off' || full.description == 'Health Check') {
+                                	 if (full.description == 'Poll R' ||full.description == 'Ignition Off' || full.description == 'Health Check') {
                                          bgColor = '#d60002';
                                          
                                      } 
@@ -579,7 +581,7 @@
                 anchor: new google.maps.Point(0, 32)
             };
             var bgColor = '#1e8427';
-            if (description == 'Ignition Off' || description == 'Health Check') {
+            if ( description == 'Poll R' || description == 'Ignition Off' || description == 'Health Check') {
                 bgColor = '#d60002'
             }
             var marker = new MarkerWithLabel({
@@ -956,8 +958,8 @@
         var doughnutData3 = [
 
             {
-                value: idleNo,
-                color: "#ffffcc",
+                value: totalVeh-movingNo ,
+                color: "#d9d9d9",
                 highlight: "#d9d9d9",
                 label: ""
             },
@@ -1007,13 +1009,13 @@
         var doughnutData4 = [
 
             {
-                value: totalVeh - notResponding,
+                value: totalVeh - idleNo,
                 color: "#d9d9d9",
                 highlight: "#d9d9d9",
                 label: ""
             },
             {
-                value: notResponding,
+                value: idleNo,
                 color: "#ff0000",
                 highlight: "#00aeff",
                 label: ""

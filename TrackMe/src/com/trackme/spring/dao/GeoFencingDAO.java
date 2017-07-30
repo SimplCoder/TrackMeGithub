@@ -13,4 +13,8 @@ public interface GeoFencingDAO {
 	public void removeGeoFence(int geoFenceId);
 	
 	public void saveGeoFenceUsingHibrnate(GeoFenceDetail geoFenceDetail);
+	public void deleteVehicleGeoFence(String id);
+	public List getGeoFenceOutDetails();
+	public List getGeoFenceInDetails();
+	
 }

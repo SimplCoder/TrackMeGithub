@@ -17,8 +17,8 @@ public class StatusCount
 	String idle;
 	@JsonView(Views.Public.class)
 	String alert;
-	@JsonView(Views.Public.class)
-	String notResponding;
+	//@JsonView(Views.Public.class)
+	//String notResponding;
 	public String getTotalVehicle() {
 		return totalVehicle;
 	}
@@ -59,14 +59,9 @@ public class StatusCount
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public String getNotResponding() {
-		return notResponding;
-	}
-	public void setNotResponding(String notResponding) {
-		this.notResponding = notResponding;
-	}
+
 	public StatusCount(String totalVehicle, String ignitionOn, String ignitionOff, String moving, String idle,
-			String alert, String notResponding) {
+			String alert) {
 		super();
 		this.totalVehicle = totalVehicle;
 		this.ignitionOn = ignitionOn;
@@ -74,7 +69,7 @@ public class StatusCount
 		this.moving = moving;
 		this.idle = idle;
 		this.alert = alert;
-		this.notResponding = notResponding;
+		//this.notResponding = notResponding;
 	}
 	
 	

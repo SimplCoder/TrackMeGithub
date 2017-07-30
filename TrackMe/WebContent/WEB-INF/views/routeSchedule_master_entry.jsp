@@ -82,6 +82,33 @@
                                    </div>
                                     </div>
                                 </div>
+                                <div class="bootstrap-timepicker col-sm-6">
+                                            <div class="form-group">
+                                                <label>Start Time:</label>
+                                                <div class="input-group">
+                                                    <form:input placeholder="Start Time" path="startTime" id="startTime" class="form-control timepicker"/>
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-clock-o"></i>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="bootstrap-timepicker col-sm-6">
+                                            <div class="form-group">
+                                                <label>End Time:</label>
+                                                <div class="input-group">
+                                                   <form:input placeholder="Start Time" path="endTime" id="endTime" class="form-control timepicker"/>
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-clock-o"></i>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    
+                                
+                                
                                 <br />
 
                                 <div class="form-group col-sm-6">
@@ -119,52 +146,20 @@
                             </div>
                             <div class="rowx wrapper white-bg">
                                 <div class="row">
-                                    <div class="form-group col-sm-4">
-                                        <label for="txtvehicle">Vehicle No </label>
-                                      
-                                    <select name="vehicle" id="vehicle" class="form-control">
-                                    <c:forEach var="vehicle" items="${vehicles}">
-                                     <option value="${vehicle.vehicleNo }">${vehicle.vehicleNo }</option>
-                                    </c:forEach>
-                                       
-                                    </select>
-                                      
-                                    </div>
-                                    <div class="form-group col-sm-4">
                                     
+                                      <div class="form-group col-sm-6">
+                                                                           <label>Vehicle No:</label>
+                                	<form:select id="vehicleList" class="form-control" required="true" path="vehicleNo" items="${vehicles}" itemLabel="vehicleNo" itemValue="vehicleNo"></form:select>
+								
+						
+                                          
+                                            
+                            </div>  
                                     
-                                        <input name="buttaddvehicle" type="button" onclick="addVehicle()" class="btn btn-primary" id="buttaddvehicle" value="Add Vehicle" />
-                                        <input type="hidden" name="rows" id="rows" />
-                                    </div>
+                                  
                                 </div>
                             </div>
-                            <div class="rowx wrapper white-bg">
-                                <div class="table-responsive" style="width: 50%; border: 1px solid;">
-                                    <table width="50%" border="1" cellpadding="0" cellspacing="0" id="entrydata" class="table table-striped table-bordered new-tbl">
-                                        <tbody>
-                                            <tr>
-                                                <th width="20%" align="center" bgcolor="#CCC4C4">Sl no</th>
-                                                <th width="50%" align="center" bgcolor="#CCC4C4">Vehicle</th>
-                                                <th width="30%" align="center" bgcolor="#CCC4C4">Action</th>
-                                            </tr>
-                                            
-                                             <c:if test="${routeSchedule.editFlag==true }">cxvxcv
-										
-										<c:forEach var="vehicleVal" items="${routeSchedule.vehicles}" varStatus="i">
-									
-	<tr class="leftMenu">
-	<td>${i.index+1}</td>
-	<td><input type="input" id="vehicles${i.index+1}" value="${vehicleVal}" name="vehicleShow" class="form-control" readonly=""></td>
-	<td><input type="button" class="btn btn-primary deleterow" value="Delete">
-	
-	</c:forEach>
-									</c:if>
-                                            
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <br />
+                                                    <br />
                              <div style="text-align: center">
                                <c:if test="${routeSchedule.editFlag==true }">
 							
@@ -203,6 +198,13 @@
         $('#endDate').datepicker({
             autoclose: true
         });
+        
+    	
+		$(document).ready(function(){
+		    $('input.timepicker').timepicker({
+		    	 scrollbar: true
+		    });
+		});
        
         $('.i-checks').iCheck({
             checkboxClass: 'icheckbox_square-green',
@@ -384,4 +386,12 @@
         </table>
     </form>
 </body>-->
+
+<script
+	src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
+<link rel="stylesheet"
+	href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
+<script type="text/javascript" src="html/js/bootstrap-timepicker.js"></script>
+
+
 </html>

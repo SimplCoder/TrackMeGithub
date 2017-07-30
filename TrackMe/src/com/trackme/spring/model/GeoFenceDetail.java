@@ -1,12 +1,18 @@
 package com.trackme.spring.model;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -41,7 +47,59 @@ public class GeoFenceDetail {
 	private String geoFenceType;
 	@Column(name = "userName")
 	private String userName;
+	
+	@ElementCollection
+	  @CollectionTable(
+	        name="geofencevehicle",
+	        joinColumns=@JoinColumn(name="geofenceid")
+	  )
+	  @Column(name="vehicleno")
+	  private List<String> vehicles;
 
+	 @Transient
+	  private String[] vehicleShow;
+	  
+	 
+
+	  public String getVehicleShow() {
+		  
+		  if (vehicleShow!=null && vehicleShow.length > 0) {
+			    StringBuilder nameBuilder = new StringBuilder();
+
+			    for (String n : vehicleShow) {
+			        nameBuilder.append("'").append(n.replace("'", "\\'")).append("',");
+			        // can also do the following
+			        // nameBuilder.append("'").append(n.replace("'", "''")).append("',");
+			    }
+
+			    nameBuilder.deleteCharAt(nameBuilder.length() - 1);
+
+			    return nameBuilder.toString();
+			} else {
+			    return "";
+			}
+
+
+	}
+
+	public void setVehicleShow(String[] vehicleShow) {
+		this.vehicleShow = vehicleShow;
+		this.vehicles=new ArrayList<String>(Arrays.asList(vehicleShow));
+		
+	}
+
+	
+	public List<String> getVehicles() {
+		return vehicles;
+	}
+
+
+
+	public void setVehicles(List<String> vehicles) {
+		this.vehicles = vehicles;
+	}
+
+	
 	public String getStatus() {
 		return status;
 	}

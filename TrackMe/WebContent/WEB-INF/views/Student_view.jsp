@@ -257,7 +257,7 @@ $( "#dialogtest" ).dialog(); });
                                   <select name="routeSchedule" > 
                                   <option value="">select</option>
                                 <c:forEach items="${routeScheduleList}" var="routeSchedule">
-                                  <option title = "Vehicle : ${routeSchedule.vehicleShow} and Route : ${routeSchedule.routeName} "   value="${routeSchedule.scheduleName}">${routeSchedule.scheduleName}</option>
+                                  <option title = "Vehicle : ${routeSchedule.vehicleNo} and Route : ${routeSchedule.routeName} "   value="${routeSchedule.scheduleName}">${routeSchedule.scheduleName}</option>
                                 
                                 </c:forEach> 
                            </select>
@@ -270,7 +270,7 @@ $( "#dialogtest" ).dialog(); });
                                   <select name="dropRouteScheduleId" > 
                                   <option value="">select</option>
                                 <c:forEach items="${routeScheduleList}" var="routeSchedule1">
-                                  <option title = "Vehicle : ${routeSchedule1.vehicleShow} and Route : ${routeSchedule1.routeName} "   value="${routeSchedule1.scheduleName}">${routeSchedule1.scheduleName}</option>
+                                  <option title = "Vehicle : ${routeSchedule1.vehicleNo} and Route : ${routeSchedule1.routeName} "   value="${routeSchedule1.scheduleName}">${routeSchedule1.scheduleName}</option>
                                 
                                 </c:forEach> 
                              
