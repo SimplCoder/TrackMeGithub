@@ -78,6 +78,7 @@ public class MapLatlngDAOImpl implements MapLatlngDAO {
 				strBuf.append(" ) ");
 			}
 		}
+		strBuf.append(" order by gsm.datetimedate+gsm.datetime desc  ");
 		 
 		String query = strBuf.toString();
 		logger.info("getAllVehicleLocation Query== " + query);

@@ -5,7 +5,7 @@ select.input-sm{ height:30px;}
 .top-navigation .navbar-brand{ background:#f3f3f4; height:auto;}
 .navbar-brand img {display: block; height: 50px; margin: -15px;}
 .white-bgx .navbar-fixed-top, .white-bgx .navbar-static-top{ background:#012b72;}
-.top-navigation .nav > li > a{ color:#fff; text-transform:uppercase;}
+.top-navigation .nav > li > a{ color:#bbd1e3; text-transform:uppercase;}
 .top-navigation .nav > li a:hover, .top-navigation .nav > li a:focus, .top-navigation .nav > li.active > a{ color:#fff; background:#00c1fe;}
 .top-navigation .navbar-right{ margin-right:0;}
 .top-navigation .wrapper.wrapper-content{ padding:15px 0 0;}
@@ -27,9 +27,9 @@ a:focus{ outline:none;}
     width: 100%;
     z-index: 1111 !important; background:#fff; overflow:hidden; /*border-top:solid 5px #00c1fe !important;*/ margin-bottom:15px;
 }
-.dropdown-menu li{border-right:solid 1px #02baf4;}
+.dropdown-menu li{border-right:solid 1px #7db5ae;}
 .dropdown-menu li a {
-    font-size: 13px; color:#29255a; border-radius:0; background:#fff; text-transform:uppercase;
+    font-size: 12px; color:#29255a; border-radius:0; background:#fff; text-transform:uppercase;
 }
 .dropdown-menu li {
     float: left;
@@ -223,7 +223,7 @@ li.map-layout-toggle2 > a.active {
     background-position: -810px 0;
 }
 
-.top-title{ font-size:20px; color:#214b7d; padding:15px 0; font-weight:600;}
+.top-title{ font-size:18px; color:#214b7d; padding:15px 0; font-weight:600;}
 
 .cust-logo span {
     display: block;
@@ -299,7 +299,7 @@ ul.nav.navbar-top-links.navbar-right {margin: 0; padding: 0;}
 .top-navigation .navbar-nav .dropdown-menu a {
     padding: 2px 0 !important;
     text-align: center;
-    width: 150px;
+    width: 130px;
 }
 
 .auto-reloader-bar .copy-txt {
@@ -362,7 +362,7 @@ ul.nav.navbar-top-links.navbar-right {margin: 0; padding: 0;}
 .dropdown-menu{ position:static !important;}
 .active .dropdown-menu{ display:none;}
 .active.dropdown.open .dropdown-menu{ display:block;}
-.dropdown-menu li{ border-right:none; border-bottom:1px solid #02baf4; float:none; display:block;}
+.dropdown-menu li{ border-right:none; border-bottom:1px solid #7db5ae; float:none; display:block;}
 .dropdown-menu li i { display:inline; font-size:20px;}
 .navbar-toggle{ margin-right:25px;}
 .navbar-nav{

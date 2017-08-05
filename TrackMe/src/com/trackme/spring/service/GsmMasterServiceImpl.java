@@ -32,7 +32,7 @@ public class GsmMasterServiceImpl implements GsmMasterService{
 	@Override
 	@Transactional
 	public int movingVehicleCount() {
-		String arrStatus="1,2,3,4,5,6,10,16,17,19,23";
+		String arrStatus="2,3,4,5,6,10,16,17,19,23";
 		return gsmMasterJDBC.getVehicleCountByStatus(arrStatus);
 	}
 

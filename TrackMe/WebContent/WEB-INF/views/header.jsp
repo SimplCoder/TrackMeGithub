@@ -23,7 +23,7 @@
                         <img src="html/images/adhata.png" alt="" /></a>
                 </div>
 			<div class="col-xs-6 col-sm-6 text-center">
-	 			<div class="top-title"> VEHICLE TRACKING AND FLEET MANAGMENT SYSTEM</div>
+	 			<div class="top-title">Adhata TrackMe</div>
 			</div>
 			<div class="col-xs-3 col-sm-3 text-right">
 				<div class="cust-logo"> <img src="${currentUser.companyMaster.logoPath}" alt=""/> <span>${currentUser.companyMaster.companyName}</span> </div>

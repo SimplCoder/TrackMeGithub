@@ -163,9 +163,9 @@
                                                             </form:form>
                                                         </div>
                                                     </li>
+                                                    &nbsp;&nbsp;
                                                     <!--  <li class="map-vehicles"><a href="#" class="">&nbsp;</a> </li>-->
                                                     <!-- <li class="map-landmarks"><a href="#">&nbsp;</a></li>-->
-                                                    <li class="map-geofences"><a href="#">&nbsp;</a> </li>
                                                     <li class="map-layout-toggle1">
                                                         <a class="map-layout-togglea1 active" href="javascript:void(0)" onclick="reSize('side')"></a>
                                                     </li>
@@ -179,7 +179,7 @@
                                             </div>
                                         </div>
                                         <div id="maptoggle" class="ibox-content">
-                                            <div id="map" style="width:100%;height:400px"></div>
+                                            <div id="map" style="width:100%;height:480px"></div>
                                             <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyCeQdAwrHm8Zap7jwX_gNRA3dhH-CxdCWQ&ext=.js"></script>
 
                                             <!--Rohan code start 3 -->
@@ -289,6 +289,7 @@
             $("#myPopup").dialog({
                 autoOpen: false,
                 width: 250,
+                position: [0,28],
                 buttons: [
                     {
                         text: "Search",
@@ -313,7 +314,7 @@
                         }
                     }
                 ]
-            });
+            }).dialog('widget').position({ my: 'left', at: 'right', of: $(this) });
 
             $("#vehicleSearchFilterId").click(function(){
                  $( function() {
@@ -483,7 +484,11 @@
                                 }
                             }
                         ],
-                        ordering: true,
+                        language: {
+                            lengthMenu: "Show _MENU_ Entries"
+                            
+                        },
+                        ordering: false,
                         lengthMenu: [
                             [10, 25, 50, -1],
                             [10, 25, 50, "All"]
@@ -1684,7 +1689,10 @@ function showVehicleDetails(vehicleNo,ownerName,deviceNo,nextService,imeiNo,driv
     "<span>IMEI No. : "+imeiNo+"</span></br>"+
 "</div>";
 	$( "#dialogtest" ).html(textVehicle);
-	$( "#dialogtest" ).dialog();
+	$( "#dialogtest" ).dialog({position: [40,28]
+	}).dialog('widget').position({ my: 'left', at: 'left', of: $(this) });
+;
+	
     
   
     

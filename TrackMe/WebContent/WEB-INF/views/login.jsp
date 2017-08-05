@@ -20,7 +20,7 @@
 	outline: none;
 }
 body {
-	background: url(html/images/bg.jpg) no-repeat center center fixed;
+	background: url(html/images/bg1.jpg) no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -30,15 +30,14 @@ body {
 .login-form {
 	text-align: center;
 	margin: 0 auto;
-	margin-top: 100px;
-	margin-bottom: 200px;
+	margin-top: 50px;
 	max-width: 480px;
 }
 	.login-form > section {
 		background: rgba(255,255,255,.9);
 		padding:  15px 15px 15px 15px;
-		height: 332px;
-		width: 420px;
+		height: 250px;
+		
 		
 	}
 	.login-form a {
@@ -64,10 +63,10 @@ form[role=login] {
 font-size: 20px;
 border: 0;
 padding: 0;
-background-color: transparent;
+background-color: #FFFFFF;
 height: 28px;
 line-height: 2rem;
-border-bottom: 1px solid #eee;
+border: 2px solid #eee;
 color: #777;
 transition: all .2s ease-in;
 border-bottom: 1px solid #B2B3B4;
@@ -130,9 +129,11 @@ border-bottom: 1px solid #B2B3B4;
 	<c:url var="loginUrl" value="/j_spring_security_check"></c:url>
   
 	<section class="container login-form">
+	<div class=" text-center">
+	 			<div class="top-title">Adhata TrackMe - Adhata's Vehicle Tracking & Fleet Management System</div>
+			</div>
 		<section>
 			<form method="post" action="${loginUrl}" role="login">
-				<img src="html/images/adhata.png" style="height:90px;" alt="" class="img-responsive" />
 				<c:if test="${not empty message}">
                 <div id="msgTxt" style="margin-top: 2px;margin-bottom: 2px;">* ${message} </div>
                  </c:if>	
@@ -150,25 +151,35 @@ border-bottom: 1px solid #B2B3B4;
 		
 				<button type="submit" name="go"  style="background-color:#2196F5" class="btn btn-primary btn-block">Login</button>
 				
-						<lbel style="padding-right:50px;margin-bottom: 20px;">By Logging in your agree to our <a href="#">T&C</a> and <a href="#">privacy policy</a></label>
-					
+						<label style="padding-right:50px;margin-bottom: 20px;">By Logging in your agree to our <a href="#">T&C</a> and <a href="#">privacy policy</a></label>
+		
 			</form>
-				
+	
 		</section>
+	</br>
+	<div id="social">			
+		<a target="_blank" title="follow me on twitter" href="http://www.twitter.com"><img  src="html/images/twitter.svg" ></a>
+	
+	<a target="_blank" title="find us on Facebook" href="http://www.facebook.com"><img   src="html/images/fb.svg" ></a>	
+	<a target="_blank" title="find us on Google Plus" href="http://www.gmail.com"><img   src="html/images/google.svg" ></a>	
+	<a target="_blank" title="find us on LinkDin" href="http://www.linkdin.com"><img   src="html/images/in.svg" ></a>	
+	
+	</div>
 	</section>
+	
+	
 	 <jsp:directive.include file="footer.jsp" />
 <script type="text/javascript" src="html/js/jquery-1.12.4.js"></script>
 	<script src="html/js/bootstrap.min.js"></script>
 	
 	<script>
-	<!--
-	$( document ).ready(function() {
-	    $('#tooltip').tooltip();
-	});
-	-->
+	
 	</script>
 
 </body>
+<style>
+#social a{display:inline-block; width:26px;}
+</style>
 </html>
 
 

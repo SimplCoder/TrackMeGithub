@@ -99,7 +99,7 @@
                       </div>
                     </div>
                     <div class="ibox-content"> 
-                         <div id="map" style="width:100%;height:500px;"></div>
+                         <div id="map" style="width:100%;height:480px;"></div>
                     
 
 <!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCeQdAwrHm8Zap7jwX_gNRA3dhH-CxdCWQ&callback=initialize"></script> -->
@@ -525,6 +525,10 @@
                      {data: "location"}
                     ],   ordering:false,
        			 lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+       			 language: {
+                     lengthMenu: "Show _MENU_ Entries"
+                     
+                 },
      			buttons: [
      {
          extend: 'colvis',
@@ -1165,7 +1169,7 @@ function reSize(side) {
 	sidetable.style.width = '100%'; 
 	sidetable.style.top = '58%';
 	sidetable.style.marginTop=null;
-	$('#same-height').css({marginTop: '620px'});
+	$('#same-height').css({marginTop: '535px'});
 	$(".map-layout-togglea1").removeClass("active");
 	$(".map-layout-togglea2").addClass("active");
 		} else {
