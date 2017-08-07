@@ -115,6 +115,7 @@
 
                                                             <th width="16%" align="center" valign="middle">Vehicle No</th>
                                                             <th width="14%" align="center" valign="middle">Status</th>
+                                                            <th width="14%" align="center" valign="middle">AC Status</th>
                                                             <th width="4%" align="center" valign="middle">Speed</th>
                                                             <th width="42%" align="center" valign="middle">Location</th>
                                                             <th width="15%" align="center" valign="middle">Date/Time</th>
@@ -460,6 +461,22 @@
                                          bgColor = '#d60002';
                                          
                                      } 
+                                    return '<div style="background-color:'+bgColor+'"><span  style="color:#fff;">' + data + '<span></div>';
+                                }
+                            },
+                            {
+                                data: "acstatus",
+                                "render": function(data, type, full, meta) {
+                                    
+                                //	updateMarker(allVehicleAjaxArr, data);
+                                	var bgColor = '#1e8427';
+                                    
+                                	 if (data == 'AC OFF') {
+                                         bgColor = '#d60002';
+                                      	}
+                                	 if (data == null){
+                                	 	return '<div style="background-color:#ffffff"><span  style="color:#fff;"><span></div>';
+                                	 }
                                     return '<div style="background-color:'+bgColor+'"><span  style="color:#fff;">' + data + '<span></div>';
                                 }
                             },
