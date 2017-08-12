@@ -465,7 +465,8 @@
                                 }
                             },
                             {
-                                data: "acstatus",
+                                data: "acstatus"
+                                /* ,
                                 "render": function(data, type, full, meta) {
                                     
                                 //	updateMarker(allVehicleAjaxArr, data);
@@ -478,7 +479,7 @@
                                 	 	return '<div style="background-color:#ffffff"><span  style="color:#fff;"><span></div>';
                                 	 }
                                     return '<div style="background-color:'+bgColor+'"><span  style="color:#fff;">' + data + '<span></div>';
-                                }
+                                } */
                             },
                             {
                                 data: "speed"
